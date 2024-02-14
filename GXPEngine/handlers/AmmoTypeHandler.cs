@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public class AmmoTypeHandler
 {
-    public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(500);
+    public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(50);
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,2);
 
     public static void initializeClass()

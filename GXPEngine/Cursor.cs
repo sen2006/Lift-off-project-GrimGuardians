@@ -17,22 +17,20 @@ public class Cursor : Sprite
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        
+    }
+
+    public void fire()
+    {
+        if (barrelOne != null)
         {
-            if (!isWasMousDown)
-            {
-                if (barrelOne != null)
-                {
-                    barrelOne.fire(x,y); //fire the barrel
-                    //barrelOne = null; //unload the barrel
-                }
-                else if (barrelTwo != null)
-                {
-                    barrelTwo.fire(x,y); //fire the barrel
-                    //barrelTwo = null; //unload the barrel
-                }
-                isWasMousDown = true;
-            }
-        } else { isWasMousDown = false; }
+            barrelOne.fire(x, y); //fire the barrel
+                                  //barrelOne = null; //unload the barrel
+        }
+        else if (barrelTwo != null)
+        {
+            barrelTwo.fire(x, y); //fire the barrel
+                                  //barrelTwo = null; //unload the barrel
+        }
     }
 }
