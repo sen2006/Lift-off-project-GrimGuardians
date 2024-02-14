@@ -1,12 +1,15 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 using System;
+using TiledMapParser;
 
 public class Shootable : Sprite
 {
     float health;
-    int maxHealth;
     float speed;
+
+    int maxHealth;
+
     bool showHealthBar;
 
     EasyDraw healthBar;
@@ -21,6 +24,7 @@ public class Shootable : Sprite
         this.showHealthBar = showHealthBar;
 
         healthBar = new EasyDraw(this.width, 30);
+        
     }
 
     void Update()
@@ -46,6 +50,7 @@ public class Shootable : Sprite
         if (health <= 0) 
         {
             this.kill();
+            this.pointReward(50);
         }
         return health;
     }
@@ -54,6 +59,14 @@ public class Shootable : Sprite
     {
         healthBar.LateDestroy();
         this.LateDestroy();
+    }
+
+    public void pointReward(int points)
+    {
+
+        Points rewardText = new Points(x,y,this.width, 50, 50);
+        this.game.AddChild(rewardText);
+        Console.WriteLine("Point text spawned");
     }
 }
 
