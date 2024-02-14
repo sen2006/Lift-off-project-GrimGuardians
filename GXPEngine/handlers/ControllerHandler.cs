@@ -4,16 +4,16 @@ using System;
 using System.Drawing;
 using System.IO.Ports;
 using System.Runtime.ConstrainedExecution;
-public class ControlerHandler : GameObject
+public class ControllerHandler : GameObject
 {
-    public enum ControlerMode
+    public enum ControllerMode
     {
         mouse = 0,
-        cotroler = 1
+        controller = 1
     }
 
     // controler mode:
-    public static ControlerMode controlerMode = ControlerMode.cotroler;
+    public static ControllerMode controllerMode = ControllerMode.controller;
 
     float LRAxisMin;
     float LRAxisMax;
@@ -33,7 +33,7 @@ public class ControlerHandler : GameObject
     float pitch;
     float roll;
 
-    int yawover = 3600;
+    float yawover = 3600;
     float totalYaw;
 
     float cursorX;
@@ -42,11 +42,11 @@ public class ControlerHandler : GameObject
     bool trigger = false;
     bool isWasTrigger=false;
 
-    public ControlerHandler()
+    public ControllerHandler()
     {
         try
         {
-            if (controlerMode == ControlerMode.mouse)
+            if (controllerMode == ControllerMode.mouse)
             {
                 Console.WriteLine("controlerMode = mouse");
                 return;
@@ -63,7 +63,7 @@ public class ControlerHandler : GameObject
         {
             Console.WriteLine("could not find controler");
             Console.WriteLine("switching controlerMode to mouse");
-            controlerMode = ControlerMode.mouse;
+            controllerMode = ControllerMode.mouse;
         }
     }
 
@@ -73,7 +73,7 @@ public class ControlerHandler : GameObject
 
     public void Update()
     {
-        if (controlerMode == ControlerMode.cotroler)
+        if (controllerMode == ControllerMode.controller)
         {
             string line = port.ReadLine();
             if (line != "")
@@ -90,8 +90,9 @@ public class ControlerHandler : GameObject
 
                 if (highYaw && yaw < 60) { yawover += 360; }
                 if (lowYaw && yaw > 300) { yawover -= 360; }
+                yawover -= Time.deltaTime / 3740f;
+
                 totalYaw = yaw + yawover;
-                //while (totalYaw<0) { yawover += 360; totalYaw = yaw + yawover; ; }
 
                 
 
@@ -101,6 +102,7 @@ public class ControlerHandler : GameObject
                 Console.WriteLine("Set Roll:" + roll);
 
                 trigger = float.Parse(values[3]) > 0;
+                
 
                 Console.WriteLine("Set trigger:" + trigger);
 
@@ -133,7 +135,7 @@ public class ControlerHandler : GameObject
                 cursor = new Cursor();
                 this.game.AddChild(cursor);
             }
-            cursor.SetXY(cursorX, cursorY);
+            cursor.SetXY(lerp(cursor.x, cursorX, .3f), lerp(cursor.y, cursorY, .3f));
             if (trigger)
             {
                 if (!isWasTrigger)
@@ -185,5 +187,10 @@ public class ControlerHandler : GameObject
         }
         calibrationUI.Clear(0);
         calibrationUI.Text(calibrationText);
+    }
+
+    float lerp(float a, float b, float f)
+    {
+        return a + f * (b - a);
     }
 }
