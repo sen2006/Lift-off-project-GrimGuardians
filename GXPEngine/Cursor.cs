@@ -1,27 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GXPEngine.Core;
+﻿using GXPEngine;
 
-namespace GXPEngine
+public class Cursor : Sprite
 {
-    class Cursor : Sprite
+    AmmoTypeHandler barrelOne;
+    AmmoTypeHandler barrelTwo;
+
+    bool isWasMousDown = false;
+    public Cursor() : base("assets/debug/square.png")
     {
-        Vector2 position;
-        float speed = 0.1f;
+        SetOrigin(width / 2, height / 2);
 
-        public Cursor(Vector2 position) : base("square.png")
+        barrelOne = AmmoTypeHandler.BUCKSHOT;
+        barrelTwo = AmmoTypeHandler.BUCKSHOT;
+    }
+
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
-            this.position = position;
-            scale = 1;
-        }
-
-
-        void Update()
-        {
-
-        }
+            if (!isWasMousDown)
+            {
+                if (barrelOne != null)
+                {
+                    barrelOne.fire(x,y); //fire the barrel
+                    //barrelOne = null; //unload the barrel
+                }
+                else if (barrelTwo != null)
+                {
+                    barrelTwo.fire(x,y); //fire the barrel
+                    //barrelTwo = null; //unload the barrel
+                }
+                isWasMousDown = true;
+            }
+        } else { isWasMousDown = false; }
     }
 }

@@ -50,6 +50,10 @@ public class Shootable : Sprite
         return health;
     }
 
-    public void kill() { this.LateDestroy(); }
+    public void kill()
+    {
+        healthBar.LateDestroy();
+        this.LateDestroy();
+    }
 }
 

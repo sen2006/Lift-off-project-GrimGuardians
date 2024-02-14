@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlerHandler.cs" />
+    <Compile Include="handlers\AmmoTypeHandler.cs" />
+    <Compile Include="handlers\ControlerHandler.cs" />
+    <Compile Include="Cursor.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
@@ -83,11 +85,14 @@
     <Compile Include="GXPEngine\FMOD\FMODSoundSystem.cs" />
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
-    <Compile Include="panoramaHandler.cs" />
-    <Compile Include="Shootable.cs" />
-    <Compile Include="SoundHandler.cs" />
+    <Compile Include="handlers\panoramaHandler.cs" />
+    <Compile Include="shootable\Shootable.cs" />
+    <Compile Include="handlers\SoundHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="shootable\enemies\" />
   </ItemGroup>
 </Project>
