@@ -49,6 +49,7 @@ public class ControlerHandler : GameObject
             if (controlerMode == ControlerMode.mouse)
             {
                 Console.WriteLine("controlerMode = mouse");
+                calibrated = true;
                 return;
             }
             Console.WriteLine("controlerMode = controler");
@@ -64,6 +65,7 @@ public class ControlerHandler : GameObject
             Console.WriteLine("could not find controler");
             Console.WriteLine("switching controlerMode to mouse");
             controlerMode = ControlerMode.mouse;
+            calibrated = true;
         }
     }
 
@@ -123,8 +125,8 @@ public class ControlerHandler : GameObject
             
         }
 
-        Console.WriteLine("cursorX:" + cursorX);
-        Console.WriteLine("cursorY:" + cursorY);
+        //Console.WriteLine("cursorX:" + cursorX);
+        //Console.WriteLine("cursorY:" + cursorY);
 
         if (calibrated)
         {

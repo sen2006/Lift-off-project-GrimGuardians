@@ -14,9 +14,9 @@ public class MyGame : Game {
 	{
         AmmoTypeHandler.initializeClass();
 		Shootable[] shootables = {
-		new Shootable(new Texture2D("assets/debug/circle.png"),100,100, 10, 5),
 		new Shootable(new Texture2D("assets/debug/circle.png"),100,200, 10, 5),
-		new Shootable(new Texture2D("assets/debug/circle.png"),100,300, 10, 5)
+		new Shootable(new Texture2D("assets/debug/circle.png"),100,300, 10, 5),
+		new Shootable(new Texture2D("assets/debug/circle.png"),100,400, 10, 5)
 		};
 		foreach (Shootable shootable in shootables) { AddChild(shootable); }
         AddChild(controlerHandler);

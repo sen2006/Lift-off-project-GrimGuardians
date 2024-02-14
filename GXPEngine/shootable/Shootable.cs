@@ -63,7 +63,6 @@ public class Shootable : Sprite
 
     public void pointReward(int points)
     {
-
         Points rewardText = new Points(x,y,this.width, 50, 50);
         this.game.AddChild(rewardText);
         Console.WriteLine("Point text spawned");
