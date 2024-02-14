@@ -112,7 +112,7 @@ public class ControlerHandler : GameObject
                 {
                     cursorX = game.width - (totalYaw - LRAxisMax) / (LRAxisMin - LRAxisMax) * game.width;
                     cursorY = game.height - (pitch - UDAxisMax) / (UDAxisMin - UDAxisMax) * game.height;
-                }
+                } 
             }
             else { Console.WriteLine("cant read data from port"); }
         } else
