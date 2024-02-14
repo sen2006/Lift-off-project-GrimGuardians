@@ -8,7 +8,7 @@ public class MyGame : Game {
     static MyGame game;
     public static MyGame GetGame() { return game; }
 
-    public static ControlerHandler controlerHandler;
+    public static ControllerHandler controlerHandler;
 
     public MyGame() : base(1366, 768, false, true, -1, -1, false)
 	{
@@ -30,7 +30,7 @@ public class MyGame : Game {
 
     static void Main()
     {
-        controlerHandler = new ControlerHandler(); // Initiate the controlerHandler
+        controlerHandler = new ControllerHandler(); // Initiate the controlerHandler
         game = new MyGame();
         game.Start();
     }
