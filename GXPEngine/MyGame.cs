@@ -1,10 +1,22 @@
 using System;
+using System.Collections;
 using GXPEngine;
 using GXPEngine.Core;
 
-public class MyGame : Game
-{
-    public static ControlerHandler controlerHandler;
+public class MyGame : Game {
+	public static ControlerHandler controlerHandler;
+
+	public MyGame() : base(1366, 768, false, true, -1, -1, false)
+	{
+		Shootable[] shootables = {
+		new Shootable(new Texture2D("assets/debug/circle.png"),100,100, 10, 5),
+		new Shootable(new Texture2D("assets/debug/circle.png"),100,200, 10, 5),
+		new Shootable(new Texture2D("assets/debug/circle.png"),100,300, 10, 5)
+		};
+		foreach (Shootable shootable in shootables) { AddChild(shootable); }
+		
+
+	}
 
     ControlerHandler controlHandler;
     Cursor cursor;

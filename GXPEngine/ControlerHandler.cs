@@ -1,13 +1,23 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO.Ports;
 using System.Runtime.ConstrainedExecution;
 public class ControlerHandler
 {
+    public enum ControlerMode
+    {
+        mouse = 0,
+        cotroler = 1
+    }
+    public static ControlerMode controlerMode = ControlerMode.cotroler;
+
     SerialPort port;
     float yaw;
     float pitch;
     float roll;
+
+    float cursorX;
+    float cursorY;
 
     public ControlerHandler(bool controlerActive)
     {

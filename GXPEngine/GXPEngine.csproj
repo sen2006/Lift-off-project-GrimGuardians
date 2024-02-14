@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cursor.cs" />
     <Compile Include="ControlerHandler.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
@@ -84,6 +83,8 @@
     <Compile Include="GXPEngine\FMOD\FMODSoundSystem.cs" />
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
+    <Compile Include="panoramaHandler.cs" />
+    <Compile Include="Shootable.cs" />
     <Compile Include="SoundHandler.cs" />
   </ItemGroup>
   <ItemGroup>
