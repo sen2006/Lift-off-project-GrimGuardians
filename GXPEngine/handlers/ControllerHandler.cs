@@ -64,7 +64,7 @@ public class ControllerHandler : GameObject
         {
             Console.WriteLine("could not find controler");
             Console.WriteLine("switching controlerMode to mouse");
-            controlerMode = ControlerMode.mouse;
+            controllerMode = ControllerMode.mouse;
             calibrated = true;
         }
     }
