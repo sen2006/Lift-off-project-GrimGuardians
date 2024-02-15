@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
 using GXPEngine;
 
 public class Cursor : Sprite

@@ -1,7 +1,6 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 using System;
-using TiledMapParser;
 
 public class Shootable : Sprite
 {

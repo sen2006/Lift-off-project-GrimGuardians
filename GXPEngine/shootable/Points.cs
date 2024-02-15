@@ -1,6 +1,4 @@
-﻿
-using System;
-using GXPEngine;
+﻿using GXPEngine;
 
 public class Points : EasyDraw
 {
@@ -21,7 +19,9 @@ public class Points : EasyDraw
         alpha = Mathf.Max(0f, alpha - DeltaTimeS);
 
         this.TextAlign(CenterMode.Center, CenterMode.Center);
+        //this.TextFont();
         this.Text(" " + points, width / 2, height / 2);
+        
 
         textMovement();
         textFade();

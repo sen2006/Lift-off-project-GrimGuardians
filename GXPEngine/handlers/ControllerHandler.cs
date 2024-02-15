@@ -1,9 +1,6 @@
 using GXPEngine;
-using GXPEngine.Core;
 using System;
-using System.Drawing;
 using System.IO.Ports;
-using System.Runtime.ConstrainedExecution;
 public class ControllerHandler : GameObject
 {
     public enum ControllerMode
@@ -218,11 +215,12 @@ public class ControllerHandler : GameObject
                 calibrationText = "calibration done";
                 calibrated = true;
                 calibrationUI.Destroy();
-                break;
+                calibrationUI=null;
+                return;
         }
         calibrationUI.Clear(0);
-        calibrationUI.Text(calibrationText, calibrationUI.width/2, calibrationUI.height/2);
         calibrationUI.TextAlign(CenterMode.Center, CenterMode.Center);
+        calibrationUI.Text(calibrationText, calibrationUI.width/2, calibrationUI.height/2);\
     }
 
     float lerp(float a, float b, float f)

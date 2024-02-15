@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using GXPEngine;
-using GXPEngine.Core;
 
 public class MyGame : Game {
     static MyGame game;
