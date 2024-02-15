@@ -13,6 +13,9 @@ public class Shootable : Sprite
 
     EasyDraw healthBar;
 
+    int overTimeDamageTimer=0;
+    int damagePerSec=0;
+
     public Shootable(Texture2D texture, int startX, int startY, float speed, int health = 1, bool showHealthBar = true) : base (texture, true)
     {
         x = startX;
@@ -43,7 +46,7 @@ public class Shootable : Sprite
         healthBar.Rect(0,0, this.width*2*(health/maxHealth), healthBar.height);
     }
 
-    public float hit(int damage)
+    public float hit(float damage)
     {
         health = Math.Max(health - damage, 0);
         if (health <= 0) 
@@ -52,6 +55,22 @@ public class Shootable : Sprite
             this.pointReward(50);
         }
         return health;
+    }
+
+    public void setOvertimeDamage(int damagePerSec = 0, int forSec = 0)
+    {
+        this.damagePerSec = damagePerSec;
+        this.overTimeDamageTimer = forSec * 1000;
+    }
+
+    public void damageOverTime()
+    {
+        if (overTimeDamageTimer > 0)
+        {
+            int deltaTime = Time.deltaTime;
+            hit(damagePerSec / 1000f * Math.Min(deltaTime, overTimeDamageTimer));
+            overTimeDamageTimer -= deltaTime;
+        }
     }
 
     public void kill()

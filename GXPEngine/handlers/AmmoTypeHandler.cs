@@ -2,18 +2,21 @@ using GXPEngine;
 
 public class AmmoTypeHandler
 {
-    public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(50, 1);
+    public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(75);
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,2);
-    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(25, 1);
+    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, 1, 1, 3);
 
 
     int spreadRadius;
     int damage;
-    int damageOverTime;
-    public AmmoTypeHandler(int spreadRadius, int damage = 1) 
+    int damagePerSec;
+    int forSec;
+    public AmmoTypeHandler(int spreadRadius, int damage = 1, int damagePerSec = 0, int forSec = 0) 
     { 
         this.spreadRadius = spreadRadius;
         this.damage = damage;
+        this.damagePerSec = damagePerSec;
+        this.forSec = forSec;
     }
 
     /// <summary>
@@ -35,6 +38,7 @@ public class AmmoTypeHandler
             if (obj is Shootable hitObj)
             {
                 hitObj.hit(damage);
+                hitObj.setOvertimeDamage(damagePerSec, forSec);
             }
         }
         damageZone.LateDestroy();
