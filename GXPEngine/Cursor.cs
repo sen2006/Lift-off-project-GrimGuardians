@@ -56,9 +56,9 @@ public class Cursor : Sprite
                     Console.WriteLine("You reloaded Slug!");
                     break;
                 case 2:
-                    barrelOne = AmmoTypeHandler.INCENDIARY;
-                    barrelTwo = AmmoTypeHandler.INCENDIARY;
-                    Console.WriteLine("You reloaded Incendiary!");
+                    barrelOne = AmmoTypeHandler.DRAGONS_BREATH;
+                    barrelTwo = AmmoTypeHandler.DRAGONS_BREATH;
+                    Console.WriteLine("You reloaded Dragons Breath!");
                     break;
                 default:
                     break;

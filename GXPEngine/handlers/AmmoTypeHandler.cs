@@ -9,7 +9,7 @@ public class AmmoTypeHandler
 {
     public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(50, 1);
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,2);
-    public static AmmoTypeHandler INCENDIARY = new AmmoTypeHandler(25, 1);
+    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(25, 1);
 
 
     int spreadRadius;
@@ -28,7 +28,7 @@ public class AmmoTypeHandler
     /// <param name="y">Y position</param>
     public void fire(float x, float y)
     {
-        Console.WriteLine("fire got called");
+        //Console.WriteLine("fire got called");
         MyGame game = MyGame.GetGame();
         EasyDraw damageZone = new EasyDraw(spreadRadius*2, spreadRadius*2);
         game.AddChild(damageZone);
