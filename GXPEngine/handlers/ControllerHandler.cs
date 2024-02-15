@@ -33,7 +33,8 @@ public class ControllerHandler : GameObject
     float pitch;
     float roll;
 
-    float yawover = 3600;
+    float yawover = 0;
+    float yawCorrection = 3600;
     float totalYaw;
 
     float cursorX;
@@ -52,6 +53,9 @@ public class ControllerHandler : GameObject
                 calibrated = true;
                 return;
             }
+            // establish connection with the controller on COM3 port 57000
+
+            // TODO check all COM's for the controller instead of onty COM3
             Console.WriteLine("controlerMode = controler");
             port = new SerialPort();
             port.PortName = "COM3";
@@ -62,6 +66,7 @@ public class ControllerHandler : GameObject
         }
         catch
         {
+            // if no controller is found or if conection fails, go into mouse mode
             Console.WriteLine("could not find controler");
             Console.WriteLine("switching controlerMode to mouse");
             controllerMode = ControllerMode.mouse;
@@ -69,44 +74,64 @@ public class ControllerHandler : GameObject
         }
     }
 
+    /// <summary>
+    /// DEPRICATED
+    /// </summary>
     public float getYaw() { return totalYaw; }
+    /// <summary>
+    /// DEPRICATED
+    /// </summary>
     public float getPitch() { return pitch; }
+    /// <summary>
+    /// DEPRICATED
+    /// </summary>
     public float getRoll() { return roll; }
 
-    public void Update()
+    public bool isCalibrated() { return calibrated; }
+
+    void Update()
     {
         if (controllerMode == ControllerMode.controller)
         {
             string line = port.ReadLine();
             if (line != "")
             {
-                Console.WriteLine("Read from port: " + line);
+                // read data from controller
                 String[] values = line.Split(',');
 
+                // check if the yaw was in the low or high areas
                 bool highYaw = yaw > 300;
                 bool lowYaw = yaw < 60;
 
+                // read data from the list
                 yaw = float.Parse(values[0]);
                 pitch = float.Parse(values[1]);
                 roll = float.Parse(values[2]);
+                trigger = float.Parse(values[3]) > 0;
+                // TODO add reload 1 on 4                        float.Parse(values[4]) > 0;
+                // TODO add reload 2 on 5                        float.Parse(values[5]) > 0;
+                // TODO add switch ammo on 6                     float.Parse(values[6]) > 0;
+                // TODO add grenage on 7                         float.Parse(values[7]) > 0;
+                // TODO add check if barrel is closed on 8       float.Parse(values[8]) > 0;
 
+                // if yaw went over the 360 or below 0 make it keep going
                 if (highYaw && yaw < 60) { yawover += 360; }
                 if (lowYaw && yaw > 300) { yawover -= 360; }
-                yawover -= Time.deltaTime / 3740f;
 
-                totalYaw = yaw + yawover;
+                // yaw correction 
+                // TODO make this more accurate
+                yawCorrection -= Time.deltaTime / 3740f;
 
-                
+                // add all yaws together
+                totalYaw = yaw + yawover + yawCorrection;
 
-                Console.WriteLine("Set Yaw:" + yaw);
-                Console.WriteLine("totalYaw is:" + totalYaw);
-                Console.WriteLine("Set Pitch:" + pitch);
-                Console.WriteLine("Set Roll:" + roll);
-
-                trigger = float.Parse(values[3]) > 0;
-                
-
-                Console.WriteLine("Set trigger:" + trigger);
+                // DEBUG TEXT
+                //Console.WriteLine("Read from port: " + line);
+                //Console.WriteLine("Set Yaw:" + yaw);
+                //Console.WriteLine("totalYaw is:" + totalYaw);
+                //Console.WriteLine("Set Pitch:" + pitch);
+                //Console.WriteLine("Set Roll:" + roll);
+                //Console.WriteLine("Set trigger:" + trigger);
 
                 if (!calibrated)
                 {
@@ -114,19 +139,24 @@ public class ControllerHandler : GameObject
                 }
                 else
                 {
+                    // set the cursor to the correct position acording to the calibration
                     cursorX = game.width - (totalYaw - LRAxisMax) / (LRAxisMin - LRAxisMax) * game.width;
                     cursorY = game.height - (pitch - UDAxisMax) / (UDAxisMin - UDAxisMax) * game.height;
                 } 
             }
-            else { Console.WriteLine("cant read data from port"); }
+            else { Console.WriteLine("ERROR cant read data from port"); } // error message
         } else
         {
+            // set the cursor to the mouse
             cursorX = Input.mouseX; 
             cursorY = Input.mouseY;
             trigger = Input.GetMouseButtonDown(0);
+
+            // TODO add the other controlls to the keyboard
             
         }
 
+        // DEBUG TEXT
         //Console.WriteLine("cursorX:" + cursorX);
         //Console.WriteLine("cursorY:" + cursorY);
 
@@ -134,6 +164,7 @@ public class ControllerHandler : GameObject
         {
             if (cursor == null)
             {
+                // add the cursor to the engine
                 cursor = new Cursor();
                 this.game.AddChild(cursor);
             }
@@ -142,6 +173,7 @@ public class ControllerHandler : GameObject
             {
                 if (!isWasTrigger)
                 {
+                    // fire a shell when trigger is pressed (runs only once)
                     cursor.fire();
                     isWasTrigger = true;
                 }
@@ -150,6 +182,9 @@ public class ControllerHandler : GameObject
         }
     }
 
+    /// <summary>
+    /// Calibrates the cursor to the movement of the game controler.
+    /// </summary>
     void calibrate() 
     {   
         MyGame game = MyGame.GetGame();
@@ -169,8 +204,6 @@ public class ControllerHandler : GameObject
         }
         else isWasTrigger = false;
 
-
-
         switch (calibrationStep)
         {
             case 0: 
@@ -188,7 +221,8 @@ public class ControllerHandler : GameObject
                 break;
         }
         calibrationUI.Clear(0);
-        calibrationUI.Text(calibrationText);
+        calibrationUI.Text(calibrationText, calibrationUI.width/2, calibrationUI.height/2);
+        calibrationUI.TextAlign(CenterMode.Center, CenterMode.Center);
     }
 
     float lerp(float a, float b, float f)

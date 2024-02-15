@@ -15,10 +15,10 @@ public class Points : EasyDraw
     }
     public void Update()
     {
-        float actualDeltaTime = Time.deltaTime / 1000f;
+        float DeltaTimeS = Time.deltaTime / 1000f;
 
-        textTimer -= actualDeltaTime;
-        alpha = Mathf.Max(0f, alpha - actualDeltaTime);
+        textTimer -= DeltaTimeS;
+        alpha = Mathf.Max(0f, alpha - DeltaTimeS);
 
         this.TextAlign(CenterMode.Center, CenterMode.Center);
         this.Text(" " + points, width / 2, height / 2);
@@ -28,14 +28,17 @@ public class Points : EasyDraw
     }
     public void textMovement()
     {
-        y--;
+        y--; // TODO make this Deltatime based
     }
 
     public void textFade()
     {
+        // TODO make text fade here
+
+        // destroy text once timer is up
         if (textTimer <= 0)
         {
-            this.LateDestroy(); // temporary
+            this.LateDestroy();
         }
     }
 }

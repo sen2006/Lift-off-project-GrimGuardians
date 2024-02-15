@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +11,6 @@ public class AmmoTypeHandler
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,2);
     public static AmmoTypeHandler INCENDIARY = new AmmoTypeHandler(25, 1);
 
-    public static void initializeClass()
-    {
-        return;
-    }
 
     int spreadRadius;
     int damage;
@@ -25,6 +21,11 @@ public class AmmoTypeHandler
         this.damage = damage;
     }
 
+    /// <summary>
+    /// Fires the shell at a given position
+    /// </summary>
+    /// <param name="x">X position</param>
+    /// <param name="y">Y position</param>
     public void fire(float x, float y)
     {
         Console.WriteLine("fire got called");
