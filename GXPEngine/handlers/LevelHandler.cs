@@ -12,11 +12,11 @@ public class LevelHandler
 
     public static LevelMode levelMode = LevelMode.Level;
 
-    private Game game;
+    private MyGame game;
 
-    LevelHandler(Game game)
+    public LevelHandler()
     {
-        this.game = game;
+        game = MyGame.GetGame();
     }
 
     public void Update()
