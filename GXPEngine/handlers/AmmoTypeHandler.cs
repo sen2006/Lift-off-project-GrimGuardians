@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 public class AmmoTypeHandler
 {
-    public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(50);
+    public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(50, 1);
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,2);
+    public static AmmoTypeHandler INCENDIARY = new AmmoTypeHandler(25, 1);
 
     public static void initializeClass()
     {
@@ -17,6 +18,7 @@ public class AmmoTypeHandler
 
     int spreadRadius;
     int damage;
+    int damageOverTime;
     public AmmoTypeHandler(int spreadRadius, int damage = 1) 
     { 
         this.spreadRadius = spreadRadius;
@@ -31,7 +33,7 @@ public class AmmoTypeHandler
         game.AddChild(damageZone);
         damageZone.SetOrigin(spreadRadius, spreadRadius);
         damageZone.SetXY(x, y);
-        damageZone.Rect(0, 0, spreadRadius, spreadRadius);
+        damageZone.Ellipse(0, 0, spreadRadius, spreadRadius);
         foreach (GameObject obj in damageZone.GetCollisions())
         {
             if (obj is Shootable hitObj)

@@ -20,7 +20,6 @@ public class MyGame : Game {
 		};
 		foreach (Shootable shootable in shootables) { AddChild(shootable); }
         AddChild(controlerHandler);
-
     }
     
     void Update()

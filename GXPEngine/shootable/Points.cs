@@ -37,9 +37,5 @@ public class Points : EasyDraw
         {
             this.LateDestroy(); // temporary
         }
-
-        
-        
-        
     }
 }
