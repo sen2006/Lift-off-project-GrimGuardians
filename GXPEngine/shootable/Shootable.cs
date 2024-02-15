@@ -2,12 +2,14 @@
 using GXPEngine.Core;
 using System;
 
-public class Shootable : Sprite
+public class Shootable : AnimationSprite
 {
     float health;
     float speed;
 
     int maxHealth;
+
+    int points;
 
     bool showHealthBar;
 
@@ -16,7 +18,7 @@ public class Shootable : Sprite
     int overTimeDamageTimer=0;
     int damagePerSec=0;
 
-    public Shootable(Texture2D texture, int startX, int startY, float speed, int health = 1, bool showHealthBar = true) : base (texture, true)
+    public Shootable(String texture, int startX, int startY, float speed, int health = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows=1, int frames=-1) : base (texture, animationCols, animationRows, frames, false, true)
     {
         x = startX;
         y = startY;
@@ -24,6 +26,7 @@ public class Shootable : Sprite
         this.health = health;
         this.maxHealth = health;
         this.showHealthBar = showHealthBar;
+        this.points = points;
 
         healthBar = new EasyDraw(this.width, 30);
         
@@ -52,7 +55,7 @@ public class Shootable : Sprite
         if (health <= 0) 
         {
             this.kill();
-            this.pointReward(50);
+            this.pointReward(points);
         }
         return health;
     }

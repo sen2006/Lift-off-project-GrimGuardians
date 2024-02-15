@@ -45,7 +45,7 @@ public class EnemySpawnHandler : GameObject
         MyGame game = MyGame.GetGame();
         if (spawnWeight < smallSpawnWeight)
         {
-            Shootable shootable = new Shootable(new Texture2D("assets/debug/circle.png"), -100, random.Next(game.height - 400) + 200, 35, 1);
+            Shootable shootable = new Shootable("assets/debug/circle.png", -100, random.Next(game.height - 400) + 200, 35, 1);
             game.AddChild(shootable);
             return;
         }
@@ -53,7 +53,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < mediumSpawnWeight)
         {
-            Shootable shootable = new Shootable(new Texture2D("assets/debug/circle.png"), -100, random.Next(game.height - 400) + 200, 25, 3);
+            Shootable shootable = new Shootable("assets/debug/circle.png", -100, random.Next(game.height - 400) + 200, 25, 3);
             game.AddChild(shootable);
             return;
         }
@@ -61,7 +61,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < largeSpawnWeight)
         {
-            Shootable shootable = new Shootable(new Texture2D("assets/debug/circle.png"), -100, random.Next(game.height - 400) + 200, 15, 5);
+            Shootable shootable = new Shootable("assets/debug/circle.png", -100, random.Next(game.height - 400) + 200, 15, 5);
             game.AddChild(shootable);
             return;
         }
