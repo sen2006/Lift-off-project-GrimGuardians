@@ -45,17 +45,17 @@ public class Cursor : Sprite
         {
             switch(ammoIndex)
             {
-                case 1:
+                case 0:
                     barrelOne = AmmoTypeHandler.BUCKSHOT;
                     barrelTwo = AmmoTypeHandler.BUCKSHOT;
                     Console.WriteLine("You reloaded Buckshot!");
                     break;
-                case 2:
+                case 1:
                     barrelOne = AmmoTypeHandler.SLUG;
                     barrelTwo = AmmoTypeHandler.SLUG;
                     Console.WriteLine("You reloaded Slug!");
                     break;
-                case 3:
+                case 2:
                     barrelOne = AmmoTypeHandler.INCENDIARY;
                     barrelTwo = AmmoTypeHandler.INCENDIARY;
                     Console.WriteLine("You reloaded Incendiary!");
@@ -71,12 +71,12 @@ public class Cursor : Sprite
         if (Input.GetKeyUp(Key.X))
         {
             ammoIndex++;
-            Console.WriteLine("You switched to bullet: " + ammoIndex);
 
             if (ammoIndex > 2)
             {
                 ammoIndex = 0;
             }
+            Console.WriteLine("You switched to bullet: " + ammoIndex);
         }
     }
 }
