@@ -36,6 +36,7 @@ public class Shootable : AnimationSprite
     {
         x += speed * Time.deltaTime/60f;
         if (showHealthBar ) { renderHealthBar(); }
+        damageOverTime();
     }
 
     void renderHealthBar()
@@ -54,8 +55,8 @@ public class Shootable : AnimationSprite
         health = Math.Max(health - damage, 0);
         if (health <= 0) 
         {
-            this.kill();
-            this.pointReward(points);
+            kill();
+            pointReward(points);
         }
         return health;
     }
@@ -63,7 +64,7 @@ public class Shootable : AnimationSprite
     public void setOvertimeDamage(int damagePerSec = 0, int forSec = 0)
     {
         this.damagePerSec = damagePerSec;
-        this.overTimeDamageTimer = forSec * 1000;
+        overTimeDamageTimer = forSec * 1000;
     }
 
     public void damageOverTime()
