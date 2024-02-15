@@ -13,6 +13,7 @@ public class MyGame : Game {
     public static MyGame GetGame() { return game; }
     
     public static ControllerHandler controlerHandler;
+    public static EnemySpawnHandler enemySpawnHandler;
 
     public MyGame() : base(1366, 768, false, true, -1, -1, false)
 	{
@@ -22,6 +23,9 @@ public class MyGame : Game {
 		new Shootable(new Texture2D("assets/debug/circle.png"),100,400, 10, 5)
 		};
 		foreach (Shootable shootable in shootables) { AddChild(shootable); } */
+
+        enemySpawnHandler = new EnemySpawnHandler();
+        AddChild(enemySpawnHandler);
         
         AddChild(controlerHandler);
     }
