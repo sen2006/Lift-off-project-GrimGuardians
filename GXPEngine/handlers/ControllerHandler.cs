@@ -220,7 +220,7 @@ public class ControllerHandler : GameObject
         }
         calibrationUI.Clear(0);
         calibrationUI.TextAlign(CenterMode.Center, CenterMode.Center);
-        calibrationUI.Text(calibrationText, calibrationUI.width/2, calibrationUI.height/2);\
+        calibrationUI.Text(calibrationText, calibrationUI.width/2, calibrationUI.height/2);
     }
 
     float lerp(float a, float b, float f)

@@ -4,8 +4,7 @@ using System;
 
 public class EnemySpawnHandler : GameObject
 {
-    // TODO make this class
-    
+    // TODO make this different over time in a controlable way
     // settings
     int minSpawnInterval = 800;
     int maxSpawnInterval = 2000;
