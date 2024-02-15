@@ -7,15 +7,15 @@ public class Cursor : Sprite
     AmmoTypeHandler barrelOne;
     AmmoTypeHandler barrelTwo;
 
-    bool isWasMousDown = false;
+    bool infiniteAmmo = true;
 
-    int ammoIndex = 1;
+    int ammoIndex;
     public Cursor() : base("assets/debug/square.png")
     {
         SetOrigin(width / 2, height / 2);
-
         barrelOne = AmmoTypeHandler.BUCKSHOT;
         barrelTwo = AmmoTypeHandler.BUCKSHOT;
+        ammoIndex = 0;
     }
 
 
@@ -30,12 +30,12 @@ public class Cursor : Sprite
         if (barrelOne != null)
         {
             barrelOne.fire(x, y);
-            barrelOne = null;
+            if (!infiniteAmmo) barrelOne = null;
         }
         else if (barrelTwo != null)
         {
             barrelTwo.fire(x, y);
-            barrelTwo = null;
+            if (!infiniteAmmo) barrelTwo = null;
         }
     }
 
