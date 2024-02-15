@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 public class AmmoTypeHandler
 {
+    // all AmmoTypes
     public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(50);
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,2);
 
-    public static void initializeClass()
-    {
-        return;
-    }
 
     int spreadRadius;
     int damage;
@@ -23,6 +20,11 @@ public class AmmoTypeHandler
         this.damage = damage;
     }
 
+    /// <summary>
+    /// Fires the shell at a given position
+    /// </summary>
+    /// <param name="x">X position</param>
+    /// <param name="y">Y position</param>
     public void fire(float x, float y)
     {
         Console.WriteLine("fire got called");
@@ -31,7 +33,7 @@ public class AmmoTypeHandler
         game.AddChild(damageZone);
         damageZone.SetOrigin(spreadRadius, spreadRadius);
         damageZone.SetXY(x, y);
-        damageZone.Rect(0, 0, spreadRadius, spreadRadius);
+        //damageZone.Rect(0, 0, spreadRadius, spreadRadius);
         foreach (GameObject obj in damageZone.GetCollisions())
         {
             if (obj is Shootable hitObj)

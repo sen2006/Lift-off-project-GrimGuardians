@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 public class panoramaHandler : Sprite
 {
+
+    // TODO complete this class
     int panoramaSpeed = 5;
     public panoramaHandler(Texture2D texture) : base(texture, false)
     {
