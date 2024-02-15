@@ -21,19 +21,9 @@ public class Points : EasyDraw
         this.TextAlign(CenterMode.Center, CenterMode.Center);
         //this.TextFont();
         this.Text(" " + points, width / 2, height / 2);
-        
 
-        textMovement();
-        textFade();
-    }
-    public void textMovement()
-    {
+        //move the text up
         y--; // TODO make this Deltatime based
-    }
-
-    public void textFade()
-    {
-        // TODO make text fade here
 
         // destroy text once timer is up
         if (textTimer <= 0)
