@@ -176,7 +176,7 @@ public class ControllerHandler : GameObject
                 cursor = new Cursor();
                 this.game.AddChild(cursor);
             }
-            cursor.SetXY(lerp(cursor.x, cursorX, .3f), lerp(cursor.y, cursorY, .3f));
+            cursor.SetXY(lerp(cursor.x, cursorX, .2f), lerp(cursor.y, cursorY, .2f));
             if (trigger)
             {
                 if (!isWasTrigger)
@@ -190,12 +190,12 @@ public class ControllerHandler : GameObject
 
             if(firstBarrel)
             {
-                cursor.Reload();
+                cursor.ReloadOne();
             }
 
             if(secondBarrel)
             {
-                cursor.Reload();
+                cursor.ReloadTwo();
             }
 
             if(switchAmmo)
@@ -223,21 +223,6 @@ public class ControllerHandler : GameObject
             {
                 triggered = true;
                 isWasTrigger = true;
-            }
-
-            if (firstBarrel)
-            {
-                cursor.Reload();
-            }
-
-            if (secondBarrel)
-            {
-                cursor.Reload();
-            }
-
-            if (switchAmmo)
-            {
-                cursor.AmmoSwitch();
             }
         }
         else isWasTrigger = false;

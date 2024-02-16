@@ -1,5 +1,4 @@
 using GXPEngine;
-using GXPEngine.Core;
 using System;
 
 public class Shootable : AnimationSprite
@@ -62,22 +61,21 @@ public class Shootable : AnimationSprite
         return health;
     }
 
-    public void setOvertimeDamage(int damagePerSec = 0, int forSec = 0)
+    public void setOvertimeDamage(int damagePerSec, int forSec)
     {
         this.damagePerSec = damagePerSec;
-        overTimeDamageTimer = forSec;
+        overTimeDamageTimer = forSec * 1000;
     }
 
     public void damageOverTime()
     {
-        int deltaTime = Time.deltaTime / 1000;
-        overTimeDamageTimer -= deltaTime;
-        if (overTimeDamageTimer <= 0)
+        int deltaTime = Time.deltaTime;
+        if (health > 0 && overTimeDamageTimer > 0)
         {
-            //hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer));
-            // this is causing a double point spawn, because its getting hit twice
-            //uncomment and try shotting either buckshot or slug
+            hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer) / 1000f);
         }
+
+        overTimeDamageTimer = Math.Max(overTimeDamageTimer - deltaTime, 0);
         //Console.WriteLine($"timer: {overTimeDamageTimer}");
     }
 
