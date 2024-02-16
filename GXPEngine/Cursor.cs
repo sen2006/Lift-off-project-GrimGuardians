@@ -63,8 +63,6 @@ public class Cursor : Sprite
 
     public void AmmoSwitch()
     {
-        if (Input.GetKeyUp(Key.X))
-        {
             ammoIndex++;
 
             if (ammoIndex > 2)
@@ -72,6 +70,5 @@ public class Cursor : Sprite
                 ammoIndex = 0;
             }
             Console.WriteLine("You switched to bullet: " + ammoIndex);
-        }
     }
 }

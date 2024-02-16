@@ -224,6 +224,21 @@ public class ControllerHandler : GameObject
                 triggered = true;
                 isWasTrigger = true;
             }
+
+            if (firstBarrel)
+            {
+                cursor.Reload();
+            }
+
+            if (secondBarrel)
+            {
+                cursor.Reload();
+            }
+
+            if (switchAmmo)
+            {
+                cursor.AmmoSwitch();
+            }
         }
         else isWasTrigger = false;
 
