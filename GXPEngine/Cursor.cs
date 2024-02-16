@@ -20,8 +20,7 @@ public class Cursor : Sprite
 
     void Update()
     {
-        Reload();
-        AmmoSwitch();
+
     }
 
     public void fire()
@@ -40,8 +39,6 @@ public class Cursor : Sprite
 
     public void Reload()
     {
-        if (Input.GetKeyUp(Key.R))
-        {
             switch(ammoIndex)
             {
                 case 0:
@@ -62,7 +59,6 @@ public class Cursor : Sprite
                 default:
                     break;
             }
-        }
     }
 
     public void AmmoSwitch()

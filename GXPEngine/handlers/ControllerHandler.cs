@@ -1,6 +1,8 @@
 using GXPEngine;
 using System;
 using System.IO.Ports;
+using System.Runtime.ExceptionServices;
+
 public class ControllerHandler : GameObject
 {
     public enum ControllerMode
@@ -38,6 +40,11 @@ public class ControllerHandler : GameObject
     float cursorY;
 
     bool trigger = false;
+    bool firstBarrel = false;
+    bool secondBarrel = false;
+    bool reload = false;
+    bool switchAmmo = false;
+
     bool isWasTrigger=false;
 
     public ControllerHandler()
@@ -105,9 +112,10 @@ public class ControllerHandler : GameObject
                 pitch = float.Parse(values[1]);
                 roll = float.Parse(values[2]);
                 trigger = float.Parse(values[3]) > 0;
-                // TODO add reload 1 on 4                        float.Parse(values[4]) > 0;
-                // TODO add reload 2 on 5                        float.Parse(values[5]) > 0;
-                // TODO add switch ammo on 6                     float.Parse(values[6]) > 0;
+                firstBarrel = float.Parse(values[4]) > 0;
+                secondBarrel = float.Parse(values[5]) > 0;
+                reload = float.Parse(values[6]) > 0;
+                switchAmmo = float.Parse(values[7]) > 0;
                 // TODO add grenage on 7                         float.Parse(values[7]) > 0;
                 // TODO add check if barrel is closed on 8       float.Parse(values[8]) > 0;
 
@@ -148,6 +156,9 @@ public class ControllerHandler : GameObject
             cursorX = Input.mouseX; 
             cursorY = Input.mouseY;
             trigger = Input.GetMouseButtonDown(0);
+            firstBarrel = Input.GetKeyUp(Key.R);
+            secondBarrel = Input.GetKeyUp(Key.R);
+            switchAmmo = Input.GetKeyUp(Key.X);
 
             // TODO add the other controlls to the keyboard
             
@@ -176,6 +187,21 @@ public class ControllerHandler : GameObject
                 }
             }
             else isWasTrigger = false;
+
+            if(firstBarrel)
+            {
+                cursor.Reload();
+            }
+
+            if(secondBarrel)
+            {
+                cursor.Reload();
+            }
+
+            if(switchAmmo)
+            {
+                cursor.AmmoSwitch();
+            }
         }
     }
 

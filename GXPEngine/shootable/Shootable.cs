@@ -15,10 +15,10 @@ public class Shootable : AnimationSprite
 
     EasyDraw healthBar;
 
-    int overTimeDamageTimer=0;
-    int damagePerSec=0;
+    int overTimeDamageTimer;
+    int damagePerSec;
 
-    public Shootable(String texture, int startX, int startY, float speed, int health = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows=1, int frames=-1) : base (texture, animationCols, animationRows, frames, false, true)
+    public Shootable(String texture, int startX, int startY, float speed, int health = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
     {
         x = startX;
         y = startY;
@@ -29,13 +29,14 @@ public class Shootable : AnimationSprite
         this.points = points;
 
         healthBar = new EasyDraw(this.width, 30);
-        
+
     }
 
     void Update()
     {
-        x += speed * Time.deltaTime/60f;
-        if (showHealthBar ) { renderHealthBar(); }
+
+        x += speed * Time.deltaTime / 60f;
+        if (showHealthBar) { renderHealthBar(); }
         damageOverTime();
     }
 
@@ -44,16 +45,16 @@ public class Shootable : AnimationSprite
         if (!this.game.HasChild(healthBar)) { this.game.AddChild(healthBar); }
 
         healthBar.SetXY(this.x, this.y - healthBar.height);
-        healthBar.Fill(255,0,0);
-        healthBar.Rect(0,0, this.width*2, healthBar.height);
+        healthBar.Fill(255, 0, 0);
+        healthBar.Rect(0, 0, this.width * 2, healthBar.height);
         healthBar.Fill(0, 255, 0);
-        healthBar.Rect(0,0, this.width*2*(health/maxHealth), healthBar.height);
+        healthBar.Rect(0, 0, this.width * 2 * (health / maxHealth), healthBar.height);
     }
 
     public float hit(float damage)
     {
         health = Math.Max(health - damage, 0);
-        if (health <= 0) 
+        if (health <= 0)
         {
             kill();
             pointReward(points);
@@ -64,28 +65,32 @@ public class Shootable : AnimationSprite
     public void setOvertimeDamage(int damagePerSec = 0, int forSec = 0)
     {
         this.damagePerSec = damagePerSec;
-        overTimeDamageTimer = forSec * 1000;
+        overTimeDamageTimer = forSec;
     }
 
     public void damageOverTime()
     {
-        if (overTimeDamageTimer > 0)
+        int deltaTime = Time.deltaTime / 1000;
+        overTimeDamageTimer -= deltaTime;
+        if (overTimeDamageTimer <= 0)
         {
-            int deltaTime = Time.deltaTime;
-            hit(damagePerSec / 1000f * Math.Min(deltaTime, overTimeDamageTimer));
-            overTimeDamageTimer -= deltaTime;
+            //hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer));
+            // this is causing a double point spawn, because its getting hit twice
+            //uncomment and try shotting either buckshot or slug
         }
+        //Console.WriteLine($"timer: {overTimeDamageTimer}");
     }
 
     public void kill()
     {
+        Console.Write("kill\n");
         healthBar.LateDestroy();
         this.LateDestroy();
     }
 
     public void pointReward(int points)
     {
-        Points rewardText = new Points(x,y,this.width, 50, 50);
+        Points rewardText = new Points(x, y, this.width, 50, 50);
         this.game.AddChild(rewardText);
         //Console.WriteLine("Point text spawned");
     }
