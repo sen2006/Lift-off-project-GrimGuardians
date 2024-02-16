@@ -6,7 +6,7 @@ public class Cursor : Sprite
     AmmoTypeHandler barrelOne;
     AmmoTypeHandler barrelTwo;
 
-    bool infiniteAmmo = true;
+    bool infiniteAmmo = false;
 
     int ammoIndex;
     public Cursor() : base("assets/debug/square.png")
