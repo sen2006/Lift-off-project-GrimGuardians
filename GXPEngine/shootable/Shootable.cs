@@ -81,7 +81,6 @@ public class Shootable : AnimationSprite
 
     public void kill()
     {
-        Console.Write("kill\n");
         healthBar.LateDestroy();
         this.LateDestroy();
     }

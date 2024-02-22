@@ -10,6 +10,7 @@ public class MyGame : Game {
     
     public static ControllerHandler controlerHandler;
     public static EnemySpawnHandler enemySpawnHandler;
+    public static UI_Handler uiHandler;
 
     public MyGame() : base(1366, 768, false, true, -1, -1, false)
 	{
@@ -21,9 +22,10 @@ public class MyGame : Game {
 		foreach (Shootable shootable in shootables) { AddChild(shootable); } */
 
         enemySpawnHandler = new EnemySpawnHandler();
+        uiHandler = new UI_Handler();
         AddChild(enemySpawnHandler);
-        
         AddChild(controlerHandler);
+        AddChild(uiHandler);
     }
     
     void Update()

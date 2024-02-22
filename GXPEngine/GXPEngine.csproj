@@ -91,6 +91,7 @@
     <Compile Include="shootable\Points.cs" />
     <Compile Include="shootable\Shootable.cs" />
     <Compile Include="handlers\SoundHandler.cs" />
+    <Compile Include="handlers\UI_Handler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
