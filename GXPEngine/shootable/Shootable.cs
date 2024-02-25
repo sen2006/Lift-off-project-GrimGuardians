@@ -12,12 +12,12 @@ public class Shootable : AnimationSprite
     bool showHealthBar;
 
     EasyDraw healthBar;
-    Cursor cursor;
+    ControllerHandler controllerHandler;
 
     int overTimeDamageTimer;
     int damagePerSec;
 
-    public Shootable(String texture, int startX, int startY, float speed, int health = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
+    public Shootable(String texture, int startX, int startY, float speed, ControllerHandler controllerHandler, int health = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
     {
         x = startX;
         y = startY;
@@ -26,10 +26,8 @@ public class Shootable : AnimationSprite
         this.maxHealth = health;
         this.showHealthBar = showHealthBar;
         this.points = points;
-        this.cursor = new Cursor();
-
+        this.controllerHandler = controllerHandler;
         healthBar = new EasyDraw(this.width, 30);
-
     }
 
     void Update()
@@ -84,8 +82,8 @@ public class Shootable : AnimationSprite
     {
         healthBar.LateDestroy();
         this.LateDestroy();
-        cursor.killCount++;
-        Console.WriteLine(" " + cursor.killCount);
+        controllerHandler.cursor.killCount++;
+        Console.WriteLine(" " + controllerHandler.cursor.killCount);
     }
 
     public void pointReward(int points)

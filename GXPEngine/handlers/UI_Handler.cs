@@ -48,6 +48,7 @@ namespace GXPEngine
 
         void renderPlayerHealthBar()
         {
+            //playerHealthBarDrawer.Clear(0);
             playerHealthBarDrawer.Fill(Color.Red);
             playerHealthBarDrawer.Rect(0, 0, playerCurrentHealth * 5, healthBarHeight);
             playerHealthBarDrawer.SetXY(25, 50);
@@ -55,8 +56,8 @@ namespace GXPEngine
 
         void renderGrenades()
         {
-
-            textDrawer.Text(" " + grenades + "/3", 1280, 735);
+            //textDrawer.Clear(0);
+            textDrawer.Text(" " + grenades + "/3", 1280, 735); 
         }
     }
 }

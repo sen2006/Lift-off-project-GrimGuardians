@@ -20,9 +20,8 @@ public class MyGame : Game {
 		new Shootable(new Texture2D("assets/debug/circle.png"),100,400, 10, 5)
 		};
 		foreach (Shootable shootable in shootables) { AddChild(shootable); } */
-
-        enemySpawnHandler = new EnemySpawnHandler();
         uiHandler = new UI_Handler();
+        enemySpawnHandler = new EnemySpawnHandler(controlerHandler);
         AddChild(enemySpawnHandler);
         AddChild(controlerHandler);
         AddChild(uiHandler);

@@ -25,7 +25,7 @@ public class ControllerHandler : GameObject
     String calibrationText = "";
     EasyDraw calibrationUI;
 
-    Cursor cursor;
+    public Cursor cursor;
 
     SerialPort port;
     float yaw;
@@ -44,8 +44,10 @@ public class ControllerHandler : GameObject
     bool secondBarrel = false;
     bool reload = false;
     bool switchAmmo = false;
+    bool throwGrenade = false;
 
     bool isWasTrigger=false;
+    bool wasGrenadeThrown = false;
 
     public ControllerHandler()
     {
@@ -116,7 +118,7 @@ public class ControllerHandler : GameObject
                 secondBarrel = float.Parse(values[5]) > 0;
                 reload = float.Parse(values[6]) > 0;
                 switchAmmo = float.Parse(values[7]) > 0;
-                // TODO add grenage on 7                         float.Parse(values[7]) > 0;
+                throwGrenade = float.Parse(values[7]) > 0; //float.Parse(values[7]) > 0;
                 // TODO add check if barrel is closed on 8       float.Parse(values[8]) > 0;
 
                 // if yaw went over the 360 or below 0 make it keep going
@@ -159,6 +161,8 @@ public class ControllerHandler : GameObject
             firstBarrel = Input.GetKeyUp(Key.R);
             secondBarrel = Input.GetKeyUp(Key.R);
             switchAmmo = Input.GetKeyUp(Key.X);
+            throwGrenade = Input.GetKeyUp(Key.G);
+            
 
             // TODO add the other controlls to the keyboard
             
@@ -201,6 +205,19 @@ public class ControllerHandler : GameObject
             if(switchAmmo)
             {
                 cursor.AmmoSwitch();
+            }
+
+            if (throwGrenade)
+            {
+                if (!wasGrenadeThrown)
+                {
+                    cursor.ThrowGrenade();
+                    wasGrenadeThrown = true;
+                }
+                else
+                {
+                    wasGrenadeThrown = false;
+                }
             }
         }
     }
