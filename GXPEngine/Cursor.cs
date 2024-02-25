@@ -6,15 +6,17 @@ public class Cursor : Sprite
     AmmoTypeHandler barrelOne;
     AmmoTypeHandler barrelTwo;
 
-    bool infiniteAmmo = false;
+    bool infiniteAmmo = true;
 
     int ammoIndex;
+    public int killCount;
     public Cursor() : base("assets/debug/square.png")
     {
         SetOrigin(width / 2, height / 2);
         barrelOne = AmmoTypeHandler.BUCKSHOT;
         barrelTwo = AmmoTypeHandler.BUCKSHOT;
         ammoIndex = 0;
+        killCount = 0;
     }
 
 
@@ -88,5 +90,10 @@ public class Cursor : Sprite
                 ammoIndex = 0;
             }
             Console.WriteLine("You switched to bullet: " + ammoIndex);
+    }
+
+    public void gainGrenade()
+    {
+
     }
 }

@@ -12,15 +12,16 @@ namespace GXPEngine
 
         bool gameStarted = true;
 
-        float playerBaseHealth;
-        float playerCurrentHealth;
+        public float playerBaseHealth;
+        public float playerCurrentHealth;
 
-        int healthBarHeight = 50;
-        int grenades = 0;
+        private int healthBarHeight = 50;
+        public int grenades = 0;
+
 
         public UI_Handler()
         {
-            this.playerBaseHealth = 500;
+            this.playerBaseHealth = 100;
             this.playerCurrentHealth = this.playerBaseHealth;
 
             this.grenadesImage = new Sprite("assets/debug/checkers.png");
@@ -28,13 +29,11 @@ namespace GXPEngine
             AddChild(grenadesImage);
 
             // TODO: figure out width and height later
-            textDrawer = new EasyDraw(500, 300, false);
-            textDrawer.SetXY(0, 0);
+            textDrawer = new EasyDraw(1366, 768, false);
             textDrawer.alpha = 1.0f;
             AddChild(textDrawer);
 
-            this.playerHealthBarDrawer = new EasyDraw((int)playerCurrentHealth, healthBarHeight);
-            playerHealthBarDrawer.SetXY(25, 25);
+            this.playerHealthBarDrawer = new EasyDraw((int)playerCurrentHealth * 5, healthBarHeight);
             AddChild(playerHealthBarDrawer);
         }
 
@@ -50,17 +49,14 @@ namespace GXPEngine
         void renderPlayerHealthBar()
         {
             playerHealthBarDrawer.Fill(Color.Red);
-            playerHealthBarDrawer.Rect(0, 0, playerCurrentHealth, healthBarHeight);
+            playerHealthBarDrawer.Rect(0, 0, playerCurrentHealth * 5, healthBarHeight);
+            playerHealthBarDrawer.SetXY(25, 50);
         }
-
-        float xtest = 0;
 
         void renderGrenades()
         {
-            //There is something HUGE thats blocking the text
-            xtest += 1f;
 
-            textDrawer.Text(" " + grenades + "/3", xtest, 200);
+            textDrawer.Text(" " + grenades + "/3", 1280, 735);
         }
     }
 }

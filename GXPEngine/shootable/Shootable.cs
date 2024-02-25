@@ -7,12 +7,12 @@ public class Shootable : AnimationSprite
     float speed;
 
     int maxHealth;
-
     int points;
 
     bool showHealthBar;
 
     EasyDraw healthBar;
+    Cursor cursor;
 
     int overTimeDamageTimer;
     int damagePerSec;
@@ -26,6 +26,7 @@ public class Shootable : AnimationSprite
         this.maxHealth = health;
         this.showHealthBar = showHealthBar;
         this.points = points;
+        this.cursor = new Cursor();
 
         healthBar = new EasyDraw(this.width, 30);
 
@@ -83,6 +84,8 @@ public class Shootable : AnimationSprite
     {
         healthBar.LateDestroy();
         this.LateDestroy();
+        cursor.killCount++;
+        Console.WriteLine(" " + cursor.killCount);
     }
 
     public void pointReward(int points)
