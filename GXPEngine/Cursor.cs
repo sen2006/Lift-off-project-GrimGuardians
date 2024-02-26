@@ -6,6 +6,7 @@ public class Cursor : Sprite
     AmmoTypeHandler barrelOne;
     AmmoTypeHandler barrelTwo;
     AmmoTypeHandler throwGrenade;
+    UI_Handler uiHandler = MyGame.GetUI_Handler();
 
     bool infiniteAmmo = true;
 
@@ -18,6 +19,8 @@ public class Cursor : Sprite
         barrelTwo = AmmoTypeHandler.BUCKSHOT;
         throwGrenade = AmmoTypeHandler.GRENADE;
         ammoIndex = 0;
+
+        
     }
 
 
@@ -95,6 +98,7 @@ public class Cursor : Sprite
     public void AmmoSwitch()
     {
         ammoIndex++;
+        uiHandler.shellIndex++;
 
         if (ammoIndex > 2)
         {
