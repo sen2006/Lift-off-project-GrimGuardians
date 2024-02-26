@@ -2,7 +2,7 @@
 
 public class Points : EasyDraw
 {
-    int points;
+    public int points;
 
     float textTimer = 1;
     public Points(float startX, float startY, int width, int height, int points) : base(width, height, false)
@@ -10,6 +10,9 @@ public class Points : EasyDraw
        this.points = points;
         x = startX;
         y = startY;
+
+        UI_Handler uiHandler = MyGame.GetUI_Handler();
+        uiHandler.addPoints(points);
     }
     public void Update()
     {

@@ -107,7 +107,10 @@ public class Cursor : Sprite
     {
         if (killCount >= 2)
         {
-            MyGame.uiHandler.grenades++;
+            if (MyGame.uiHandler.grenades != 3)
+            {
+                MyGame.uiHandler.grenades++;
+            }
             killCount = 0;
             Console.WriteLine($"Grenades" + MyGame.uiHandler.grenades);
         }
