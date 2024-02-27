@@ -46,15 +46,15 @@ public class EnemySpawnHandler : GameObject
         MyGame game = MyGame.GetGame();
         if (spawnWeight < smallSpawnWeight)
         {
-            Shootable shootable = new Shootable("assets/debug/circle.png", -100, random.Next(game.height - 400) + 200, 35, controllerHandler , 1);
-            game.AddChild(shootable);
+            Shootable smallEnemy = new Shootable("assets/debug/small_enemy_spider.png", -100, random.Next(game.height - 400) + 200, 25, controllerHandler , 1, 20, true, 8, 1);
+            game.AddChild(smallEnemy);
             return;
         }
         spawnWeight -= smallSpawnWeight;
 
         if (spawnWeight < mediumSpawnWeight)
         {
-            Shootable shootable = new Shootable("assets/debug/circle.png", -100, random.Next(game.height - 400) + 200, 25, controllerHandler, 3);
+            Shootable shootable = new Shootable("assets/debug/circle.png", -100, random.Next(game.height - 400) + 200, 15, controllerHandler, 3);
             game.AddChild(shootable);
             return;
         }
@@ -62,8 +62,8 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < largeSpawnWeight)
         {
-            Shootable shootable = new Shootable("assets/debug/circle.png", -100, random.Next(game.height - 400) + 200, 15, controllerHandler, 5);
-            game.AddChild(shootable);
+            Shootable LargeEnemy = new Shootable("assets/debug/large_monster_slime.png", -100, random.Next(game.height - 400) + 200, 5, controllerHandler, 5, 100, true, 7, 1);
+            game.AddChild(LargeEnemy);
             return;
         }
         throw new Exception("failed spawn");
