@@ -99,8 +99,8 @@ public class Shootable : AnimationSprite
     {
         healthBar.LateDestroy();
         this.LateDestroy();
-        controllerHandler.cursor.killCount++;
-        Console.WriteLine(" " + controllerHandler.cursor.killCount);
+        MyGame.GetControlerHandler().GetCursor().addkill();
+        Console.WriteLine(" " + MyGame.GetControlerHandler().GetCursor().GetKillCount());
     }
 
     public void pointReward(int points)

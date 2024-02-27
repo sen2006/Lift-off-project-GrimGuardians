@@ -8,6 +8,8 @@ public class MyGame : Game
     /// </summary>
     /// <returns>The MyGame</returns>
     public static MyGame GetGame() { return game; }
+    public static ControllerHandler GetControlerHandler() { return controlerHandler; }
+    public static UI_Handler GetUI_Handler() { return uiHandler; }
 
     public static ControllerHandler controlerHandler;
     public static EnemySpawnHandler enemySpawnHandler;
@@ -27,7 +29,7 @@ public class MyGame : Game
 
     }
 
-    public static UI_Handler GetUI_Handler() { return uiHandler; }
+    
 
     static void Main()
     {

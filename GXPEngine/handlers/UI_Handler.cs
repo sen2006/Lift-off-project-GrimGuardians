@@ -3,6 +3,13 @@ using GXPEngine;
 using TiledMapParser;
 public class UI_Handler : GameObject
 {
+
+    // Settings
+    int healthWarWidth = 500;
+    int healthBarHeight = 50;
+
+
+    // variables
     Text textFont = new Text();
     EasyDraw textDrawer;
     EasyDraw playerHealthBarDrawer;
@@ -12,22 +19,13 @@ public class UI_Handler : GameObject
     EasyDraw dragonBreathIU;
     Sprite grenadesImage;
 
-    private bool gameStarted = true;
+    bool gameStarted = true;
 
-    public float playerBaseHealth;
-    public float playerCurrentHealth;
-
-    public int grenades = 0;
-    public int playerScore;
-    public int shellIndex = 0;
-    private int multiplier = 1;
-    private int healthBarHeight = 50;
+    int playerScore;
 
 
     public UI_Handler()
     {
-        this.playerBaseHealth = 100;
-        this.playerCurrentHealth = this.playerBaseHealth;
 
         this.grenadesImage = new Sprite("assets/debug/checkers.png");
         grenadesImage.SetXY(1200, 700);
@@ -38,7 +36,7 @@ public class UI_Handler : GameObject
         textDrawer.alpha = 1.0f;
         AddChild(textDrawer);
 
-        this.playerHealthBarDrawer = new EasyDraw((int)playerCurrentHealth * 5, healthBarHeight);
+        this.playerHealthBarDrawer = new EasyDraw(healthWarWidth, healthBarHeight);
         AddChild(playerHealthBarDrawer);
 
         this.buckshotUI = new EasyDraw(75, 75);
@@ -66,14 +64,14 @@ public class UI_Handler : GameObject
     {
         playerHealthBarDrawer.Clear(0, 0, 0, 0);
         playerHealthBarDrawer.Fill(Color.Red);
-        playerHealthBarDrawer.Rect(0, 0, playerCurrentHealth * 5, healthBarHeight);
+        playerHealthBarDrawer.Rect(0, 0, PlayerHealthHandler.getHealth() / PlayerHealthHandler.getMaxHealth() * playerHealthBarDrawer.width, playerHealthBarDrawer.height);
         playerHealthBarDrawer.SetXY(25, 50);
     }
 
     void renderGrenades()
     {
         textDrawer.Clear(0, 0, 0, 0);
-        textDrawer.Text(" " + grenades + "/3", 1280, 735);
+        textDrawer.Text(" " + GrenadeHandler.GetGrenades() + "/" + GrenadeHandler.GetMaxGrenades(), 1280, 735);
     }
 
     void PlayerScore()
@@ -88,6 +86,7 @@ public class UI_Handler : GameObject
 
     public void AmmoSelect()
     {
+        int shellIndex = MyGame.GetControlerHandler().GetCursor().getAmmoIndex();
         if (shellIndex == 0)
         {
             buckshotUI.Fill(Color.Red);
@@ -120,10 +119,5 @@ public class UI_Handler : GameObject
         }
         dragonBreathIU.Rect(0, 0, 75, 75);
         dragonBreathIU.SetXY(125, 710);
-
-        if (shellIndex >= 3)
-        {
-            shellIndex = 0;
-        }
     }
 }

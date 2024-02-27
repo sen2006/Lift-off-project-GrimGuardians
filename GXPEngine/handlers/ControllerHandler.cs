@@ -25,7 +25,7 @@ public class ControllerHandler : GameObject
     String calibrationText = "";
     EasyDraw calibrationUI;
 
-    public Cursor cursor;
+    Cursor cursor;
 
     SerialPort port;
     float yaw;
@@ -270,4 +270,6 @@ public class ControllerHandler : GameObject
     {
         return a + f * (b - a);
     }
+
+    public Cursor GetCursor() { return cursor; }
 }

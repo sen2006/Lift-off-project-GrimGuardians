@@ -5,19 +5,16 @@ public class Cursor : Sprite
 {
     AmmoTypeHandler barrelOne;
     AmmoTypeHandler barrelTwo;
-    AmmoTypeHandler throwGrenade;
-    UI_Handler uiHandler = MyGame.GetUI_Handler();
 
     bool infiniteAmmo = true;
 
     int ammoIndex;
-    public int killCount;
+    int killCount;
     public Cursor() : base("assets/debug/square.png")
     {
         SetOrigin(width / 2, height / 2);
         barrelOne = AmmoTypeHandler.BUCKSHOT;
         barrelTwo = AmmoTypeHandler.BUCKSHOT;
-        throwGrenade = AmmoTypeHandler.GRENADE;
         ammoIndex = 0;
 
         
@@ -26,7 +23,7 @@ public class Cursor : Sprite
 
     void Update()
     {
-        GainGrenade();
+        GrenadeHandler.addGrenade();
     }
 
     public void fire()
@@ -40,16 +37,6 @@ public class Cursor : Sprite
         {
             barrelTwo.fire(x, y);
             if (!infiniteAmmo) barrelTwo = null;
-        }
-    }
-
-    public void ThrowGrenade()
-    {
-        if (MyGame.uiHandler.grenades >= 1)
-        {
-            throwGrenade.fire(x, y);
-            MyGame.uiHandler.grenades--;
-            Console.WriteLine("Remaining grenades " + MyGame.uiHandler.grenades);
         }
     }
 
@@ -98,7 +85,6 @@ public class Cursor : Sprite
     public void AmmoSwitch()
     {
         ammoIndex++;
-        uiHandler.shellIndex++;
 
         if (ammoIndex > 2)
         {
@@ -107,16 +93,11 @@ public class Cursor : Sprite
         Console.WriteLine("You switched to bullet: " + ammoIndex);
     }
 
-    public void GainGrenade()
-    {
-        if (killCount >= 2)
-        {
-            if (MyGame.uiHandler.grenades != 3)
-            {
-                MyGame.uiHandler.grenades++;
-            }
-            killCount = 0;
-            Console.WriteLine($"Grenades" + MyGame.uiHandler.grenades);
-        }
-    }
+    public int getAmmoIndex() { return ammoIndex; }
+
+    public void addkill(){ killCount++; }
+
+    public int GetKillCount(){ return killCount; }
+
+    public void ThrowGrenade(){ GrenadeHandler.throwGrenade(x,y); }
 }

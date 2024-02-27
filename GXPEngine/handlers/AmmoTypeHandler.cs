@@ -6,8 +6,6 @@ public class AmmoTypeHandler
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,2);
     public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, 1, 1, 3);
 
-    public static AmmoTypeHandler GRENADE = new AmmoTypeHandler(100, 100);
-
 
     int spreadRadius;
     int damage;
