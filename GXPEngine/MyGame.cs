@@ -19,12 +19,11 @@ public class MyGame : Game
     {
         uiHandler = new UI_Handler();
         enemySpawnHandler = new EnemySpawnHandler(controlerHandler);
+        PanoramaHandler StreetPanorama = new PanoramaHandler("assets/sprites/background/street.png");
         AddChild(enemySpawnHandler);
         AddChild(controlerHandler);
-        AddChild(uiHandler);
-
-        PanoramaHandler StreetPanorama = new PanoramaHandler("assets/sprites/background/street.png");
         AddChild(StreetPanorama);
+        AddChild(uiHandler);
     }
 
     void Update()

@@ -95,7 +95,7 @@ public class Cursor : Sprite
 
     public int getAmmoIndex() { return ammoIndex; }
 
-    public void addkill(){ killCount++; }
+    public void addkillCount(){ killCount++; }
 
     public int GetKillCount(){ return killCount; }
 

@@ -35,7 +35,10 @@ public static class GrenadeHandler
         damageZone.LateDestroy();
     }
 
-    public static void addGrenade() { grenadesLeft = Math.Min(maxGrenades, grenadesLeft+1); }
+    public static void addGrenade()
+    {
+        grenadesLeft = Math.Min(maxGrenades, grenadesLeft + 1);
+    }
 
     internal static int GetGrenades()
     {
