@@ -2,12 +2,12 @@
 using GXPEngine.Core;
 using System;
 
-public class panoramaHandler : Sprite
+public class PanoramaHandler : Sprite
 {
 
     // TODO complete this class
-    int panoramaSpeed = 5;
-    public panoramaHandler(Texture2D texture) : base(texture, false)
+    int panoramaSpeed = -75;
+    public PanoramaHandler(String texture) : base(texture, false, false)
     {
 
     }
@@ -15,12 +15,14 @@ public class panoramaHandler : Sprite
     void Update()
     {
         x -= panoramaSpeed * Time.deltaTime / 60f;
-        if (panoramaSpeed>0 && x-this.game.width >= this.width)
+        if (panoramaSpeed>0 && (-x)+MyGame.GetGame().width >= this.width)
         {
-            panoramaSpeed = -Math.Abs(panoramaSpeed);
+            panoramaSpeed = -(Math.Abs(panoramaSpeed));
         }
 
-        if (panoramaSpeed > 0 && x - this.game.width >= this.width)
+        //onsole.WriteLine(-x + ">=" + this.width + ((-x) >= this.width) + (panoramaSpeed < 0 && x <= 0));
+
+        if (panoramaSpeed<0 && -x<=0)
         {
             panoramaSpeed = Math.Abs(panoramaSpeed);
         }

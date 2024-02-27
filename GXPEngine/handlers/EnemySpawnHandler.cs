@@ -25,7 +25,7 @@ public class EnemySpawnHandler : GameObject
 
     void Update()
     {
-        if (MyGame.controlerHandler.isCalibrated())
+        if (MyGame.GetControlerHandler().isCalibrated())
         {
             time += Time.deltaTime;
             if (currentSpawnInterval <= 0)
