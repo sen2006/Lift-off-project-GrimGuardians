@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="shootable\BossEnemy.cs" />
     <Compile Include="handlers\AmmoTypeHandler.cs" />
     <Compile Include="handlers\ControllerHandler.cs" />
     <Compile Include="Cursor.cs" />

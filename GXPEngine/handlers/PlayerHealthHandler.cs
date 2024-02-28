@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public static class PlayerHealthHandler
 {
-    static float playerHealth = 0;
+    static float playerHealth = 100;
     static float playerMaxHealth = playerHealth;
 
     public static float getHealth()
@@ -27,5 +27,11 @@ public static class PlayerHealthHandler
     public static void changeHealth(float change)
     {
         playerHealth += change;
+    }
+
+    public static void takeDamage(float damage)
+    {
+        playerHealth -= damage;
+        Console.WriteLine("Health left: " + playerHealth);
     }
 }

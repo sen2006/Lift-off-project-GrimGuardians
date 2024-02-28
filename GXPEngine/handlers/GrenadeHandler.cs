@@ -32,6 +32,7 @@ public static class GrenadeHandler
             }
         }
         grenadesLeft--;
+        Console.WriteLine("Grenades left: " + grenadesLeft);
         damageZone.LateDestroy();
     }
 

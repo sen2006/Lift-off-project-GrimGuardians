@@ -86,6 +86,7 @@ public class UI_Handler : GameObject
 
     public void AmmoSelect()
     {
+        if (!MyGame.GetControlerHandler().isCalibrated()) return;
         int shellIndex = MyGame.GetControlerHandler().GetCursor().getAmmoIndex();
         if (shellIndex == 0)
         {

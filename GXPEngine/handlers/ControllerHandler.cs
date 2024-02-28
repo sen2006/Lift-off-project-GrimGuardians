@@ -64,7 +64,7 @@ public class ControllerHandler : GameObject
             // TODO check all COM's for the controller instead of onty COM3
             Console.WriteLine("controlerMode = controler");
             port = new SerialPort();
-            port.PortName = "COM3";
+            port.PortName = "COM6";
             port.BaudRate = 57600;
             port.RtsEnable = true;
             port.DtrEnable = true;

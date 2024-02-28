@@ -3,7 +3,7 @@ using GXPEngine;
 public class AmmoTypeHandler
 {
     public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(75);
-    public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,2);
+    public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,3);
     public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, 1, 1, 3);
 
 

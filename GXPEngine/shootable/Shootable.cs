@@ -16,11 +16,13 @@ public class Shootable : AnimationSprite
 
     int overTimeDamageTimer;
     protected int damagePerSec;
+    protected int enemyDamage;
+    protected int enemyAttackSpeed;
 
     protected int counter;
     protected int frame;
 
-    public Shootable(String texture, int startX, int startY, float speed, ControllerHandler controllerHandler,  int health = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
+    public Shootable(String texture, int startX, int startY, float speed, ControllerHandler controllerHandler, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
     {
         x = startX;
         y = startY;
@@ -30,6 +32,8 @@ public class Shootable : AnimationSprite
         this.showHealthBar = showHealthBar;
         this.points = points;
         this.controllerHandler = controllerHandler;
+        this.enemyDamage = enemyDamage;
+        this.enemyAttackSpeed = enemyAttackSpeed;
         healthBar = new EasyDraw(this.width, 20);
 
         scale = 0.3f;
@@ -37,10 +41,12 @@ public class Shootable : AnimationSprite
 
     public virtual void Update()
     {
+        enemyAttackSpeed -= Time.deltaTime;
         x += speed * Time.deltaTime / 60f;
         if (showHealthBar) { renderHealthBar(); }
         damageOverTime();
         playAnimation();
+        //hitPlayer();
     }
 
     public virtual void playAnimation()
@@ -80,6 +86,14 @@ public class Shootable : AnimationSprite
         return health;
     }
 
+    public virtual void hitPlayer()
+    {
+        if (enemyAttackSpeed <= 0)
+        {
+            PlayerHealthHandler.takeDamage(enemyDamage);
+        }
+    }
+
     public virtual void setOvertimeDamage(int damagePerSec, int forSec)
     {
         this.damagePerSec = damagePerSec;
@@ -104,6 +118,7 @@ public class Shootable : AnimationSprite
         this.LateDestroy();
         MyGame.GetControlerHandler().GetCursor().addkillCount();
         Console.WriteLine(" " + MyGame.GetControlerHandler().GetCursor().GetKillCount());
+
     }
 
     public virtual void pointReward(int points)

@@ -6,10 +6,10 @@ public class Cursor : Sprite
     AmmoTypeHandler barrelOne;
     AmmoTypeHandler barrelTwo;
 
-    bool infiniteAmmo = true;
+    bool infiniteAmmo = false;
 
-    int ammoIndex;
-    int killCount;
+    int ammoIndex = 0;
+    int grenadeKillCount;
     public Cursor() : base("assets/debug/square.png")
     {
         SetOrigin(width / 2, height / 2);
@@ -23,7 +23,11 @@ public class Cursor : Sprite
 
     void Update()
     {
-        GrenadeHandler.addGrenade();
+        if(grenadeKillCount >= 5)
+        {
+            GrenadeHandler.addGrenade();
+            grenadeKillCount = 0;
+        }
     }
 
     public void fire()
@@ -95,9 +99,9 @@ public class Cursor : Sprite
 
     public int getAmmoIndex() { return ammoIndex; }
 
-    public void addkillCount(){ killCount++; }
+    public void addkillCount(){ grenadeKillCount++; }
 
-    public int GetKillCount(){ return killCount; }
+    public int GetKillCount(){ return grenadeKillCount; }
 
     public void ThrowGrenade(){ GrenadeHandler.throwGrenade(x,y); }
 }
