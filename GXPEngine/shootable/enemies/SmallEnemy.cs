@@ -3,11 +3,11 @@ using GXPEngine.Managers;
 
 public class SmallEnemy : Shootable
     {
-        public SmallEnemy(string texture, int startX, int startY, float speed, ControllerHandler controllerHandler, int health = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, startX, startY, speed, controllerHandler, health, points, showHealthBar, animationCols, animationRows, frames)
+        public SmallEnemy(string texture, int startX, int startY, float speed, int health = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, startX, startY, speed, health, points, showHealthBar, animationCols, animationRows, frames)
         {
         }
 
-        public  void Update()
+        public void Update()
         {
             base.Update();
         }
