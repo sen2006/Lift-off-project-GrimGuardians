@@ -21,7 +21,7 @@ public class Shootable : AnimationSprite
     protected int counter;
     protected int frame;
 
-    public Shootable(String texture, int startX, int startY, float speed, ControllerHandler controllerHandler, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
+    public Shootable(String texture, int startX, int startY, float speed, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
     {
         x = startX;
         y = startY;
@@ -30,7 +30,6 @@ public class Shootable : AnimationSprite
         this.maxHealth = health;
         this.showHealthBar = showHealthBar;
         this.points = points;
-        this.controllerHandler = controllerHandler;
         this.enemyDamage = enemyDamage;
         this.enemyAttackSpeed = enemyAttackSpeed;
         healthBar = new EasyDraw(this.width, 20);
