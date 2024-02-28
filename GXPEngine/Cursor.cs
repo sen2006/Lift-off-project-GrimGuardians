@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GXPEngine;
 
 public class Cursor : Sprite
