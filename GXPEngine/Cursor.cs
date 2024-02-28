@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GXPEngine;
 
 public class Cursor : Sprite
@@ -50,15 +50,15 @@ public class Cursor : Sprite
         {
             case 0:
                 barrelOne = AmmoTypeHandler.BUCKSHOT;
-                Console.WriteLine("You reloaded Buckshot!");
+                //Console.WriteLine("You reloaded Buckshot!");
                 break;
             case 1:
                 barrelOne = AmmoTypeHandler.SLUG;
-                Console.WriteLine("You reloaded Slug!");
+                //Console.WriteLine("You reloaded Slug!");
                 break;
             case 2:
                 barrelOne = AmmoTypeHandler.DRAGONS_BREATH;
-                Console.WriteLine("You reloaded Dragons Breath!");
+                //Console.WriteLine("You reloaded Dragons Breath!");
                 break;
             default:
                 break;

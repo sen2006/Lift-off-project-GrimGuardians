@@ -12,7 +12,6 @@ public class Shootable : AnimationSprite
     protected bool showHealthBar;
 
     protected EasyDraw healthBar;
-    ControllerHandler controllerHandler;
 
     int overTimeDamageTimer;
     protected int damagePerSec;

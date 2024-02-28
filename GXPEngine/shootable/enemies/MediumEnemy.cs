@@ -1,9 +1,9 @@
-﻿using GXPEngine;
+using GXPEngine;
 using GXPEngine.Managers;
 
-public class LargeEnemy : Shootable
+public class MediumEnemy : Shootable
 {
-    public LargeEnemy(string texture, int startX, int startY, float speed, ControllerHandler controllerHandler, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, startX, startY, speed, controllerHandler, health, enemyDamage, enemyAttackSpeed , points, showHealthBar, animationCols, animationRows, frames)
+    public MediumEnemy(string texture, int startX, int startY, float speed, ControllerHandler controllerHandler, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1,  int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, startX, startY, speed, controllerHandler, health, enemyDamage, enemyAttackSpeed, points, showHealthBar, animationCols, animationRows, frames)
     {
     }
 

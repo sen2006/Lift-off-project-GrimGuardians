@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using GXPEngine.Core;
 using System;
 
@@ -16,10 +16,8 @@ public class EnemySpawnHandler : GameObject
     long time;
     int currentSpawnInterval;
     Random random;
-    ControllerHandler controllerHandler;
-    public EnemySpawnHandler(ControllerHandler controllerHandler) {
+    public EnemySpawnHandler() {
         currentSpawnInterval = minSpawnInterval;
-        this.controllerHandler = controllerHandler;
         random = new Random();
     }
 

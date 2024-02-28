@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using GXPEngine.Managers;
 
 public class SmallEnemy : Shootable
@@ -7,7 +7,7 @@ public class SmallEnemy : Shootable
     {
         }
 
-        public  void Update()
+        public void Update()
         {
             base.Update();
         }

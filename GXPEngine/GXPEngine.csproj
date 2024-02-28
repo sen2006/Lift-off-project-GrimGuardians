@@ -52,8 +52,8 @@
     <Compile Include="handlers\GrenadeHandler.cs" />
     <Compile Include="handlers\LevelHandler.cs" />
     <Compile Include="handlers\PlayerHealthHandler.cs" />
-    <Compile Include="shootable\LargeEnemy.cs" />
-    <Compile Include="shootable\MediumEnemy.cs" />
+    <Compile Include="shootable\enemies\LargeEnemy.cs" />
+    <Compile Include="shootable\enemies\MediumEnemy.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Core\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />
@@ -97,12 +97,10 @@
     <Compile Include="shootable\Shootable.cs" />
     <Compile Include="handlers\SoundHandler.cs" />
     <Compile Include="handlers\UI_Handler.cs" />
-    <Compile Include="shootable\SmallEnemy.cs" />
+    <Compile Include="shootable\enemies\SmallEnemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="shootable\enemies\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
