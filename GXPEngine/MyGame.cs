@@ -26,13 +26,13 @@ public class MyGame : Game
         enemySpawnHandler = new EnemySpawnHandler();
         uiHandler = new UI_Handler();
         panoramaHandler = new PanoramaHandler("assets/sprites/background/street.png");
-        //StartButton startButton = new StartButton();
+        StartButton startButton = new StartButton();
 
         AddChild(enemySpawnHandler);
         AddChild(panoramaHandler);
+        AddChild(startButton);
         AddChild(controlerHandler);
         AddChild(uiHandler);
-        //AddChild(startButton);
     }
 
     void Update()

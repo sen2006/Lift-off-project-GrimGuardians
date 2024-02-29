@@ -10,18 +10,21 @@ public class StartButton : Shootable
         AddChild(moveAnimationSprite);
         moveAnimationSprite.visible = false;
 
-        //backGround = new Sprite("assets/sprites/screen/Menu title screen.psd");
-        //MyGame.GetGame().AddChild(backGround);
+        backGround = new Sprite("assets/sprites/screen/Start screen.png");
         MyGame.SetRunning(false);
 
         moveAnimationSprite.SetOrigin(moveAnimationSprite.width / 2, moveAnimationSprite.height / 2);
 
-        //SetXY(backGround.width / 2, backGround.width / 2);
+        SetXY(backGround.width / 2, backGround.height - 200);
     }
 
     public override void Update()
     {
+        if (!MyGame.GetGame().HasChild(backGround)) { MyGame.GetGame().AddChild(backGround); }
         base.Update();
+
+        MyGame.GetGame().SetChildIndex(backGround, 1001);
+        MyGame.GetGame().SetChildIndex(this, 1002);
     }
 
     public override void playAnimation()
@@ -32,7 +35,7 @@ public class StartButton : Shootable
 
     public override float Hit(float damage)
     {
-        //backGround.LateDestroy();
+        backGround.LateDestroy();
         this.LateDestroy();
         MyGame.SetRunning(true);
         return 0;
