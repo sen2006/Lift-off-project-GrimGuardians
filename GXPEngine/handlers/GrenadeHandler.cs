@@ -29,7 +29,7 @@ public static class GrenadeHandler
         {
             if (obj is Shootable hitObj)
             {
-                hitObj.hit(damage);
+                hitObj.Hit(damage);
             }
         }
         grenadesLeft--;

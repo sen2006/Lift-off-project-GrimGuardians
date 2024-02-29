@@ -2,6 +2,8 @@ using GXPEngine;
 
 public class MyGame : Game
 {
+    static bool running = false;
+
     static MyGame game;
     /// <summary>
     /// Get the MyGame to add things as children
@@ -11,6 +13,8 @@ public class MyGame : Game
     public static ControllerHandler GetControlerHandler() { return controlerHandler; }
     public static UI_Handler GetUI_Handler() { return uiHandler; }
     public static PanoramaHandler GetPanoramaHandler() { return panoramaHandler; }
+    public static bool IsRunning() { return running; }
+    public static void SetRunning(bool state) { running = state; }
 
     static ControllerHandler controlerHandler;
     static EnemySpawnHandler enemySpawnHandler;
@@ -22,11 +26,13 @@ public class MyGame : Game
         uiHandler = new UI_Handler();
         enemySpawnHandler = new EnemySpawnHandler();
         panoramaHandler = new PanoramaHandler("assets/sprites/background/street.png");
+        //StartButton startButton = new StartButton();
 
         AddChild(enemySpawnHandler);
         AddChild(controlerHandler);
         AddChild(panoramaHandler);
         AddChild(uiHandler);
+        //AddChild(startButton);
     }
 
     void Update()

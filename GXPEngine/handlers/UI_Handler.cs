@@ -43,8 +43,6 @@ public class UI_Handler : GameObject
         textDrawer.scale = 1.2f;
         AddChild(textDrawer);
 
-
-
         //this.playerHealthBarDrawer = new EasyDraw(healthWarWidth, healthBarHeight);
         //AddChild(playerHealthBarDrawer);
         playerHealthBar = new Sprite("assets/sprites/UI/HealthBar.png");
@@ -53,6 +51,14 @@ public class UI_Handler : GameObject
 
     public void Update()
     {
+        if (MyGame.GetGame().HasChild(buckshotUI)) MyGame.GetGame().SetChildIndex(buckshotUI, 999);
+        if (MyGame.GetGame().HasChild(slugUI)) MyGame.GetGame().SetChildIndex(slugUI, 999);
+        if (MyGame.GetGame().HasChild(dragonBreathIU)) MyGame.GetGame().SetChildIndex(dragonBreathIU, 999);
+        if (MyGame.GetGame().HasChild(buckshotUIHighlight)) MyGame.GetGame().SetChildIndex(buckshotUIHighlight, 999);
+        if (MyGame.GetGame().HasChild(slugUIHighlight)) MyGame.GetGame().SetChildIndex(slugUIHighlight, 999);
+        if (MyGame.GetGame().HasChild(dragonBreathIUHighlight)) MyGame.GetGame().SetChildIndex(dragonBreathIUHighlight, 999);
+        if (MyGame.GetGame().HasChild(grenadesImage)) MyGame.GetGame().SetChildIndex(grenadesImage, 999);
+
         if (gameStarted)
         {
             renderGrenades();
@@ -100,7 +106,7 @@ public class UI_Handler : GameObject
 
     public void AmmoSelect()
     {
-        if (!MyGame.GetControlerHandler().isCalibrated()) return;
+        if (!(MyGame.GetControlerHandler().isCalibrated() && MyGame.IsRunning())) return;
         int shellIndex = MyGame.GetControlerHandler().GetCursor().getAmmoIndex();
         if (shellIndex == 0)
         {

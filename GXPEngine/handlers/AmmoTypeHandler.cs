@@ -38,7 +38,7 @@ public class AmmoTypeHandler
         {
             if (obj.visible && obj.parent is Shootable hitObj)
             {
-                hitObj.hit(damage);
+                hitObj.Hit(damage);
                 hitObj.setOvertimeDamage(damagePerSec, forSec);
             }
         }

@@ -34,6 +34,7 @@ public class Cursor : Sprite
             GrenadeHandler.addGrenade();
             grenadeKillCount = 0;
         }
+        MyGame.GetGame().SetChildIndex(this,10000);
     }
 
     public void fire()

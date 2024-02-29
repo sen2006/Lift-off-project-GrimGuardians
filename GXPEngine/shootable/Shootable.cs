@@ -41,7 +41,7 @@ public class Shootable : GameObject
     protected AnimationSprite takeDamageAnimationSprite;
     protected AnimationSprite deathAnimationSprite;
 
-    private EnemyState enemyState;
+    public EnemyState enemyState;
 
     public Shootable(int startX, int startY, float speed, int health = 1, int enemyDamage = 1, float enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true)
     {
@@ -69,7 +69,6 @@ public class Shootable : GameObject
 
     public virtual void Update()
     {
-        if (speed < 0) moveAnimationSprite.Mirror(true, false);
         if (enemyState != EnemyState.Death)
         {
             if (enemyState == EnemyState.Move)
@@ -124,6 +123,8 @@ public class Shootable : GameObject
                 throw new ArgumentOutOfRangeException();
         }
 
+        if (speed < 0) currentAnimation.Mirror(true, false);
+
         if (currentAnimation != prevAnimation)
         {
             if (prevAnimation != null)
@@ -172,7 +173,7 @@ public class Shootable : GameObject
         enemyHealthBar.SetXY(this.x + offSetX + 4, this.y - offSetY + 3);
     }
 
-    public virtual float hit(float damage)
+    public virtual float Hit(float damage)
     {
         health = Math.Max(health - damage, 0);
         enemyState = EnemyState.TakeDamage;
@@ -204,7 +205,7 @@ public class Shootable : GameObject
         int deltaTime = Time.deltaTime;
         if (health > 0 && overTimeDamageTimer > 0)
         {
-            hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer) / 1000f);
+            Hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer) / 1000f);
         }
 
         overTimeDamageTimer = Math.Max(overTimeDamageTimer - deltaTime, 0);

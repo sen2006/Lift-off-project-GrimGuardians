@@ -37,7 +37,7 @@ public class EnemySpawnHandler : GameObject
 
     void Update()
     {
-        if (MyGame.GetControlerHandler().isCalibrated())
+        if (MyGame.GetControlerHandler().isCalibrated() && MyGame.IsRunning())
         {
             panoramaSpeed = MyGame.GetPanoramaHandler().getSpeed();
             // try spawnind when time hits 0
