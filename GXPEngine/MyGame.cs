@@ -13,8 +13,8 @@ public class MyGame : Game
     public static PanoramaHandler GetPanoramaHandler() { return panoramaHandler; }
 
     static ControllerHandler controlerHandler;
-    static EnemySpawnHandler enemySpawnHandler;
     static UI_Handler uiHandler;
+    static EnemySpawnHandler enemySpawnHandler;
     static PanoramaHandler panoramaHandler;
 
     public MyGame() : base(1366, 768, false, true, -1, -1, false)

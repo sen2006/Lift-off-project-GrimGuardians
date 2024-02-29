@@ -8,7 +8,6 @@ public class UI_Handler : GameObject
     int healthWarWidth = 500;
     int healthBarHeight = 50;
 
-
     // variables
     Font fontTeko;
     EasyDraw textDrawer;
@@ -35,7 +34,7 @@ public class UI_Handler : GameObject
         grenadesImage.scale = 0.4f;
         AddChild(grenadesImage);
 
-        fontTeko = new Font("font/teko.ttf", 15);
+        fontTeko = new Font("assets/font/teko.ttf", 15);
 
         textDrawer = new EasyDraw(1366, 768, false);
         textDrawer.alpha = 1.0f;
