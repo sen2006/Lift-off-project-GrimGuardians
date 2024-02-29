@@ -16,9 +16,12 @@ public class UI_Handler : GameObject
 
     Sprite playerHealthBarFrame;
     Sprite playerHealthBar;
-    Sprite buckshotUI;
-    Sprite slugUI;
-    Sprite dragonBreathIU;
+    Sprite buckshotUI = new Sprite("assets/sprites/UI/buckshot.png");
+    Sprite slugUI = new Sprite("assets/sprites/UI/Slug.png");
+    Sprite dragonBreathIU = new Sprite("assets/sprites/UI/fire.png");
+    Sprite buckshotUIHighlight = new Sprite("assets/sprites/UI/buckshot outline.png");
+    Sprite slugUIHighlight = new Sprite("assets/sprites/UI/Slug outline.png");
+    Sprite dragonBreathIUHighlight = new Sprite("assets/sprites/UI/fire outline.png");
     Sprite grenadesImage;
 
     bool gameStarted = true;
@@ -28,12 +31,12 @@ public class UI_Handler : GameObject
 
     public UI_Handler()
     {
-        this.grenadesImage = new Sprite("assets/debug/grenade.png");
+        this.grenadesImage = new Sprite("assets/sprites/UI/grenade.png");
         grenadesImage.SetXY(1200, 660);
         grenadesImage.scale = 0.4f;
         AddChild(grenadesImage);
 
-        fontTeko = new Font("teko.ttf", 15);
+        fontTeko = new Font("font/teko.ttf", 15);
 
         textDrawer = new EasyDraw(1366, 768, false);
         textDrawer.alpha = 1.0f;
@@ -44,7 +47,7 @@ public class UI_Handler : GameObject
 
         //this.playerHealthBarDrawer = new EasyDraw(healthWarWidth, healthBarHeight);
         //AddChild(playerHealthBarDrawer);
-        playerHealthBar = new Sprite("assets/debug/HealthBar.png");
+        playerHealthBar = new Sprite("assets/sprites/UI/HealthBar.png");
 
     }
 
@@ -67,7 +70,7 @@ public class UI_Handler : GameObject
         //playerHealthBarDrawer.SetXY(25, 60);
         //textDrawer.Text("Health", 20, 50);
 
-        this.playerHealthBarFrame = new Sprite("assets/debug/PhealthFrame.png");
+        this.playerHealthBarFrame = new Sprite("assets/sprites/UI/PhealthFrame.png");
         playerHealthBarFrame.scale = 0.25f;
         playerHealthBarFrame.SetXY(25, 60);
         textDrawer.Text("Health", 20, 50);
@@ -101,47 +104,83 @@ public class UI_Handler : GameObject
         int shellIndex = MyGame.GetControlerHandler().GetCursor().getAmmoIndex();
         if (shellIndex == 0)
         {
-            this.buckshotUI = new Sprite("assets/debug/buckshot outline.png");
-            buckshotUI.SetXY(10, 640);
-            buckshotUI.scale = 0.4f;
-            AddChild(buckshotUI);
+            buckshotUIHighlight.SetXY(10, 640);
+            buckshotUIHighlight.scale = 0.4f;
+            if (!MyGame.GetGame().HasChild(this.buckshotUIHighlight))
+            {
+                MyGame.GetGame().AddChild(buckshotUIHighlight);
+            }
+            if (MyGame.GetGame().HasChild(this.buckshotUI))
+            {
+                MyGame.GetGame().RemoveChild(buckshotUI);
+            }
         }
         else
         {
-            this.buckshotUI = new Sprite("assets/debug/buckshot.png");
             buckshotUI.SetXY(10, 640);
             buckshotUI.scale = 0.4f;
-            AddChild(buckshotUI);
+            if (!MyGame.GetGame().HasChild(this.buckshotUI))
+            {
+                MyGame.GetGame().AddChild(buckshotUI);
+            }
+            if (MyGame.GetGame().HasChild(this.buckshotUIHighlight))
+            {
+                MyGame.GetGame().RemoveChild(buckshotUIHighlight);
+            }
         }
 
         if (shellIndex == 1)
         {
-            this.slugUI = new Sprite("assets/debug/Slug outline.png");
-            slugUI.scale = 0.4f;
-            slugUI.SetXY(110, 640);
-            AddChild(slugUI);
+            slugUIHighlight.scale = 0.4f;
+            slugUIHighlight.SetXY(110, 640);
+            if (!MyGame.GetGame().HasChild(this.slugUIHighlight))
+            {
+                MyGame.GetGame().AddChild(slugUIHighlight);
+            }
+            if (MyGame.GetGame().HasChild(this.slugUI))
+            {
+                MyGame.GetGame().RemoveChild(slugUI);
+            }
         }
         else
         {
-            this.slugUI = new Sprite("assets/debug/Slug.png");
             slugUI.scale = 0.4f;
             slugUI.SetXY(110, 640);
-            AddChild(slugUI);
+            if (!MyGame.GetGame().HasChild(this.slugUI))
+            {
+                MyGame.GetGame().AddChild(slugUI);
+            }
+            if (MyGame.GetGame().HasChild(this.slugUIHighlight))
+            {
+                MyGame.GetGame().RemoveChild(slugUIHighlight);
+            }
         }
 
         if (shellIndex == 2)
         {
-            this.dragonBreathIU = new Sprite("assets/debug/fire outline.png");
-            dragonBreathIU.scale = 0.4f;
-            dragonBreathIU.SetXY(200, 650);
-            AddChild(dragonBreathIU);
+            dragonBreathIUHighlight.scale = 0.4f;
+            dragonBreathIUHighlight.SetXY(200, 650);
+            if (!MyGame.GetGame().HasChild(this.dragonBreathIUHighlight))
+            {
+                MyGame.GetGame().AddChild(dragonBreathIUHighlight);
+            }
+            if (MyGame.GetGame().HasChild(this.dragonBreathIU))
+            {
+                MyGame.GetGame().RemoveChild(dragonBreathIU);
+            }
         }
         else
         {
-            this.dragonBreathIU = new Sprite("assets/debug/fire.png");
             dragonBreathIU.scale = 0.4f;
             dragonBreathIU.SetXY(200, 650);
-            AddChild(dragonBreathIU);
+            if (!MyGame.GetGame().HasChild(this.dragonBreathIU))
+            {
+                MyGame.GetGame().AddChild(dragonBreathIU);
+            }
+            if (MyGame.GetGame().HasChild(this.dragonBreathIUHighlight))
+            {
+                MyGame.GetGame().RemoveChild(dragonBreathIUHighlight);
+            }
         }
     }
 }

@@ -126,7 +126,7 @@ public class Shootable : AnimationSprite
 
     public virtual void pointReward(int points)
     {
-        Points rewardText = new Points(x, y, this.width, 50, 50);
+        Points rewardText = new Points(x, y, this.width, 50, points);
         this.game.AddChild(rewardText);
         //Console.WriteLine("Point text spawned");
     }

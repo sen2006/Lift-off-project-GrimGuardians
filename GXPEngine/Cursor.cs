@@ -10,7 +10,7 @@ public class Cursor : Sprite
 
     int ammoIndex = 0;
     int grenadeKillCount;
-    public Cursor() : base("assets/debug/cursor white.png")
+    public Cursor() : base("assets/sprites/UI/cursor white.png")
     {
         SetOrigin(width / 2, height / 2);
         barrelOne = AmmoTypeHandler.BUCKSHOT;
@@ -48,7 +48,6 @@ public class Cursor : Sprite
 
     public void ReloadOne()
     {
-        SoundHandler.reloading.play();
         switch (ammoIndex)
         {
             case 0:
@@ -107,5 +106,8 @@ public class Cursor : Sprite
 
     public int GetKillCount(){ return grenadeKillCount; }
 
-    public void ThrowGrenade(){ GrenadeHandler.throwGrenade(x,y); }
+    public void ThrowGrenade(){ 
+        GrenadeHandler.throwGrenade(x,y);
+        SoundHandler.grenade_exploding.play();
+    }
 }

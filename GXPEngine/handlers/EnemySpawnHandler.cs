@@ -45,7 +45,7 @@ public class EnemySpawnHandler : GameObject
         MyGame game = MyGame.GetGame();
         if (spawnWeight < smallSpawnWeight)
         {
-            SmallEnemy smallEnemy = new SmallEnemy("assets/debug/small_enemy.png", -250, random.Next(game.height - 500) + 200, 20, 1, 1, 5, 100, true, 8, 1);
+            SmallEnemy smallEnemy = new SmallEnemy(-250, random.Next(game.height - 500) + 200, 20, 1, 1, 5, 100, true, 8, 1);
             game.AddChild(smallEnemy);
             return;
         }
@@ -53,7 +53,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < mediumSpawnWeight)
         {
-            MediumEnemy mediumEnemy = new MediumEnemy("assets/debug/medium_enemy.png", -250, random.Next(300, 300) + 200, 10, 3, 1, random.Next(5, 10), 200, true, 4, 1);
+            MediumEnemy mediumEnemy = new MediumEnemy(-250, random.Next(300, 300) + 200, 10, 3, 1, random.Next(5, 10), 200, true, 4, 1);
             SoundHandler.medium_sound.play();
             game.AddChild(mediumEnemy);
             return;
@@ -62,7 +62,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < largeSpawnWeight)
         {
-            LargeEnemy largeEnemy = new LargeEnemy("assets/debug/large_monster.png", -350, random.Next(250, 350) + 200, 5, 5, 1, random.Next(5, 10), 400, true, 7, 1);
+            LargeEnemy largeEnemy = new LargeEnemy(-350, random.Next(250, 350) + 200, 5, 5, 1, random.Next(5, 10), 400, true, 7, 1);
             SoundHandler.large_sound.play();
             game.AddChild(largeEnemy);
             return;
@@ -71,7 +71,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < evenLargerSpawnWeight)
         {
-            BossEnemy bossEnemy = new BossEnemy("assets/debug/boss_enemy.png", -500, random.Next(250, 350) + 200, 3, 12, 1, random.Next(5, 10), 2000, true, 4, 1);
+            BossEnemy bossEnemy = new BossEnemy(-500, random.Next(250, 350) + 200, 3, 12, 1, random.Next(5, 10), 2000, true, 4, 1);
             SoundHandler.boss_sound.play();
             game.AddChild(bossEnemy);
             return;

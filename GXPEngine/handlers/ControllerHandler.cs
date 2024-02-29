@@ -209,13 +209,15 @@ public class ControllerHandler : GameObject
             if(firstBarrel)
             {
                 cursor.ReloadOne();
-                
+                SoundHandler.reloading.play();
+
             }
 
             if(secondBarrel)
             {
 
                 cursor.ReloadTwo();
+                SoundHandler.reloading.play();
             }
 
             if(switchAmmo)
@@ -229,7 +231,6 @@ public class ControllerHandler : GameObject
                 if (!wasGrenadeThrown)
                 {
                     cursor.ThrowGrenade();
-                    SoundHandler.grenade_exploding.play();
                     wasGrenadeThrown = true;
                 }
                 else
