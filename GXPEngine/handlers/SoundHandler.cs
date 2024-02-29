@@ -18,7 +18,6 @@ public class SoundHandler
     public static SoundHandler boss_death = new SoundHandler("assets/sound/Boss enemy death.wav", 1, 0);
     public static SoundHandler player_death = new SoundHandler("assets/sound/Player death.wav", 1, 0);
     public static SoundHandler barrel_exploding = new SoundHandler("assets/sound/Explosive Barrel.mp3", 1, 0);
-    public static SoundHandler grenade_pickup = new SoundHandler("assets/sound/Grenade pickup.FLAC", 1, 0);
     public static SoundHandler start_game = new SoundHandler("assets/sound/Game Start.wav", 1, 0);
     public static SoundHandler game_music = new SoundHandler("assets/sound/In-Game ambient music.mp3", 1, 0);
     public static SoundHandler main_menu_music = new SoundHandler("assets/sound/Main Menu music.mp3", 1, 0);
