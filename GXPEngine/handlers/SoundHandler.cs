@@ -1,22 +1,22 @@
-﻿using GXPEngine;
+using GXPEngine;
 public class SoundHandler
 {
     
 
     public static SoundHandler TESTSOUND = new SoundHandler("", 1, 0);
-    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 1, 0);
-    public static SoundHandler grenade_exploding = new SoundHandler("assets/sound/Grenade exploding.wav", 2, 0);
-    public static SoundHandler reloading = new SoundHandler("assets/sound/Shell loading.wav", 1, 0);
-    public static SoundHandler boss_sound = new SoundHandler("assets/sound/Boss Monster sound.mp3", 1, 0);
-    public static SoundHandler damage_taken = new SoundHandler("assets/sound/Taking damage (maybe).wav", 1, 0);
-    public static SoundHandler shell_switch = new SoundHandler("assets/sound/Shell switch.wav", 1, 0);
-    public static SoundHandler large_sound = new SoundHandler("assets/sound/Strong enemy sound.wav", 1, 0);
-    public static SoundHandler medium_sound = new SoundHandler("assets/sound/Medium enemy sound.wav", 1, 0);
-    /*public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 1, 0);
-    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 1, 0);
-    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 1, 0);
-    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 1, 0);
-    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 1, 0);*/
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler grenade_exploding = new SoundHandler("assets/debug/Grenade exploding.wav", 2, 0);
+    public static SoundHandler reloading = new SoundHandler("assets/debug/Shell loading.wav", 1, 0);
+    public static SoundHandler boss_sound = new SoundHandler("assets/debug/Boss Monster sound.mp3", 1, 0);
+    public static SoundHandler damage_taken = new SoundHandler("assets/debug/Taking damage (maybe).mp3", 1, 0);
+    public static SoundHandler shell_switch = new SoundHandler("assets/debug/Shell switch.wav", 1, 0);
+    public static SoundHandler large_sound = new SoundHandler("assets/debug/Strong enemy sound.wav", 1, 0);
+    public static SoundHandler medium_sound = new SoundHandler("assets/debug/Medium enemy sound.wav", 1, 0);
+    public static SoundHandler small_sound = new SoundHandler("assets/debug/Small enemy sound.wav", 1, 0);
+    /*public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);*/
     Sound storedSound;
     float defaultVolume;
     uint defaultChanel;

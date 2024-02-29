@@ -46,6 +46,7 @@ public class EnemySpawnHandler : GameObject
         if (spawnWeight < smallSpawnWeight)
         {
             SmallEnemy smallEnemy = new SmallEnemy(-250, random.Next(game.height - 500) + 200, 20, 1, 1, 5, 100, true, 8, 1);
+            SoundHandler.small_sound.play();
             game.AddChild(smallEnemy);
             return;
         }
