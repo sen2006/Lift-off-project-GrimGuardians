@@ -23,7 +23,7 @@ public class Points : EasyDraw
 
         this.TextAlign(CenterMode.Center, CenterMode.Center);
         //this.TextFont();
-        this.Text(" " + points, width / 2, height / 2);
+        this.Text(" " + points * UI_Handler.pointsMultiplier, width / 2, height / 2);
 
         //move the text up
         y--; // TODO make this Deltatime based

@@ -15,6 +15,7 @@ public class BossEnemy : Shootable
     public override void kill()
     {
         SoundHandler.boss_death.play();
+        UI_Handler.pointsMultiplier += 0.01f;
         base.kill();
     }
 }

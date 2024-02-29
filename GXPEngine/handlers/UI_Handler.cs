@@ -25,9 +25,9 @@ public class UI_Handler : GameObject
     Sprite grenadesImage;
 
     bool gameStarted = true;
-
-    int playerScore;
-
+    public static float pointsMultiplier = 1.00f;
+    float playerScore;
+    
 
     public UI_Handler()
     {
@@ -95,7 +95,7 @@ public class UI_Handler : GameObject
 
     public void addPoints(int points)
     {
-        this.playerScore += points;
+        this.playerScore += points * pointsMultiplier;
     }
 
     public void AmmoSelect()

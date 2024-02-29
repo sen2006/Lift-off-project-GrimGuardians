@@ -93,6 +93,7 @@
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="handlers\PanoramaHandler.cs" />
+    <Compile Include="shootable\Pickups\GrenadePickup.cs" />
     <Compile Include="shootable\Points.cs" />
     <Compile Include="shootable\Shootable.cs" />
     <Compile Include="handlers\SoundHandler.cs" />
