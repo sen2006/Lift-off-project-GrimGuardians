@@ -296,6 +296,7 @@ public class ControllerHandler : GameObject
             {
                 iswasGrenadeThrown = false;
             }
+            cursor.setBarrelClosed(barrelClosed);
         }
     }
 

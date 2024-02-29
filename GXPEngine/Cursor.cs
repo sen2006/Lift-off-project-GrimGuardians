@@ -6,7 +6,7 @@ public class Cursor : Sprite
     //settings
 
     bool infiniteAmmo = false;
-    bool requireBarrelClosed = true;
+    bool requireBarrelClosed = false;
 
     //variables
     AmmoTypeHandler barrelOne;
@@ -38,7 +38,7 @@ public class Cursor : Sprite
 
     public void fire()
     {
-        if ((!isBarrelClosed) && requireBarrelClosed) return;
+        if ((!isBarrelClosed) && requireBarrelClosed) { return; }
         if (barrelOne != null)
         {
             barrelOne.fire(x, y);

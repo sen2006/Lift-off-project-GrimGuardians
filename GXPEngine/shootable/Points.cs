@@ -26,7 +26,7 @@ public class Points : EasyDraw
         this.Text(" " + points, width / 2, height / 2);
 
         //move the text up
-        y--; // TODO make this Deltatime based
+        y--;
 
         // destroy text once timer is up
         if (textTimer <= 0)

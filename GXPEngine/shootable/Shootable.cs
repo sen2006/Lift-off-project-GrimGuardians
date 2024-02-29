@@ -62,7 +62,6 @@ public class Shootable : GameObject
         scale = 0.3f;
         enemyHealthBarFrame = new Sprite("assets/sprites/UI/enemyFrame.png");
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
-        //if (speed < 0) Mirror(true, false);
 
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
         healthBar = new EasyDraw(enemyHealthBar.width, 20);
@@ -70,6 +69,7 @@ public class Shootable : GameObject
 
     public virtual void Update()
     {
+        if (speed < 0) moveAnimationSprite.Mirror(true, false);
         if (enemyState != EnemyState.Death)
         {
             if (enemyState == EnemyState.Move)
@@ -88,10 +88,19 @@ public class Shootable : GameObject
 
     void checkForOffScreen()
     {
-        if (speed > 0 && x > MyGame.GetGame().width + (moveAnimationSprite.width / 2f)) { this.LateDestroy(); }
-        if (speed < 0 && x < -(moveAnimationSprite.width / 2f)) { this.LateDestroy();}
+        if (speed > 0 && x > MyGame.GetGame().width)
+        {
+            this.LateDestroy();
             enemyHealthBarFrame.LateDestroy();
             enemyHealthBar.LateDestroy();
+        }
+        if (speed < 0 && x < -moveAnimationSprite.width)
+        {
+            this.LateDestroy();
+            enemyHealthBarFrame.LateDestroy();
+            enemyHealthBar.LateDestroy();
+        }
+            
     }
 
     public virtual void playAnimation()

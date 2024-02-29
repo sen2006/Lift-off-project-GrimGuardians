@@ -2,7 +2,7 @@ using System;
 
 public static class PlayerHealthHandler
 {
-    static float playerHealth = 100;
+    static float playerHealth = 25;
     static float playerMaxHealth = playerHealth;
 
     public static float getHealth()

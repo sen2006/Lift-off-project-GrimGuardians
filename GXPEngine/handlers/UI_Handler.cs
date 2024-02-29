@@ -76,7 +76,7 @@ public class UI_Handler : GameObject
         textDrawer.Text("Health", 20, 50);
         AddChild(playerHealthBarFrame);
 
-        playerHealthBar.scaleX = Mathf.Max(0f, PlayerHealthHandler.getHealth() / 400f);
+        playerHealthBar.scaleX = Mathf.Max(0f, PlayerHealthHandler.getHealth() / (PlayerHealthHandler.getMaxHealth() * 4));
         playerHealthBar.scaleY = 0.25f;
         playerHealthBar.SetXY(30, 65);
         AddChild(playerHealthBar);
