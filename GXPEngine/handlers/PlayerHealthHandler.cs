@@ -16,11 +16,12 @@
     public static void setHealth(float newHealth)
     {
         playerHealth = newHealth;
+        
     }
 
     public static void takeDamage(float damage)
     {
         playerHealth -= damage;
-        Console.WriteLine("Health left: " + playerHealth);
+        
     }
 }

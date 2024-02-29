@@ -46,6 +46,7 @@ public class Cursor : Sprite
 
     public void ReloadOne()
     {
+        
         switch (ammoIndex)
         {
             case 0:
@@ -67,6 +68,7 @@ public class Cursor : Sprite
 
     public void ReloadTwo()
     {
+      
         switch (ammoIndex)
         {
             case 0:

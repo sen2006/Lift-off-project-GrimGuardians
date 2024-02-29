@@ -4,7 +4,19 @@ public class SoundHandler
     
 
     public static SoundHandler TESTSOUND = new SoundHandler("", 1, 0);
-
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler grenade_exploding = new SoundHandler("assets/debug/Grenade exploding.wav", 2, 0);
+    public static SoundHandler reloading = new SoundHandler("assets/debug/Shell loading.wav", 1, 0);
+    public static SoundHandler boss_sound = new SoundHandler("assets/debug/Boss Monster sound.wav", 1, 0);
+    public static SoundHandler damage_taken = new SoundHandler("assets/debug/Taking damage (maybe).wav", 1, 0);
+    public static SoundHandler shell_switch = new SoundHandler("assets/debug/Shell switch.wav", 1, 0);
+    public static SoundHandler large_sound = new SoundHandler("assets/debug/Strong enemy sound.wav", 1, 0);
+    public static SoundHandler medium_sound = new SoundHandler("assets/debug/Medium enemy sound.wav", 1, 0);
+    /*public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/debug/Shotgun firing.wav", 1, 0);*/
     Sound storedSound;
     float defaultVolume;
     uint defaultChanel;
@@ -29,5 +41,38 @@ public class SoundHandler
     public void play(float volume, uint chanel)
     {
         storedSound.Play(false, chanel, volume, 0);
+    }
+
+    public static void playShotgunSound()
+    {
+       shooting_sound.play();
+    }
+    public static void playGrenadeSound()
+    {
+        grenade_exploding.play();
+    }
+    public static void playReloadSound()
+    {
+        reloading.play();
+    }
+    public static void playBossSound()
+    {
+        boss_sound.play();
+    }
+    public static void playDamageSound()
+    {
+        damage_taken.play();
+    }
+    public static void playShellSwitchSound()
+    {
+        shell_switch.play();
+    }
+    public static void playLargeSound()
+    {
+        large_sound.play();
+    }
+    public static void playMediumSound()
+    {
+        medium_sound.play();
     }
 }
