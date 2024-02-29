@@ -89,6 +89,7 @@ public class Shootable : AnimationSprite
 
     public virtual void hitPlayer()
     {
+        // The damage currently is the same for all enemies (1). Need to figure out why.
         if (enemyAttackSpeed <= 0)
         {
             PlayerHealthHandler.takeDamage(enemyDamage);
