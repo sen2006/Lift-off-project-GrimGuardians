@@ -14,9 +14,9 @@ public class UI_Handler : GameObject
     EasyDraw textDrawer;
     EasyDraw playerHealthBarDrawer;
 
-    EasyDraw buckshotUI;
-    EasyDraw slugUI;
-    EasyDraw dragonBreathIU;
+    Sprite buckshotUI;
+    Sprite slugUI;
+    Sprite dragonBreathIU;
     Sprite grenadesImage;
 
     bool gameStarted = true;
@@ -26,26 +26,18 @@ public class UI_Handler : GameObject
 
     public UI_Handler()
     {
-
-        this.grenadesImage = new Sprite("assets/debug/checkers.png");
-        grenadesImage.SetXY(1200, 700);
+        this.grenadesImage = new Sprite("assets/debug/grenade.png");
+        grenadesImage.SetXY(1200, 660);
+        grenadesImage.scale = 0.4f;
         AddChild(grenadesImage);
 
         textDrawer = new EasyDraw(1366, 768, false);
         textDrawer.alpha = 1.0f;
+        textDrawer.scale = 1.2f;
         AddChild(textDrawer);
 
         this.playerHealthBarDrawer = new EasyDraw(healthWarWidth, healthBarHeight);
         AddChild(playerHealthBarDrawer);
-
-        this.buckshotUI = new EasyDraw(75, 75);
-        AddChild(buckshotUI);
-
-        this.slugUI = new EasyDraw(75, 75);
-        AddChild(slugUI);
-
-        this.dragonBreathIU = new EasyDraw(75, 75);
-        AddChild(dragonBreathIU);
     }
 
     public void Update()
@@ -64,19 +56,19 @@ public class UI_Handler : GameObject
         playerHealthBarDrawer.Clear(0, 0, 0, 0);
         playerHealthBarDrawer.Fill(Color.Red);
         playerHealthBarDrawer.Rect(0, 0, PlayerHealthHandler.getHealth() / PlayerHealthHandler.getMaxHealth() * playerHealthBarDrawer.width, playerHealthBarDrawer.height);
-        playerHealthBarDrawer.SetXY(25, 50);
+        playerHealthBarDrawer.SetXY(25, 60);
         textDrawer.Text("Health", 20, 50);
     }
 
     void renderGrenades()
     {
         textDrawer.Clear(0, 0, 0, 0);
-        textDrawer.Text(" " + GrenadeHandler.GetGrenades() + "/" + GrenadeHandler.GetMaxGrenades(), 1280, 735);
+        textDrawer.Text(" " + GrenadeHandler.GetGrenades() + "/" + GrenadeHandler.GetMaxGrenades(), 1060, 600);
     }
 
     void PlayerScore()
     {
-        textDrawer.Text("Score " + playerScore, 1220, 75);
+        textDrawer.Text("Score " + playerScore, 950, 70);
     }
 
     public void addPoints(int points)
@@ -90,35 +82,47 @@ public class UI_Handler : GameObject
         int shellIndex = MyGame.GetControlerHandler().GetCursor().getAmmoIndex();
         if (shellIndex == 0)
         {
-            buckshotUI.Fill(Color.Red);
+            this.buckshotUI = new Sprite("assets/debug/buckshot outline.png");
+            buckshotUI.SetXY(10, 640);
+            buckshotUI.scale = 0.4f;
+            AddChild(buckshotUI);
         }
         else
         {
-            buckshotUI.Fill(Color.Green);
+            this.buckshotUI = new Sprite("assets/debug/buckshot.png");
+            buckshotUI.SetXY(10, 640);
+            buckshotUI.scale = 0.4f;
+            AddChild(buckshotUI);
         }
-        buckshotUI.Rect(0, 0, 75, 75);
-        buckshotUI.SetXY(25, 710);
 
         if (shellIndex == 1)
         {
-            slugUI.Fill(Color.Red);
+            this.slugUI = new Sprite("assets/debug/Slug outline.png");
+            slugUI.scale = 0.4f;
+            slugUI.SetXY(110, 640);
+            AddChild(slugUI);
         }
         else
         {
-            slugUI.Fill(Color.Green);
+            this.slugUI = new Sprite("assets/debug/Slug.png");
+            slugUI.scale = 0.4f;
+            slugUI.SetXY(110, 640);
+            AddChild(slugUI);
         }
-        slugUI.Rect(0, 0, 75, 75);
-        slugUI.SetXY(75, 710);
 
         if (shellIndex == 2)
         {
-            dragonBreathIU.Fill(Color.Red);
+            this.dragonBreathIU = new Sprite("assets/debug/fire outline.png");
+            dragonBreathIU.scale = 0.4f;
+            dragonBreathIU.SetXY(200, 650);
+            AddChild(dragonBreathIU);
         }
         else
         {
-            dragonBreathIU.Fill(Color.Green);
+            this.dragonBreathIU = new Sprite("assets/debug/fire.png");
+            dragonBreathIU.scale = 0.4f;
+            dragonBreathIU.SetXY(200, 650);
+            AddChild(dragonBreathIU);
         }
-        dragonBreathIU.Rect(0, 0, 75, 75);
-        dragonBreathIU.SetXY(125, 710);
     }
 }
