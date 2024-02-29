@@ -24,11 +24,6 @@ public static class PlayerHealthHandler
         playerHealth = newHealth;
     }
 
-    public static void changeHealth(float change)
-    {
-        playerHealth += change;
-    }
-
     public static void takeDamage(float damage)
     {
         playerHealth -= damage;

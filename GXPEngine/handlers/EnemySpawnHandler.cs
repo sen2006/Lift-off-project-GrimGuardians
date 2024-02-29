@@ -12,6 +12,7 @@ public class EnemySpawnHandler : GameObject
     int smallSpawnWeight = 5;
     int mediumSpawnWeight = 3;
     int largeSpawnWeight = 2;
+    int evenLargerSpawnWeight = 1;
 
     long time;
     int currentSpawnInterval;
@@ -40,11 +41,11 @@ public class EnemySpawnHandler : GameObject
 
     void spawn()
     {
-        int spawnWeight = random.Next(smallSpawnWeight + mediumSpawnWeight + largeSpawnWeight);
+        int spawnWeight = random.Next(smallSpawnWeight + mediumSpawnWeight + largeSpawnWeight + evenLargerSpawnWeight);
         MyGame game = MyGame.GetGame();
         if (spawnWeight < smallSpawnWeight)
         {
-            SmallEnemy smallEnemy = new SmallEnemy("assets/debug/small_enemy_spider.png", -100, random.Next(game.height - 400) + 200, 25, 1, 1, 5, 20, true, 8, 1);
+            SmallEnemy smallEnemy = new SmallEnemy("assets/debug/small_enemy.png", -250, random.Next(game.height - 500) + 200, 20, 1, 1, random.Next(5, 10), 100, true, 8, 1);
             game.AddChild(smallEnemy);
             return;
         }
@@ -52,22 +53,27 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < mediumSpawnWeight)
         {
-            MediumEnemy shootable = new MediumEnemy("assets/debug/circle.png", -100, random.Next(game.height - 400) + 200, 15, 3, 1, 5);
-            game.AddChild(shootable);
+            MediumEnemy mediumEnemy = new MediumEnemy("assets/debug/medium_enemy.png", -250, random.Next(300, 300) + 200, 10, 3, 1, random.Next(5, 10), 200, true, 4, 1);
+            game.AddChild(mediumEnemy);
             return;
         }
         spawnWeight -= mediumSpawnWeight;
 
         if (spawnWeight < largeSpawnWeight)
         {
-            LargeEnemy LargeEnemy = new LargeEnemy("assets/debug/large_monster_slime.png", -100, random.Next(game.height - 400) + 200, 5, 5, 1, 5, 100, true, 7, 1);
-            game.AddChild(LargeEnemy);
+            LargeEnemy largeEnemy = new LargeEnemy("assets/debug/large_monster.png", -350, random.Next(250, 350) + 200, 5, 5, 1, random.Next(5, 10), 400, true, 7, 1);
+            game.AddChild(largeEnemy);
+            return;
+        }
+        spawnWeight -= largeSpawnWeight;
+
+        if (spawnWeight < evenLargerSpawnWeight)
+        {
+            BossEnemy bossEnemy = new BossEnemy("assets/debug/boss_enemy.png", -500, random.Next(250, 350) + 200, 3, 12, 1, random.Next(5, 10), 2000, true, 4, 1);
+            game.AddChild(bossEnemy);
             return;
         }
 
-        //TO DO: implement boss enemy
         throw new Exception("failed spawn");
-
     }
 }
-

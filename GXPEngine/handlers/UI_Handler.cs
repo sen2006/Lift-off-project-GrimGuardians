@@ -31,7 +31,6 @@ public class UI_Handler : GameObject
         grenadesImage.SetXY(1200, 700);
         AddChild(grenadesImage);
 
-        // TODO: figure out width and height later
         textDrawer = new EasyDraw(1366, 768, false);
         textDrawer.alpha = 1.0f;
         AddChild(textDrawer);
@@ -53,10 +52,10 @@ public class UI_Handler : GameObject
     {
         if (gameStarted)
         {
-            renderPlayerHealthBar();
             renderGrenades();
             PlayerScore();
             AmmoSelect();
+            renderPlayerHealthBar();
         }
     }
 
@@ -66,6 +65,7 @@ public class UI_Handler : GameObject
         playerHealthBarDrawer.Fill(Color.Red);
         playerHealthBarDrawer.Rect(0, 0, PlayerHealthHandler.getHealth() / PlayerHealthHandler.getMaxHealth() * playerHealthBarDrawer.width, playerHealthBarDrawer.height);
         playerHealthBarDrawer.SetXY(25, 50);
+        textDrawer.Text("Health", 20, 50);
     }
 
     void renderGrenades()
