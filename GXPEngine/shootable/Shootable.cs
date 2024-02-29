@@ -16,7 +16,8 @@ public class Shootable : AnimationSprite
     int overTimeDamageTimer;
     protected int damagePerSec;
     protected int enemyDamage;
-    protected int enemyAttackSpeed;
+    protected float enemyAttackSpeed;
+    protected int timeBetweenAttacks;
 
     protected int counter;
     protected int frame;
@@ -32,6 +33,7 @@ public class Shootable : AnimationSprite
         this.points = points;
         this.enemyDamage = enemyDamage;
         this.enemyAttackSpeed = enemyAttackSpeed;
+        this.timeBetweenAttacks = 1;
         healthBar = new EasyDraw(this.width, 20);
 
         scale = 0.3f;
@@ -39,12 +41,13 @@ public class Shootable : AnimationSprite
 
     public virtual void Update()
     {
-        enemyAttackSpeed -= Time.deltaTime;
+        float deltaTime = Time.deltaTime / 1000f;
+        enemyAttackSpeed -= deltaTime;
         x += speed * Time.deltaTime / 60f;
         if (showHealthBar) { renderHealthBar(); }
         damageOverTime();
-        playAnimation();
-        //hitPlayer();
+        playAnimation(); 
+        hitPlayer();
     }
 
     public virtual void playAnimation()
@@ -86,9 +89,11 @@ public class Shootable : AnimationSprite
 
     public virtual void hitPlayer()
     {
+        // The damage currently is the same for all enemies (1). Need to figure out why.
         if (enemyAttackSpeed <= 0)
         {
             PlayerHealthHandler.takeDamage(enemyDamage);
+            enemyAttackSpeed = timeBetweenAttacks;
         }
     }
 
@@ -100,7 +105,7 @@ public class Shootable : AnimationSprite
 
     public virtual void damageOverTime()
     {
-        int deltaTime = Time.deltaTime;
+        int deltaTime = Time.deltaTime / 1000;
         if (health > 0 && overTimeDamageTimer > 0)
         {
             hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer) / 1000f);
