@@ -23,6 +23,7 @@ public static class PlayerHealthHandler
 
     public static void takeDamage(float damage)
     {
+        SoundHandler.damage_taken.play();
         playerHealth -= damage;
         
     }

@@ -14,6 +14,7 @@ public class LargeEnemy : Shootable
 
     void kill()
     {
+        SoundHandler.large_death.play();
         base.kill();
     }
 }

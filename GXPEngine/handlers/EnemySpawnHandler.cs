@@ -11,8 +11,15 @@ public class EnemySpawnHandler : GameObject
 
     int smallSpawnWeight = 5;
     int mediumSpawnWeight = 3;
-    int largeSpawnWeight = 2;
-    int evenLargerSpawnWeight = 1;
+    int largeSpawnWeight = 0;
+    int evenLargerSpawnWeight = 0;
+    /*
+    Every 20 seconds:
+    int smallSpawnWeight += 1;
+    int mediumSpawnWeight += 1;
+    int largeSpawnWeight += 1.5f;
+    int evenLargerSpawnWeight += 1;
+    */
 
     long time;
     int currentSpawnInterval;

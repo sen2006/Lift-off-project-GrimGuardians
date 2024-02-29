@@ -75,16 +75,13 @@ public class Shootable : AnimationSprite
         if (!this.game.HasChild(enemyHealthBarFrame)) { this.game.AddChild(enemyHealthBarFrame); }
         if (!this.game.HasChild(enemyHealthBar)) { this.game.AddChild(enemyHealthBar); }
 
-        //healthBar.SetXY(this.x, this.y - healthBar.height);
-        //healthBar.Fill(255, 0, 0);
-        //healthBar.Rect(0, 0, this.width * 2, healthBar.height);
-        //healthBar.Fill(0, 255, 0);
-        //healthBar.Rect(0, 0, this.width * 2 * (health / maxHealth), healthBar.height);
-
         enemyHealthBarFrame.scale = 0.20f;
         enemyHealthBarFrame.SetXY(this.x + offSetX, this.y - offSetY);
 
-        enemyHealthBar.scale = 0.20f;
+        float healthFraction = health / maxHealth;
+        enemyHealthBar.scaleX = Mathf.Max(0f, healthFraction * 0.2f);
+        enemyHealthBar.scaleY = 0.20f;
+        
         enemyHealthBar.SetXY(this.x + offSetX + 4, this.y - offSetY + 3);
     }
 
@@ -93,7 +90,7 @@ public class Shootable : AnimationSprite
         health = Math.Max(health - damage, 0);
         if (health <= 0)
         {
-            kill();
+            this.kill();
             pointReward(points);
         }
         return health;
@@ -128,7 +125,8 @@ public class Shootable : AnimationSprite
 
     public virtual void kill()
     {
-        healthBar.LateDestroy();
+        enemyHealthBarFrame.LateDestroy();
+        enemyHealthBar.LateDestroy();
         this.LateDestroy();
         MyGame.GetControlerHandler().GetCursor().addkillCount();
         Console.WriteLine(" " + MyGame.GetControlerHandler().GetCursor().GetKillCount());

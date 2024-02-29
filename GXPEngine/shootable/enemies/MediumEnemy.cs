@@ -14,6 +14,8 @@ public class MediumEnemy : Shootable
 
     void kill()
     {
+        SoundHandler.medium_death.play();
         base.kill();
+        
     }
 }

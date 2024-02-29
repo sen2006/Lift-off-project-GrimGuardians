@@ -9,11 +9,14 @@ public class SmallEnemy : Shootable
     void Update()
     {
         base.Update();
-        if (showHealthBar) { renderHealthBar(35, 20); }
+        if (showHealthBar) { renderHealthBar(35, 20);
     }
 
-    void kill()
-    {
-        base.kill();
+        void kill()
+        {
+            SoundHandler.small_death.play();
+            base.kill();
+            
+        }
     }
 }
