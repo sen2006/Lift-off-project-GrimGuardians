@@ -14,7 +14,7 @@ public class ControllerHandler : GameObject
     }
 
     // controler mode:
-    public static ControllerMode controllerMode = ControllerMode.controller;
+    public static ControllerMode controllerMode = ControllerMode.mouse;
 
     float LRAxisMin;
     float LRAxisMax;
@@ -201,7 +201,6 @@ public class ControllerHandler : GameObject
                 {
                     // fire a shell when trigger is pressed (runs only once)
                     cursor.fire();
-                    SoundHandler.playShotgunSound();
                     isWasTrigger = true;
                 }
             }
@@ -209,21 +208,19 @@ public class ControllerHandler : GameObject
 
             if(firstBarrel)
             {
-                
                 cursor.ReloadOne();
-                SoundHandler.playReloadSound();
+                
             }
 
             if(secondBarrel)
             {
-                
+
                 cursor.ReloadTwo();
-                SoundHandler.playReloadSound();
             }
 
             if(switchAmmo)
             {
-                SoundHandler.playShellSwitchSound();
+                SoundHandler.shell_switch.play();
                 cursor.AmmoSwitch();
             }
 
@@ -232,7 +229,7 @@ public class ControllerHandler : GameObject
                 if (!wasGrenadeThrown)
                 {
                     cursor.ThrowGrenade();
-                    SoundHandler.playGrenadeSound();
+                    SoundHandler.grenade_exploding.play();
                     wasGrenadeThrown = true;
                 }
                 else

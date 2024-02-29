@@ -54,7 +54,7 @@ public class EnemySpawnHandler : GameObject
         if (spawnWeight < mediumSpawnWeight)
         {
             MediumEnemy mediumEnemy = new MediumEnemy("assets/debug/medium_enemy.png", -250, random.Next(300, 300) + 200, 10, 3, 1, random.Next(5, 10), 200, true, 4, 1);
-            SoundHandler.playMediumSound();
+            SoundHandler.medium_sound.play();
             game.AddChild(mediumEnemy);
             return;
         }
@@ -63,7 +63,7 @@ public class EnemySpawnHandler : GameObject
         if (spawnWeight < largeSpawnWeight)
         {
             LargeEnemy largeEnemy = new LargeEnemy("assets/debug/large_monster.png", -350, random.Next(250, 350) + 200, 5, 5, 1, random.Next(5, 10), 400, true, 7, 1);
-            SoundHandler.playLargeSound();
+            SoundHandler.large_sound.play();
             game.AddChild(largeEnemy);
             return;
         }
@@ -72,7 +72,7 @@ public class EnemySpawnHandler : GameObject
         if (spawnWeight < evenLargerSpawnWeight)
         {
             BossEnemy bossEnemy = new BossEnemy("assets/debug/boss_enemy.png", -500, random.Next(250, 350) + 200, 3, 12, 1, random.Next(5, 10), 2000, true, 4, 1);
-            SoundHandler.playBossSound();
+            SoundHandler.boss_sound.play();
             game.AddChild(bossEnemy);
             return;
         }

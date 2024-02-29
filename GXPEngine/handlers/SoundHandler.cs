@@ -42,37 +42,4 @@ public class SoundHandler
     {
         storedSound.Play(false, chanel, volume, 0);
     }
-
-    public static void playShotgunSound()
-    {
-       shooting_sound.play();
-    }
-    public static void playGrenadeSound()
-    {
-        grenade_exploding.play();
-    }
-    public static void playReloadSound()
-    {
-        reloading.play();
-    }
-    public static void playBossSound()
-    {
-        boss_sound.play();
-    }
-    public static void playDamageSound()
-    {
-        damage_taken.play();
-    }
-    public static void playShellSwitchSound()
-    {
-        shell_switch.play();
-    }
-    public static void playLargeSound()
-    {
-        large_sound.play();
-    }
-    public static void playMediumSound()
-    {
-        medium_sound.play();
-    }
 }

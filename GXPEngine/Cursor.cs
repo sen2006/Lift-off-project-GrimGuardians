@@ -36,17 +36,19 @@ public class Cursor : Sprite
         {
             barrelOne.fire(x, y);
             if (!infiniteAmmo) barrelOne = null;
+            SoundHandler.shooting_sound.play();
         }
         else if (barrelTwo != null)
         {
             barrelTwo.fire(x, y);
             if (!infiniteAmmo) barrelTwo = null;
+            SoundHandler.shooting_sound.play();
         }
     }
 
     public void ReloadOne()
     {
-        
+        SoundHandler.reloading.play();
         switch (ammoIndex)
         {
             case 0:
