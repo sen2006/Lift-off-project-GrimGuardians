@@ -12,7 +12,7 @@ public class BossEnemy : Shootable
         if (showHealthBar) { renderHealthBar(235, 20); }
     }
 
-    void kill()
+    public override void kill()
     {
         SoundHandler.boss_death.play();
         base.kill();

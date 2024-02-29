@@ -10,19 +10,22 @@ public class MyGame : Game
     public static MyGame GetGame() { return game; }
     public static ControllerHandler GetControlerHandler() { return controlerHandler; }
     public static UI_Handler GetUI_Handler() { return uiHandler; }
+    public static PanoramaHandler GetPanoramaHandler() { return panoramaHandler; }
 
     static ControllerHandler controlerHandler;
     static EnemySpawnHandler enemySpawnHandler;
     static UI_Handler uiHandler;
+    static PanoramaHandler panoramaHandler;
 
     public MyGame() : base(1366, 768, false, true, -1, -1, false)
     {
         uiHandler = new UI_Handler();
         enemySpawnHandler = new EnemySpawnHandler();
-        PanoramaHandler StreetPanorama = new PanoramaHandler("assets/sprites/background/street.png");
+        panoramaHandler = new PanoramaHandler("assets/sprites/background/street.png");
+
         AddChild(enemySpawnHandler);
         AddChild(controlerHandler);
-        AddChild(StreetPanorama);
+        AddChild(panoramaHandler);
         AddChild(uiHandler);
     }
 

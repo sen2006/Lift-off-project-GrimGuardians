@@ -6,7 +6,7 @@ public class PanoramaHandler : Sprite
 {
 
     // TODO complete this class
-    int panoramaSpeed = -5;
+    int panoramaSpeed = 15;
     public PanoramaHandler(String texture) : base(texture, false, false)
     {
 
@@ -27,4 +27,6 @@ public class PanoramaHandler : Sprite
             panoramaSpeed = Math.Abs(panoramaSpeed);
         }
     }
+
+    public int getSpeed() { return panoramaSpeed; }
 }

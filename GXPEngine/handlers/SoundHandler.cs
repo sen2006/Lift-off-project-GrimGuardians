@@ -3,8 +3,7 @@ public class SoundHandler
 {
     
 
-    public static SoundHandler TESTSOUND = new SoundHandler("", 1, 0);
-    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 0.4f, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 0.3f, 0);
     public static SoundHandler grenade_exploding = new SoundHandler("assets/sound/Grenade exploding.wav", 1, 0);
     public static SoundHandler reloading = new SoundHandler("assets/sound/Shell loading.wav", 1, 0);
     public static SoundHandler boss_sound = new SoundHandler("assets/sound/Boss Monster sound.mp3", 1, 0);

@@ -12,11 +12,12 @@ public class SmallEnemy : Shootable
         if (showHealthBar) { renderHealthBar(35, 20);
     }
 
-        void kill()
-        {
-            SoundHandler.small_death.play();
-            base.kill();
-            
-        }
+        
+    }
+
+    public override void kill()
+    {
+        SoundHandler.small_death.play();
+        base.kill();
     }
 }

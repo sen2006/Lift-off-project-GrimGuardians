@@ -17,13 +17,13 @@ public class Shootable : AnimationSprite
     protected EasyDraw healthBar;
 
     int overTimeDamageTimer;
-    protected int damagePerSec;
-    protected int enemyDamage;
-    protected float enemyAttackSpeed;
-    protected int timeBetweenAttacks;
+    float damagePerSec;
+    int enemyDamage;
+    float enemyAttackSpeed;
+    int timeBetweenAttacks;
 
-    protected int counter;
-    protected int frame;
+    int counter;
+    int frame;
 
     public Shootable(String texture, int startX, int startY, float speed, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
     {
@@ -41,8 +41,9 @@ public class Shootable : AnimationSprite
 
         scale = 0.3f;
         enemyHealthBarFrame = new Sprite("assets/sprites/UI/enemyFrame.png");
-
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
+        if (speed < 0) Mirror(true, false);
+
     }
 
     public virtual void Update()
@@ -53,6 +54,14 @@ public class Shootable : AnimationSprite
         damageOverTime();
         playAnimation(); 
         hitPlayer();
+
+        checkForOffScreen();
+    }
+
+    void checkForOffScreen()
+    {
+        if (speed > 0 && x > MyGame.GetGame().width + (width / 2)) { this.LateDestroy(); }
+        if (speed < 0 && x < -(width / 2)) { this.LateDestroy();}
     }
 
     public virtual void playAnimation()
@@ -105,7 +114,7 @@ public class Shootable : AnimationSprite
         }
     }
 
-    public virtual void setOvertimeDamage(int damagePerSec, int forSec)
+    public virtual void setOvertimeDamage(float damagePerSec, int forSec)
     {
         this.damagePerSec = damagePerSec;
         overTimeDamageTimer = forSec * 1000;
@@ -113,7 +122,7 @@ public class Shootable : AnimationSprite
 
     public virtual void damageOverTime()
     {
-        int deltaTime = Time.deltaTime / 1000;
+        int deltaTime = Time.deltaTime;
         if (health > 0 && overTimeDamageTimer > 0)
         {
             hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer) / 1000f);

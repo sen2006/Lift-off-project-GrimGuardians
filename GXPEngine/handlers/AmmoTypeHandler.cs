@@ -2,16 +2,16 @@ using GXPEngine;
 
 public class AmmoTypeHandler
 {
-    public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(75);
+    public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(75,1);
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,3);
-    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, 1, 1, 3);
+    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, .5f, .5f, 3);
 
 
     int spreadRadius;
-    int damage;
-    int damagePerSec;
+    float damage;
+    float damagePerSec;
     int forSec;
-    public AmmoTypeHandler(int spreadRadius, int damage = 1, int damagePerSec = 0, int forSec = 0) 
+    public AmmoTypeHandler(int spreadRadius, float damage = 1, float damagePerSec = 0, int forSec = 0) 
     { 
         this.spreadRadius = spreadRadius;
         this.damage = damage;
