@@ -28,14 +28,18 @@ float roll = 0.0;
 bool trigger = false;
 bool ammo1 = false;
 bool ammo2 = false;
-bool switchAmmo = false;
-bool special = false;
+bool barelClosed = false;
+int switchAmmo = 0;
+bool grenade = false;
 
-int triggerPin = 6;
-int ammo1Pin = 8;
-int ammo2Pin = 7;
-int switchAmmoPin = 3;
-int specialPin = 5;
+int triggerPin = 2;
+int ammo1Pin = 4;
+int ammo2Pin = 3;
+int barelPin = 5;
+int switchAmmoPin1 = 7;
+int switchAmmoPin2 = 8;
+int switchAmmoPin3 = 9;
+int grenadePin = 6;
 
 void setup() {
   Serial.begin(57600);
@@ -46,11 +50,14 @@ void setup() {
     while (true);
   }
 
-  pinMode(triggerPin, DIGITAL_INPUT);
-  pinMode(ammo1Pin, DIGITAL_INPUT);
-  pinMode(ammo2Pin, DIGITAL_INPUT);
-  pinMode(switchAmmoPin, DIGITAL_INPUT);
-  pinMode(specialPin, DIGITAL_INPUT);
+  pinMode(triggerPin, DIGITAL_INPUT_PULLUP);
+  pinMode(ammo1Pin, DIGITAL_INPUT_PULLUP);
+  pinMode(ammo2Pin, DIGITAL_INPUT_PULLUP);
+  pinMode(barelPin, DIGITAL_INPUT_PULLUP);
+  pinMode(switchAmmoPin1, DIGITAL_INPUT_PULLUP);
+  pinMode(switchAmmoPin2, DIGITAL_INPUT_PULLUP);
+  pinMode(switchAmmoPin3, DIGITAL_INPUT_PULLUP);
+  pinMode(grenadePin, DIGITAL_INPUT_PULLUP);
   
   // start the filter to run at the sample rate of the IMU
   filter.begin(IMU.accelerationSampleRate());
@@ -76,11 +83,12 @@ void loop() {
     roll  = filter.getRoll();
 
     // get button states
-    trigger = digitalRead(triggerPin);
-    ammo1 = digitalRead(ammo1Pin);
-    ammo2 = digitalRead(ammo2Pin);
-    switchAmmo = digitalRead(switchAmmoPin);
-    special = digitalRead(specialPin);
+    trigger = !digitalRead(triggerPin);
+    ammo1 = !digitalRead(ammo1Pin);
+    ammo2 = !digitalRead(ammo2Pin);
+    switchAmmo = !digitalRead(switchAmmoPin1) ? 1 : (!digitalRead(switchAmmoPin2) ? 2 : (!digitalRead(switchAmmoPin3) ? 3 : 0));
+    grenade = !digitalRead(grenadePin);
+    barelClosed = !digitalRead(barelPin);
     
     //Serial.println("Orientation: ");
     Serial.print(yaw);
@@ -95,8 +103,10 @@ void loop() {
     Serial.print(",");
     Serial.print(ammo2 ? 1:0);
     Serial.print(",");
-    Serial.print(switchAmmo ? 1:0);
+    Serial.print(switchAmmo);
     Serial.print(",");
-    Serial.println(special ? 1:0);
+    Serial.print(grenade ? 1:0);
+    Serial.print(",");
+    Serial.println(barelClosed ? 1:0);
   }
 }

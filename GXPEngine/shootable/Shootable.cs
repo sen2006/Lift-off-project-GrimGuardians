@@ -25,13 +25,13 @@ public class Shootable : GameObject
     protected EasyDraw healthBar;
 
     int overTimeDamageTimer;
-    protected int damagePerSec;
-    protected int enemyDamage;
-    protected float enemyAttackTimer;
-    protected float timeBetweenAttacks;
+    float damagePerSec;
+    int enemyDamage;
+    float enemyAttackSpeed;
+    int timeBetweenAttacks;
 
-    protected int counter;
-    protected int frame;
+    int counter;
+    int frame;
 
     private AnimationSprite currentAnimation = null;
 
@@ -60,6 +60,8 @@ public class Shootable : GameObject
 
         scale = 0.3f;
         enemyHealthBarFrame = new Sprite("assets/sprites/UI/enemyFrame.png");
+        enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
+        if (speed < 0) Mirror(true, false);
 
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
         healthBar = new EasyDraw(enemyHealthBar.width, 20);
@@ -80,6 +82,12 @@ public class Shootable : GameObject
             hitPlayer();
         }
         playAnimation();
+    }
+
+    void checkForOffScreen()
+    {
+        if (speed > 0 && x > MyGame.GetGame().width + (width / 2)) { this.LateDestroy(); }
+        if (speed < 0 && x < -(width / 2)) { this.LateDestroy();}
     }
 
     public virtual void playAnimation()
@@ -172,7 +180,7 @@ public class Shootable : GameObject
         }
     }
 
-    public virtual void setOvertimeDamage(int damagePerSec, int forSec)
+    public virtual void setOvertimeDamage(float damagePerSec, int forSec)
     {
         this.damagePerSec = damagePerSec;
         overTimeDamageTimer = forSec * 1000;
@@ -180,7 +188,7 @@ public class Shootable : GameObject
 
     public virtual void damageOverTime()
     {
-        int deltaTime = Time.deltaTime / 1000;
+        int deltaTime = Time.deltaTime;
         if (health > 0 && overTimeDamageTimer > 0)
         {
             hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer) / 1000f);

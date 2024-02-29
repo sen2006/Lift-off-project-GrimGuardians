@@ -18,6 +18,7 @@ public static class GrenadeHandler
     {
         if (grenadesLeft <= 0) { return; }
         //Console.WriteLine("a grenade got thrown")
+        SoundHandler.grenade_exploding.play();
         MyGame game = MyGame.GetGame();
         EasyDraw damageZone = new EasyDraw(spreadRadius * 2, spreadRadius * 2);
         game.AddChild(damageZone);
