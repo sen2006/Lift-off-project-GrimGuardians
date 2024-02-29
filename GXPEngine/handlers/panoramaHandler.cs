@@ -6,7 +6,7 @@ public class PanoramaHandler : Sprite
 {
 
     // TODO complete this class
-    int panoramaSpeed = 15;
+    int panoramaSpeed = 10;
     public PanoramaHandler(String texture) : base(texture, false, false)
     {
 

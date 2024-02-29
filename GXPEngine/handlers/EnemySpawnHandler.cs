@@ -11,20 +11,18 @@ public class EnemySpawnHandler : GameObject
 
     float smallSpawnWeight = 5;
     float mediumSpawnWeight = 3;
-    float largeSpawnWeight = 0;
-    float BossSpawnWeight = 0;
+    float largeSpawnWeight = 2;
+    float BossSpawnWeight = 1;
 
     static int spawnIncreaseInterval = 20000;
 
     static float smallSpawnWeightIncrease = .1f;
     static float mediumSpawnWeightIncrease = .5f;
     static float largeSpawnWeightIncrease = 1f;
-    static float BossSpawnWeightIncrease = .5f;
-
-    static int maxSpanwIntervalDecrease = 10;
-
-    // variables
-    int panoramaSpeed;
+    static float BossSpawnWeightIncrease = .5f;
+    static int maxSpanwIntervalDecrease = 10;
+    // variables
+    int panoramaSpeed;
     long time;
     int currentSpawnInterval;
     int spawnIncreaseTimer = spawnIncreaseInterval;

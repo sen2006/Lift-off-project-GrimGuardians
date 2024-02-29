@@ -12,7 +12,6 @@ public class UI_Handler : GameObject
     // variables
     Font fontTeko;
     EasyDraw textDrawer;
-    //EasyDraw playerHealthBarDrawer;
 
     Sprite playerHealthBarFrame;
     Sprite playerHealthBar;
@@ -43,10 +42,6 @@ public class UI_Handler : GameObject
         textDrawer.scale = 1.2f;
         AddChild(textDrawer);
 
-
-
-        //this.playerHealthBarDrawer = new EasyDraw(healthWarWidth, healthBarHeight);
-        //AddChild(playerHealthBarDrawer);
         playerHealthBar = new Sprite("assets/sprites/UI/HealthBar.png");
 
     }
@@ -64,12 +59,6 @@ public class UI_Handler : GameObject
 
     void renderPlayerHealthBar()
     {
-        //playerHealthBarDrawer.Clear(0, 0, 0, 0);
-        //playerHealthBarDrawer.Fill(Color.Red);
-        //playerHealthBarDrawer.Rect(0, 0, PlayerHealthHandler.getHealth() / PlayerHealthHandler.getMaxHealth() * playerHealthBarDrawer.width, playerHealthBarDrawer.height);
-        //playerHealthBarDrawer.SetXY(25, 60);
-        //textDrawer.Text("Health", 20, 50);
-
         this.playerHealthBarFrame = new Sprite("assets/sprites/UI/PhealthFrame.png");
         playerHealthBarFrame.scale = 0.25f;
         playerHealthBarFrame.SetXY(25, 60);

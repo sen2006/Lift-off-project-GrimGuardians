@@ -19,13 +19,13 @@ public class MyGame : Game
 
     public MyGame() : base(1366, 768, false, true, -1, -1, false)
     {
-        uiHandler = new UI_Handler();
         enemySpawnHandler = new EnemySpawnHandler();
+        uiHandler = new UI_Handler();
         panoramaHandler = new PanoramaHandler("assets/sprites/background/street.png");
 
         AddChild(enemySpawnHandler);
-        AddChild(controlerHandler);
         AddChild(panoramaHandler);
+        AddChild(controlerHandler);
         AddChild(uiHandler);
     }
 

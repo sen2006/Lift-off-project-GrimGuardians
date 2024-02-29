@@ -62,7 +62,6 @@ public class Shootable : GameObject
         scale = 0.3f;
         enemyHealthBarFrame = new Sprite("assets/sprites/UI/enemyFrame.png");
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
-
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
         healthBar = new EasyDraw(enemyHealthBar.width, 20);
     }
