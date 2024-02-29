@@ -1,11 +1,19 @@
 using GXPEngine;
 using System;
 
-public class Shootable : AnimationSprite
+public enum EnemyState
+{
+    Move,
+    Attack,
+    TakeDamage,
+    Death
+}
+
+public class Shootable : GameObject
 {
     Sprite enemyHealthBarFrame;
     Sprite enemyHealthBar;
-    
+
     public float health;
     protected float speed;
 
@@ -16,16 +24,26 @@ public class Shootable : AnimationSprite
 
     protected EasyDraw healthBar;
 
-    int overTimeDamageTimer;
-    float damagePerSec;
-    int enemyDamage;
-    float enemyAttackSpeed;
-    int timeBetweenAttacks;
+    private int overTimeDamageTimer;
+    private float damagePerSec;
+    private int enemyDamage;
+    private float enemyAttackSpeed;
+    private float timeBetweenAttacks;
+    private float enemyAttackTimer;
 
     int counter;
     int frame;
 
-    public Shootable(String texture, int startX, int startY, float speed, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
+    private AnimationSprite currentAnimation = null;
+
+    protected AnimationSprite moveAnimationSprite;
+    protected AnimationSprite attackAnimationSprite;
+    protected AnimationSprite takeDamageAnimationSprite;
+    protected AnimationSprite deathAnimationSprite;
+
+    private EnemyState enemyState;
+
+    public Shootable(int startX, int startY, float speed, int health = 1, int enemyDamage = 1, float enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true)
     {
         x = startX;
         y = startY;
@@ -35,58 +53,99 @@ public class Shootable : AnimationSprite
         this.showHealthBar = showHealthBar;
         this.points = points;
         this.enemyDamage = enemyDamage;
-        this.enemyAttackSpeed = enemyAttackSpeed;
-        this.timeBetweenAttacks = 5;
-        healthBar = new EasyDraw(this.width, 20);
+        this.timeBetweenAttacks = 1f / enemyAttackSpeed;
+        this.enemyAttackTimer = timeBetweenAttacks;
+
+        enemyState = EnemyState.Move;
+
 
         scale = 0.3f;
         enemyHealthBarFrame = new Sprite("assets/sprites/UI/enemyFrame.png");
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
-        if (speed < 0) Mirror(true, false);
+        //if (speed < 0) Mirror(true, false);
 
+        enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
+        healthBar = new EasyDraw(enemyHealthBar.width, 20);
     }
 
     public virtual void Update()
     {
-        float deltaTime = Time.deltaTime / 1000f;
-        enemyAttackSpeed -= deltaTime;
-        x += speed * Time.deltaTime / 60f;
-        damageOverTime();
-        playAnimation(); 
-        hitPlayer();
+        if (enemyState != EnemyState.Death)
+        {
+            if (enemyState == EnemyState.Move)
+            {
+                float deltaTime = Time.deltaTime / 1000f;
+                enemyAttackTimer -= deltaTime;
+                x += speed * Time.deltaTime / 60f;
+            }
 
-        checkForOffScreen();
+            damageOverTime();
+            hitPlayer();
+            checkForOffScreen();
+        }
+        playAnimation();
     }
 
     void checkForOffScreen()
     {
-        if (speed > 0 && x > MyGame.GetGame().width + (width / 2))
-        {
-            this.LateDestroy();
+        if (speed > 0 && x > MyGame.GetGame().width + (moveAnimationSprite.width / 2f)) { this.LateDestroy(); }
+        if (speed < 0 && x < -(moveAnimationSprite.width / 2f)) { this.LateDestroy();}
             enemyHealthBarFrame.LateDestroy();
             enemyHealthBar.LateDestroy();
-        }
-        if (speed < 0 && x < -(width / 2))
-        {
-            this.LateDestroy();
-            enemyHealthBarFrame.LateDestroy();
-            enemyHealthBar.LateDestroy();
-        }
     }
 
     public virtual void playAnimation()
     {
-        counter++;
+        AnimationSprite prevAnimation = currentAnimation;
+        switch (enemyState)
+        {
+            case EnemyState.Move:
+                currentAnimation = moveAnimationSprite;
+                break;
+            case EnemyState.Attack:
+                currentAnimation = attackAnimationSprite;
+                break;
+            case EnemyState.TakeDamage:
+                currentAnimation = takeDamageAnimationSprite;
+                break;
+            case EnemyState.Death:
+                currentAnimation = deathAnimationSprite;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        if (currentAnimation != prevAnimation)
+        {
+            if (prevAnimation != null)
+            {
+                prevAnimation.visible = false;
+            }
+
+            currentAnimation.visible = true;
+            counter = 0;
+            frame = 0;
+        }
+
         if (counter > 18)
         {
             counter = 0;
-            frame++;
-            if (frame == frameCount)
+            if (frame == currentAnimation.frameCount)
             {
+                if (enemyState == EnemyState.Death)
+                {
+                    this.kill();
+                    pointReward(points);
+                    return;
+                }
+
                 frame = 0;
+                enemyState = EnemyState.Move;
             }
-            SetFrame(frame);
+            currentAnimation.SetFrame(frame);
+            frame++;
         }
+        counter++;
     }
 
     public virtual void renderHealthBar(int offSetX, int offSetY)
@@ -100,27 +159,28 @@ public class Shootable : AnimationSprite
         float healthFraction = health / maxHealth;
         enemyHealthBar.scaleX = Mathf.Max(0f, healthFraction * 0.2f);
         enemyHealthBar.scaleY = 0.20f;
-        
+
         enemyHealthBar.SetXY(this.x + offSetX + 4, this.y - offSetY + 3);
     }
 
     public virtual float hit(float damage)
     {
         health = Math.Max(health - damage, 0);
+        enemyState = EnemyState.TakeDamage;
         if (health <= 0)
         {
-            this.kill();
-            pointReward(points);
+            enemyState = EnemyState.Death;
         }
         return health;
     }
 
     public virtual void hitPlayer()
     {
-        if (enemyAttackSpeed <= 0)
+        if (enemyState == EnemyState.Move && enemyAttackTimer <= 0)
         {
             PlayerHealthHandler.takeDamage(enemyDamage);
-            enemyAttackSpeed = timeBetweenAttacks;
+            enemyAttackTimer = timeBetweenAttacks;
+            enemyState = EnemyState.Attack;
         }
     }
 
@@ -154,7 +214,7 @@ public class Shootable : AnimationSprite
 
     public virtual void pointReward(int points)
     {
-        Points rewardText = new Points(x, y, this.width, 50, points);
+        Points rewardText = new Points(x, y, 200, 50, points);
         this.game.AddChild(rewardText);
         //Console.WriteLine("Point text spawned");
     }
