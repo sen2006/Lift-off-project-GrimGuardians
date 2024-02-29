@@ -24,11 +24,12 @@ public class Shootable : GameObject
 
     protected EasyDraw healthBar;
 
-    int overTimeDamageTimer;
-    float damagePerSec;
-    int enemyDamage;
-    float enemyAttackSpeed;
-    int timeBetweenAttacks;
+    private int overTimeDamageTimer;
+    private float damagePerSec;
+    private int enemyDamage;
+    private float enemyAttackSpeed;
+    private float timeBetweenAttacks;
+    private float enemyAttackTimer;
 
     int counter;
     int frame;
@@ -61,7 +62,7 @@ public class Shootable : GameObject
         scale = 0.3f;
         enemyHealthBarFrame = new Sprite("assets/sprites/UI/enemyFrame.png");
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
-        if (speed < 0) Mirror(true, false);
+        //if (speed < 0) Mirror(true, false);
 
         enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
         healthBar = new EasyDraw(enemyHealthBar.width, 20);
@@ -80,14 +81,15 @@ public class Shootable : GameObject
 
             damageOverTime();
             hitPlayer();
+            checkForOffScreen();
         }
         playAnimation();
     }
 
     void checkForOffScreen()
     {
-        if (speed > 0 && x > MyGame.GetGame().width + (width / 2)) { this.LateDestroy(); }
-        if (speed < 0 && x < -(width / 2)) { this.LateDestroy();}
+        if (speed > 0 && x > MyGame.GetGame().width + (moveAnimationSprite.width / 2f)) { this.LateDestroy(); }
+        if (speed < 0 && x < -(moveAnimationSprite.width / 2f)) { this.LateDestroy();}
     }
 
     public virtual void playAnimation()
