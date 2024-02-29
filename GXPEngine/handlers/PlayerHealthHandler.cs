@@ -1,4 +1,6 @@
-﻿public static class PlayerHealthHandler
+﻿using System;
+
+public static class PlayerHealthHandler
 {
     static float playerHealth = 100;
     static float playerMaxHealth = playerHealth;
@@ -21,5 +23,6 @@
     public static void takeDamage(float damage)
     {
         playerHealth -= damage;
+        Console.WriteLine("" + playerHealth);
     }
 }

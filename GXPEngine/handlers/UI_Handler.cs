@@ -10,10 +10,12 @@ public class UI_Handler : GameObject
 
 
     // variables
-    Text textFont = new Text();
+    Font fontTeko;
     EasyDraw textDrawer;
-    EasyDraw playerHealthBarDrawer;
+    //EasyDraw playerHealthBarDrawer;
 
+    Sprite playerHealthBarFrame;
+    Sprite playerHealthBar;
     Sprite buckshotUI;
     Sprite slugUI;
     Sprite dragonBreathIU;
@@ -31,13 +33,19 @@ public class UI_Handler : GameObject
         grenadesImage.scale = 0.4f;
         AddChild(grenadesImage);
 
+        fontTeko = new Font("teko.ttf", 15);
+
         textDrawer = new EasyDraw(1366, 768, false);
         textDrawer.alpha = 1.0f;
         textDrawer.scale = 1.2f;
         AddChild(textDrawer);
 
-        this.playerHealthBarDrawer = new EasyDraw(healthWarWidth, healthBarHeight);
-        AddChild(playerHealthBarDrawer);
+
+
+        //this.playerHealthBarDrawer = new EasyDraw(healthWarWidth, healthBarHeight);
+        //AddChild(playerHealthBarDrawer);
+        playerHealthBar = new Sprite("assets/debug/HealthBar.png");
+
     }
 
     public void Update()
@@ -53,11 +61,22 @@ public class UI_Handler : GameObject
 
     void renderPlayerHealthBar()
     {
-        playerHealthBarDrawer.Clear(0, 0, 0, 0);
-        playerHealthBarDrawer.Fill(Color.Red);
-        playerHealthBarDrawer.Rect(0, 0, PlayerHealthHandler.getHealth() / PlayerHealthHandler.getMaxHealth() * playerHealthBarDrawer.width, playerHealthBarDrawer.height);
-        playerHealthBarDrawer.SetXY(25, 60);
+        //playerHealthBarDrawer.Clear(0, 0, 0, 0);
+        //playerHealthBarDrawer.Fill(Color.Red);
+        //playerHealthBarDrawer.Rect(0, 0, PlayerHealthHandler.getHealth() / PlayerHealthHandler.getMaxHealth() * playerHealthBarDrawer.width, playerHealthBarDrawer.height);
+        //playerHealthBarDrawer.SetXY(25, 60);
+        //textDrawer.Text("Health", 20, 50);
+
+        this.playerHealthBarFrame = new Sprite("assets/debug/PhealthFrame.png");
+        playerHealthBarFrame.scale = 0.25f;
+        playerHealthBarFrame.SetXY(25, 60);
         textDrawer.Text("Health", 20, 50);
+        AddChild(playerHealthBarFrame);
+
+        playerHealthBar.scaleX = PlayerHealthHandler.getHealth() / 400;
+        playerHealthBar.scaleY = 0.25f;
+        playerHealthBar.SetXY(30, 65);
+        AddChild(playerHealthBar);
     }
 
     void renderGrenades()
