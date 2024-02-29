@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using GXPEngine;
 using TiledMapParser;
 public class UI_Handler : GameObject

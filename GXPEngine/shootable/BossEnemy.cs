@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using GXPEngine.Managers;
 
 public class BossEnemy : Shootable
@@ -9,6 +9,7 @@ public class BossEnemy : Shootable
 
     void kill()
     {
+        SoundHandler.boss_death.play();
         base.kill();
     }
 }

@@ -8,7 +8,9 @@ public class SmallEnemy : Shootable
 
         void kill()
         {
+            SoundHandler.small_death.play();
             base.kill();
+            
         }
     }
 }

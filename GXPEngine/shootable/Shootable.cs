@@ -81,7 +81,7 @@ public class Shootable : AnimationSprite
         health = Math.Max(health - damage, 0);
         if (health <= 0)
         {
-            kill();
+            this.kill();
             pointReward(points);
         }
         return health;

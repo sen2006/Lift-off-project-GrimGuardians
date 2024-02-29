@@ -16,6 +16,7 @@ public class LevelHandler
 
     public LevelHandler()
     {
+        
         game = MyGame.GetGame();
     }
 
@@ -28,7 +29,7 @@ public class LevelHandler
 
         if (levelMode == LevelMode.Level)
         {
-
+            SoundHandler.game_music.play();
         }
 
         if (levelMode == LevelMode.EndMenu)
