@@ -7,6 +7,8 @@ using System.Runtime.Remoting.Channels;
 
 public class ControllerHandler : GameObject
 {
+    static float yawCorrectionMS = 0;// -0.007f;
+
     public enum ControllerMode
     {
         mouse = 0,
@@ -14,7 +16,7 @@ public class ControllerHandler : GameObject
     }
 
     // controler mode:
-    public static ControllerMode controllerMode = ControllerMode.mouse;
+    public static ControllerMode controllerMode = ControllerMode.controller;
 
     float LRAxisMin;
     float LRAxisMax;
@@ -119,7 +121,23 @@ public class ControllerHandler : GameObject
     {
         if (controllerMode == ControllerMode.controller)
         {
-            string line = port.ReadLine();
+            string line = "";
+            try { line = port.IsOpen ? port.ReadLine() : ""; }
+            catch { { Console.WriteLine("controler not found closing port on COM" + controlerCOM); } }
+            if (!port.IsOpen) try
+                {
+                    Console.WriteLine("checking COM" + controlerCOM + " for controler");
+                    port = new SerialPort();
+                    port.PortName = "COM" + controlerCOM;
+                    port.BaudRate = 57600;
+                    port.RtsEnable = true;
+                    port.DtrEnable = true;
+                    port.Open();
+                    calibrated = false;
+                    calibrationStep = 0;
+                    Console.WriteLine("regained conection with controler on COM" + controlerCOM);
+                } catch { Console.WriteLine("could not regain connection with controler on COM"+controlerCOM); }
+            
             if (line != "")
             {
                 // read data from controller
@@ -130,6 +148,7 @@ public class ControllerHandler : GameObject
                 bool lowYaw = yaw < 60;
 
                 // read data from the list
+                float oldYaw = yaw;
                 yaw = float.Parse(values[0]);
                 pitch = float.Parse(values[1]);
                 roll = float.Parse(values[2]);
@@ -146,7 +165,8 @@ public class ControllerHandler : GameObject
 
                 // yaw correction 
                 // TODO make this more accurate
-                yawCorrection -= Time.deltaTime / 3740f;
+                yawCorrection -= Time.deltaTime * yawCorrectionMS;
+                Console.WriteLine((yaw - oldYaw)/Time.deltaTime);
 
                 // add all yaws together
                 totalYaw = yaw + yawover + yawCorrection;
@@ -188,6 +208,13 @@ public class ControllerHandler : GameObject
 
         }
 
+        if (Input.GetKey(Key.SPACE))
+        {
+            calibrated = false; 
+            calibrationStep = 0;
+        }
+
+
         // DEBUG TEXT
         //Console.WriteLine("cursorX:" + cursorX);
         //Console.WriteLine("cursorY:" + cursorY);
@@ -200,7 +227,8 @@ public class ControllerHandler : GameObject
                 cursor = new Cursor();
                 this.game.AddChild(cursor);
             }
-            cursor.SetXY(lerp(cursor.x, cursorX, .2f), lerp(cursor.y, cursorY, .2f));
+            //cursor.SetXY(lerp(cursor.x, cursorX, .2f), lerp(cursor.y, cursorY, .2f));
+            cursor.SetXY(cursorX, cursorY);
             if (trigger)
             {
                 if (!isWasTrigger)
@@ -249,7 +277,7 @@ public class ControllerHandler : GameObject
                 if (!isWasSwitchAmmo)
                 {
                     SoundHandler.shell_switch.play();
-                    cursor.AmmoSwitchTo(switchAmmoIndex);
+                    cursor.AmmoSwitchTo(switchAmmoIndex-1);
                 }
                 isWasSwitchAmmo = true;
             }
@@ -268,6 +296,7 @@ public class ControllerHandler : GameObject
             {
                 iswasGrenadeThrown = false;
             }
+            cursor.setBarrelClosed(barrelClosed);
         }
     }
 

@@ -4,7 +4,7 @@ public class AmmoTypeHandler
 {
     public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(75,1);
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,3);
-    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, .5f, .5f, 3);
+    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, .5f, .5f, 6);
 
 
     int spreadRadius;
@@ -20,7 +20,7 @@ public class AmmoTypeHandler
     }
 
     /// <summary>
-    /// Fires the shell at a given position
+    /// Fires the shell atr a given position
     /// </summary>
     /// <param name="x">X position</param>
     /// <param name="y">Y position</param>
@@ -33,9 +33,10 @@ public class AmmoTypeHandler
         damageZone.SetOrigin(spreadRadius, spreadRadius);
         damageZone.SetXY(x, y);
         damageZone.Ellipse(0, 0, spreadRadius, spreadRadius);
-        foreach (GameObject obj in damageZone.GetCollisions())
+        GameObject[] collisions = damageZone.GetCollisions();
+        foreach (GameObject obj in collisions)
         {
-            if (obj is Shootable hitObj)
+            if (obj.visible && obj.parent is Shootable hitObj)
             {
                 hitObj.hit(damage);
                 hitObj.setOvertimeDamage(damagePerSec, forSec);
@@ -44,4 +45,3 @@ public class AmmoTypeHandler
         damageZone.LateDestroy();
     }
 }
-

@@ -13,8 +13,8 @@ public class EnemySpawnHandler : GameObject
 
     float smallSpawnWeight = 5;
     float mediumSpawnWeight = 3;
-    float largeSpawnWeight = 0;
-    float BossSpawnWeight = 0;
+    float largeSpawnWeight = 2;
+    float BossSpawnWeight = 1;
 
     static int spawnIncreaseInterval = 20000;
 
@@ -22,9 +22,7 @@ public class EnemySpawnHandler : GameObject
     static float mediumSpawnWeightIncrease = .5f;
     static float largeSpawnWeightIncrease = 1f;
     static float BossSpawnWeightIncrease = .5f;
-
     static int maxSpawnIntervalDecrease = 10;
-
     // variables
     int panoramaSpeed;
     int currentPickupInterval = 20000;
@@ -92,7 +90,7 @@ public class EnemySpawnHandler : GameObject
         int speedMultiplier = panoramaSpeed > 0 ? 1 : -1;
         if (spawnWeight < smallSpawnWeight)
         {
-            SmallEnemy smallEnemy = new SmallEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(game.height - 500) + 200, 15 * speedMultiplier, 1, 1, 5, 100, true, 8, 1);
+            SmallEnemy smallEnemy = new SmallEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(game.height - 500) + 200, 20 * speedMultiplier, 1, 1, 5, 100, true, 8, 1);
             SoundHandler.small_sound.play();
             game.AddChild(smallEnemy);
             return;
@@ -101,7 +99,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < mediumSpawnWeight)
         {
-            MediumEnemy mediumEnemy = new MediumEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(300, 300) + 200, 10 * speedMultiplier, 3, 1, random.Next(5, 10), 200, true, 4, 1);
+            MediumEnemy mediumEnemy = new MediumEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(300, 300) + 200, 10 * speedMultiplier, 3, 1, 0.5f, 200, true);
             SoundHandler.medium_sound.play();
             game.AddChild(mediumEnemy);
             return;
@@ -110,7 +108,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < largeSpawnWeight)
         {
-            LargeEnemy largeEnemy = new LargeEnemy(panoramaSpeed > 0 ? -350 : MyGame.GetGame().width+350, random.Next(250, 350) + 200, 5 * speedMultiplier, 5, 1, random.Next(5, 10), 400, true, 7, 1);
+            LargeEnemy largeEnemy = new LargeEnemy(panoramaSpeed > 0 ? -350 : MyGame.GetGame().width+350, random.Next(250, 350) + 200, 5 * speedMultiplier, 5, 1, 0.5f, 400, true);
             SoundHandler.large_sound.play();
             game.AddChild(largeEnemy);
             return;
@@ -119,7 +117,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < BossSpawnWeight)
         {
-            BossEnemy bossEnemy = new BossEnemy(panoramaSpeed > 0 ? -500 : MyGame.GetGame().width + 500, random.Next(250, 350) + 200, 3 * speedMultiplier, 12, 1, random.Next(5, 10), 2000, true, 4, 1);
+            BossEnemy bossEnemy = new BossEnemy(panoramaSpeed > 0 ? -500 : MyGame.GetGame().width + 500, random.Next(250, 350) + 200, 3 * speedMultiplier, 12, 1, 0.5f, 2000, true);
             SoundHandler.boss_sound.play();
             game.AddChild(bossEnemy);
             return;
