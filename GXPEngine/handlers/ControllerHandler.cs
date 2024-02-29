@@ -20,6 +20,8 @@ public class ControllerHandler : GameObject
     float UDAxisMin;
     float UDAxisMax;
 
+    bool controlerFound = false;
+    int controlerCOM = 0;
     bool calibrated = false;
     int calibrationStep = 0;
     String calibrationText = "";
@@ -42,7 +44,6 @@ public class ControllerHandler : GameObject
     bool trigger = false;
     bool firstBarrel = false;
     bool secondBarrel = false;
-    bool reload = false;
     bool switchAmmo = false;
     bool throwGrenade = false;
 
@@ -51,32 +52,44 @@ public class ControllerHandler : GameObject
 
     public ControllerHandler()
     {
-        try
+        Console.WriteLine("controlerMode = " + (controllerMode==ControllerMode.mouse ? "mouse" : "controler"));
+        if (controllerMode == ControllerMode.mouse)
         {
-            if (controllerMode == ControllerMode.mouse)
-            {
-                Console.WriteLine("controlerMode = mouse");
-                calibrated = true;
-                return;
-            }
-            // establish connection with the controller on COM3 port 57000
-
-            // TODO check all COM's for the controller instead of onty COM3
-            Console.WriteLine("controlerMode = controler");
-            port = new SerialPort();
-            port.PortName = "COM6";
-            port.BaudRate = 57600;
-            port.RtsEnable = true;
-            port.DtrEnable = true;
-            port.Open();
-        }
-        catch
-        {
-            // if no controller is found or if conection fails, go into mouse mode
-            Console.WriteLine("could not find controler");
-            Console.WriteLine("switching controlerMode to mouse");
-            controllerMode = ControllerMode.mouse;
+           
             calibrated = true;
+            controlerFound = true;
+            return;
+        }
+        while (!controlerFound)
+        {
+            try
+            {
+                // establish connection with the controller port 57000
+                Console.WriteLine("checking COM" + controlerCOM + " for controler");
+                port = new SerialPort();
+                port.PortName = "COM" + controlerCOM;
+                port.BaudRate = 57600;
+                port.RtsEnable = true;
+                port.DtrEnable = true;
+                port.Open();
+                Console.WriteLine("found controler on COM" + controlerCOM);
+                controlerFound=true;
+            }
+            catch
+            {
+                controlerCOM++;
+                
+                if (controlerCOM > 20)
+                {
+                    // if no controller is found or if conection fails, go into mouse mode
+                    Console.WriteLine("could not find controler");
+                    Console.WriteLine("switching controlerMode to mouse");
+                    controllerMode = ControllerMode.mouse;
+                    calibrated = true;
+                    controlerFound = true; 
+                    return;
+                }
+            }
         }
     }
 
@@ -116,9 +129,8 @@ public class ControllerHandler : GameObject
                 trigger = float.Parse(values[3]) > 0;
                 firstBarrel = float.Parse(values[4]) > 0;
                 secondBarrel = float.Parse(values[5]) > 0;
-                reload = float.Parse(values[6]) > 0;
-                switchAmmo = float.Parse(values[7]) > 0;
-                throwGrenade = float.Parse(values[7]) > 0; //float.Parse(values[7]) > 0;
+                switchAmmo = float.Parse(values[6]) > 0;
+                throwGrenade = float.Parse(values[7]) > 0;
                 // TODO add check if barrel is closed on 8       float.Parse(values[8]) > 0;
 
                 // if yaw went over the 360 or below 0 make it keep going

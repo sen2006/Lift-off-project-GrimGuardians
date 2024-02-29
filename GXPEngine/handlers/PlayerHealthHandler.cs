@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-public static class PlayerHealthHandler
+﻿public static class PlayerHealthHandler
 {
     static float playerHealth = 100;
     static float playerMaxHealth = playerHealth;
