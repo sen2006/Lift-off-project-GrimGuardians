@@ -3,47 +3,18 @@ using GXPEngine.Managers;
 
 public class LargeEnemy : Shootable
 {
-    public LargeEnemy(string texture, int startX, int startY, float speed, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, startX, startY, speed, health, enemyDamage, enemyAttackSpeed , points, showHealthBar, animationCols, animationRows, frames)
+    public LargeEnemy(int startX, int startY, float speed, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base("assets/sprites/enemies/large_monster.png", startX, startY, speed, health, enemyDamage, enemyAttackSpeed , points, showHealthBar, animationCols, animationRows, frames)
     {
     }
-
-    public void Update()
+    void Update()
     {
         base.Update();
+        if (showHealthBar) { renderHealthBar(100, 40); }
     }
 
-    public void playAnimation()
+    public override void kill()
     {
-        base.playAnimation();
-    }
-
-    public void renderHealthBar()
-    {
-        base.renderHealthBar();
-    }
-
-    public float hit(float damage)
-    {
-        return base.hit(damage);
-    }
-
-    public void setOvertimeDamage(int damagePerSec, int forSec)
-    {
-        base.setOvertimeDamage(damagePerSec, forSec);
-    }
-
-    public void damageOverTime()
-    {
-        base.damageOverTime();
-    }
-
-    public void kill()
-    {
+        SoundHandler.large_death.play();
         base.kill();
-    }
-
-    public void pointReward(int points)
-    {
-        base.pointReward(points);
     }
 }

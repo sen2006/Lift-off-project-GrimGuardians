@@ -3,6 +3,9 @@ using System;
 
 public class Shootable : AnimationSprite
 {
+    Sprite enemyHealthBarFrame;
+    Sprite enemyHealthBar;
+    
     public float health;
     protected float speed;
 
@@ -14,13 +17,13 @@ public class Shootable : AnimationSprite
     protected EasyDraw healthBar;
 
     int overTimeDamageTimer;
-    protected int damagePerSec;
-    protected int enemyDamage;
-    protected float enemyAttackSpeed;
-    protected int timeBetweenAttacks;
+    float damagePerSec;
+    int enemyDamage;
+    float enemyAttackSpeed;
+    int timeBetweenAttacks;
 
-    protected int counter;
-    protected int frame;
+    int counter;
+    int frame;
 
     public Shootable(String texture, int startX, int startY, float speed, int health = 1, int enemyDamage = 1, int enemyAttackSpeed = 1, int points = 100, bool showHealthBar = true, int animationCols = 1, int animationRows = 1, int frames = -1) : base(texture, animationCols, animationRows, frames, false, true)
     {
@@ -33,10 +36,14 @@ public class Shootable : AnimationSprite
         this.points = points;
         this.enemyDamage = enemyDamage;
         this.enemyAttackSpeed = enemyAttackSpeed;
-        this.timeBetweenAttacks = 1;
+        this.timeBetweenAttacks = 5;
         healthBar = new EasyDraw(this.width, 20);
 
         scale = 0.3f;
+        enemyHealthBarFrame = new Sprite("assets/sprites/UI/enemyFrame.png");
+        enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
+        if (speed < 0) Mirror(true, false);
+
     }
 
     public virtual void Update()
@@ -44,16 +51,23 @@ public class Shootable : AnimationSprite
         float deltaTime = Time.deltaTime / 1000f;
         enemyAttackSpeed -= deltaTime;
         x += speed * Time.deltaTime / 60f;
-        if (showHealthBar) { renderHealthBar(); }
         damageOverTime();
         playAnimation(); 
         hitPlayer();
+
+        checkForOffScreen();
+    }
+
+    void checkForOffScreen()
+    {
+        if (speed > 0 && x > MyGame.GetGame().width + (width / 2)) { this.LateDestroy(); }
+        if (speed < 0 && x < -(width / 2)) { this.LateDestroy();}
     }
 
     public virtual void playAnimation()
     {
         counter++;
-        if (counter > 20)
+        if (counter > 18)
         {
             counter = 0;
             frame++;
@@ -65,15 +79,19 @@ public class Shootable : AnimationSprite
         }
     }
 
-    public virtual void renderHealthBar()
+    public virtual void renderHealthBar(int offSetX, int offSetY)
     {
-        if (!this.game.HasChild(healthBar)) { this.game.AddChild(healthBar); }
+        if (!this.game.HasChild(enemyHealthBarFrame)) { this.game.AddChild(enemyHealthBarFrame); }
+        if (!this.game.HasChild(enemyHealthBar)) { this.game.AddChild(enemyHealthBar); }
 
-        healthBar.SetXY(this.x, this.y - healthBar.height);
-        healthBar.Fill(255, 0, 0);
-        healthBar.Rect(0, 0, this.width * 2, healthBar.height);
-        healthBar.Fill(0, 255, 0);
-        healthBar.Rect(0, 0, this.width * 2 * (health / maxHealth), healthBar.height);
+        enemyHealthBarFrame.scale = 0.20f;
+        enemyHealthBarFrame.SetXY(this.x + offSetX, this.y - offSetY);
+
+        float healthFraction = health / maxHealth;
+        enemyHealthBar.scaleX = Mathf.Max(0f, healthFraction * 0.2f);
+        enemyHealthBar.scaleY = 0.20f;
+        
+        enemyHealthBar.SetXY(this.x + offSetX + 4, this.y - offSetY + 3);
     }
 
     public virtual float hit(float damage)
@@ -81,7 +99,7 @@ public class Shootable : AnimationSprite
         health = Math.Max(health - damage, 0);
         if (health <= 0)
         {
-            kill();
+            this.kill();
             pointReward(points);
         }
         return health;
@@ -89,7 +107,6 @@ public class Shootable : AnimationSprite
 
     public virtual void hitPlayer()
     {
-        // The damage currently is the same for all enemies (1). Need to figure out why.
         if (enemyAttackSpeed <= 0)
         {
             PlayerHealthHandler.takeDamage(enemyDamage);
@@ -97,7 +114,7 @@ public class Shootable : AnimationSprite
         }
     }
 
-    public virtual void setOvertimeDamage(int damagePerSec, int forSec)
+    public virtual void setOvertimeDamage(float damagePerSec, int forSec)
     {
         this.damagePerSec = damagePerSec;
         overTimeDamageTimer = forSec * 1000;
@@ -105,7 +122,7 @@ public class Shootable : AnimationSprite
 
     public virtual void damageOverTime()
     {
-        int deltaTime = Time.deltaTime / 1000;
+        int deltaTime = Time.deltaTime;
         if (health > 0 && overTimeDamageTimer > 0)
         {
             hit(damagePerSec * Math.Min(deltaTime, overTimeDamageTimer) / 1000f);
@@ -117,7 +134,8 @@ public class Shootable : AnimationSprite
 
     public virtual void kill()
     {
-        healthBar.LateDestroy();
+        enemyHealthBarFrame.LateDestroy();
+        enemyHealthBar.LateDestroy();
         this.LateDestroy();
         MyGame.GetControlerHandler().GetCursor().addkillCount();
         Console.WriteLine(" " + MyGame.GetControlerHandler().GetCursor().GetKillCount());
@@ -126,7 +144,7 @@ public class Shootable : AnimationSprite
 
     public virtual void pointReward(int points)
     {
-        Points rewardText = new Points(x, y, this.width, 50, 50);
+        Points rewardText = new Points(x, y, this.width, 50, points);
         this.game.AddChild(rewardText);
         //Console.WriteLine("Point text spawned");
     }

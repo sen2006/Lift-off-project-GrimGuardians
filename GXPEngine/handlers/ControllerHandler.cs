@@ -1,7 +1,9 @@
 using GXPEngine;
 using System;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Runtime.ExceptionServices;
+using System.Runtime.Remoting.Channels;
 
 public class ControllerHandler : GameObject
 {
@@ -12,7 +14,7 @@ public class ControllerHandler : GameObject
     }
 
     // controler mode:
-    public static ControllerMode controllerMode = ControllerMode.controller;
+    public static ControllerMode controllerMode = ControllerMode.mouse;
 
     float LRAxisMin;
     float LRAxisMax;
@@ -45,17 +47,22 @@ public class ControllerHandler : GameObject
     bool firstBarrel = false;
     bool secondBarrel = false;
     bool switchAmmo = false;
+    int switchAmmoIndex = 0;
     bool throwGrenade = false;
+    bool barrelClosed = false;
 
-    bool isWasTrigger=false;
-    bool wasGrenadeThrown = false;
+    bool isWasTrigger = false;
+    bool iswasGrenadeThrown = false;
+    bool isWasBarrelOne = false;
+    bool isWasBarrelTwo = false;
+    bool isWasSwitchAmmo = false;
 
     public ControllerHandler()
     {
-        Console.WriteLine("controlerMode = " + (controllerMode==ControllerMode.mouse ? "mouse" : "controler"));
+        Console.WriteLine("controlerMode = " + (controllerMode == ControllerMode.mouse ? "mouse" : "controler"));
         if (controllerMode == ControllerMode.mouse)
         {
-           
+
             calibrated = true;
             controlerFound = true;
             return;
@@ -73,12 +80,12 @@ public class ControllerHandler : GameObject
                 port.DtrEnable = true;
                 port.Open();
                 Console.WriteLine("found controler on COM" + controlerCOM);
-                controlerFound=true;
+                controlerFound = true;
             }
             catch
             {
                 controlerCOM++;
-                
+
                 if (controlerCOM > 20)
                 {
                     // if no controller is found or if conection fails, go into mouse mode
@@ -86,7 +93,7 @@ public class ControllerHandler : GameObject
                     Console.WriteLine("switching controlerMode to mouse");
                     controllerMode = ControllerMode.mouse;
                     calibrated = true;
-                    controlerFound = true; 
+                    controlerFound = true;
                     return;
                 }
             }
@@ -129,9 +136,9 @@ public class ControllerHandler : GameObject
                 trigger = float.Parse(values[3]) > 0;
                 firstBarrel = float.Parse(values[4]) > 0;
                 secondBarrel = float.Parse(values[5]) > 0;
-                switchAmmo = float.Parse(values[6]) > 0;
+                switchAmmoIndex = (int)float.Parse(values[6]);
                 throwGrenade = float.Parse(values[7]) > 0;
-                // TODO add check if barrel is closed on 8       float.Parse(values[8]) > 0;
+                barrelClosed = float.Parse(values[8]) > 0;
 
                 // if yaw went over the 360 or below 0 make it keep going
                 if (highYaw && yaw < 60) { yawover += 360; }
@@ -161,23 +168,24 @@ public class ControllerHandler : GameObject
                     // set the cursor to the correct position acording to the calibration
                     cursorX = game.width - (totalYaw - LRAxisMax) / (LRAxisMin - LRAxisMax) * game.width;
                     cursorY = game.height - (pitch - UDAxisMax) / (UDAxisMin - UDAxisMax) * game.height;
-                } 
+                }
             }
             else { Console.WriteLine("ERROR cant read data from port"); } // error message
-        } else
+        }
+        else
         {
             // set the cursor to the mouse
-            cursorX = Input.mouseX; 
+            cursorX = Input.mouseX;
             cursorY = Input.mouseY;
             trigger = Input.GetMouseButtonDown(0);
-            firstBarrel = Input.GetKeyUp(Key.R);
-            secondBarrel = Input.GetKeyUp(Key.R);
-            switchAmmo = Input.GetKeyUp(Key.X);
-            throwGrenade = Input.GetKeyUp(Key.G);
-            
+            firstBarrel = Input.GetKey(Key.R);
+            secondBarrel = Input.GetKey(Key.R);
+            switchAmmo = Input.GetKey(Key.X);
+            throwGrenade = Input.GetKey(Key.G);
+
 
             // TODO add the other controlls to the keyboard
-            
+
         }
 
         // DEBUG TEXT
@@ -204,32 +212,61 @@ public class ControllerHandler : GameObject
             }
             else isWasTrigger = false;
 
-            if(firstBarrel)
+            if (firstBarrel)
             {
-                cursor.ReloadOne();
-            }
+                if (!isWasBarrelOne)
+                {
+                    cursor.ReloadOne();
+                    SoundHandler.reloading.play();
+                }
+                isWasBarrelOne = true;
 
-            if(secondBarrel)
-            {
-                cursor.ReloadTwo();
             }
+            else { isWasBarrelOne = false; }
 
-            if(switchAmmo)
+            if (secondBarrel)
             {
-                cursor.AmmoSwitch();
+                if (!isWasBarrelTwo)
+                {
+                    cursor.ReloadTwo();
+                    SoundHandler.reloading.play();
+                }
+                isWasBarrelTwo = true;
             }
+            else { isWasBarrelTwo = false; }
+
+            if (switchAmmo)
+            {
+                if (!isWasSwitchAmmo)
+                {
+                    SoundHandler.shell_switch.play();
+                    cursor.AmmoSwitch();
+                }
+                isWasSwitchAmmo = true;
+            }
+            else if (switchAmmoIndex > 0)
+            {
+                if (!isWasSwitchAmmo)
+                {
+                    SoundHandler.shell_switch.play();
+                    cursor.AmmoSwitchTo(switchAmmoIndex);
+                }
+                isWasSwitchAmmo = true;
+            }
+            else { isWasSwitchAmmo = false; }
 
             if (throwGrenade)
             {
-                if (!wasGrenadeThrown)
+                if (!iswasGrenadeThrown)
                 {
                     cursor.ThrowGrenade();
-                    wasGrenadeThrown = true;
+                    iswasGrenadeThrown = true;
                 }
-                else
-                {
-                    wasGrenadeThrown = false;
-                }
+
+            }
+            else
+            {
+                iswasGrenadeThrown = false;
             }
         }
     }
@@ -237,8 +274,8 @@ public class ControllerHandler : GameObject
     /// <summary>
     /// Calibrates the cursor to the movement of the game controler.
     /// </summary>
-    void calibrate() 
-    {   
+    void calibrate()
+    {
         MyGame game = MyGame.GetGame();
         if (calibrationUI == null)
         {
@@ -258,7 +295,7 @@ public class ControllerHandler : GameObject
 
         switch (calibrationStep)
         {
-            case 0: 
+            case 0:
                 calibrationText = "please point at the top left of the screen and press trigger";
                 if (triggered) { LRAxisMin = totalYaw; UDAxisMin = pitch; calibrationStep++; }
                 break;
@@ -270,12 +307,12 @@ public class ControllerHandler : GameObject
                 calibrationText = "calibration done";
                 calibrated = true;
                 calibrationUI.Destroy();
-                calibrationUI=null;
+                calibrationUI = null;
                 return;
         }
         calibrationUI.Clear(0);
         calibrationUI.TextAlign(CenterMode.Center, CenterMode.Center);
-        calibrationUI.Text(calibrationText, calibrationUI.width/2, calibrationUI.height/2);
+        calibrationUI.Text(calibrationText, calibrationUI.width / 2, calibrationUI.height / 2);
     }
 
     float lerp(float a, float b, float f)
