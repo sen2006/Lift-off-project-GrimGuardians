@@ -6,20 +6,14 @@ public class EnemySpawnHandler : GameObject
 {
     // TODO make this different over time in a controlable way
     // settings
-    int minSpawnInterval = 800;
-    int maxSpawnInterval = 2000;
+    private int minSpawnInterval = 2000;
+    private int maxSpawnInterval = 2000;
 
-    int smallSpawnWeight = 5;
-    int mediumSpawnWeight = 3;
-    int largeSpawnWeight = 0;
-    int evenLargerSpawnWeight = 0;
-    /*
-    Every 20 seconds:
-    int smallSpawnWeight += 1;
-    int mediumSpawnWeight += 1;
-    int largeSpawnWeight += 1.5f;
-    int evenLargerSpawnWeight += 1;
-    */
+    private int smallSpawnWeight = 5;
+    private int mediumSpawnWeight = 3;
+    private int largeSpawnWeight = 4;
+
+    private int evenLargerSpawnWeight = 5;
 
     long time;
     int currentSpawnInterval;
@@ -52,7 +46,7 @@ public class EnemySpawnHandler : GameObject
         MyGame game = MyGame.GetGame();
         if (spawnWeight < smallSpawnWeight)
         {
-            SmallEnemy smallEnemy = new SmallEnemy(-250, random.Next(game.height - 500) + 200, 20, 1, 1, 5, 100, true, 8, 1);
+            SmallEnemy smallEnemy = new SmallEnemy(-250, random.Next(game.height - 500) + 200, 20, 2, 1, 0.5f, 100, true);
             SoundHandler.small_sound.play();
             game.AddChild(smallEnemy);
             return;
@@ -61,7 +55,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < mediumSpawnWeight)
         {
-            MediumEnemy mediumEnemy = new MediumEnemy(-250, random.Next(300, 300) + 200, 10, 3, 1, random.Next(5, 10), 200, true, 4, 1);
+            MediumEnemy mediumEnemy = new MediumEnemy(-250, random.Next(300, 300) + 200, 20, 3, 1, 0.5f, 200, true);
             SoundHandler.medium_sound.play();
             game.AddChild(mediumEnemy);
             return;
@@ -70,7 +64,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < largeSpawnWeight)
         {
-            LargeEnemy largeEnemy = new LargeEnemy(-350, random.Next(250, 350) + 200, 5, 5, 1, random.Next(5, 10), 400, true, 7, 1);
+            LargeEnemy largeEnemy = new LargeEnemy(-350, random.Next(250, 350) + 200, 5, 5, 1, 0.5f, 400, true);
             SoundHandler.large_sound.play();
             game.AddChild(largeEnemy);
             return;
@@ -79,7 +73,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < evenLargerSpawnWeight)
         {
-            BossEnemy bossEnemy = new BossEnemy(-500, random.Next(250, 350) + 200, 3, 12, 1, random.Next(5, 10), 2000, true, 4, 1);
+            BossEnemy bossEnemy = new BossEnemy(-500, random.Next(250, 350) + 200, 3, 12, 1, 0.5f, 2000, true);
             SoundHandler.boss_sound.play();
             game.AddChild(bossEnemy);
             return;
