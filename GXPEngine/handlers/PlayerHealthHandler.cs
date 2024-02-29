@@ -25,6 +25,7 @@ public static class PlayerHealthHandler
     {
         SoundHandler.damage_taken.play();
         playerHealth -= damage;
+        UI_Handler.pointsMultiplier = 1.00f;
         
     }
 }

@@ -30,6 +30,7 @@ public class MediumEnemy : Shootable
     public override void kill()
     {
         SoundHandler.medium_death.play();
+        UI_Handler.pointsMultiplier += 0.01f;
         base.kill();
         
     }

@@ -1,6 +1,8 @@
 using GXPEngine;
 using GXPEngine.Core;
+using GXPEngine.shootable.Grenade_pickup;
 using System;
+using System.Diagnostics;
 
 public class EnemySpawnHandler : GameObject
 {
@@ -11,20 +13,20 @@ public class EnemySpawnHandler : GameObject
 
     float smallSpawnWeight = 5;
     float mediumSpawnWeight = 3;
-    float largeSpawnWeight = 0;
-    float BossSpawnWeight = 0;
+    float largeSpawnWeight = 2;
+    float BossSpawnWeight = 1;
 
     static int spawnIncreaseInterval = 20000;
 
     static float smallSpawnWeightIncrease = .1f;
     static float mediumSpawnWeightIncrease = .5f;
     static float largeSpawnWeightIncrease = 1f;
-    static float BossSpawnWeightIncrease = .5f;
-
-    static int maxSpanwIntervalDecrease = 10;
-
-    // variables
-    int panoramaSpeed;
+    static float BossSpawnWeightIncrease = .5f;
+    static int maxSpawnIntervalDecrease = 10;
+    // variables
+    int panoramaSpeed;
+    int currentPickupInterval = 20000;
+    
     long time;
     int currentSpawnInterval;
     int spawnIncreaseTimer = spawnIncreaseInterval;
@@ -50,6 +52,15 @@ public class EnemySpawnHandler : GameObject
             {
                 currentSpawnInterval -= Time.deltaTime;
             }
+            if (currentPickupInterval <= 0)
+            {
+                spawnPickup();
+                currentPickupInterval = 20000; 
+            }
+            else
+            {
+                currentPickupInterval -= Time.deltaTime;
+            }
 
             // increase the spawn interval
             if (spawnIncreaseTimer <= 0)
@@ -59,7 +70,7 @@ public class EnemySpawnHandler : GameObject
                 largeSpawnWeight += largeSpawnWeightIncrease;
                 BossSpawnWeight += BossSpawnWeightIncrease;
 
-                maxSpawnInterval -= maxSpanwIntervalDecrease;
+                maxSpawnInterval -= maxSpawnIntervalDecrease;
 
                 Console.WriteLine("new spanwrates (small)" + smallSpawnWeight + " (med)" + mediumSpawnWeight + " (large)" + largeSpawnWeight + " (boss)" + BossSpawnWeight);
 
@@ -79,7 +90,7 @@ public class EnemySpawnHandler : GameObject
         int speedMultiplier = panoramaSpeed > 0 ? 1 : -1;
         if (spawnWeight < smallSpawnWeight)
         {
-            SmallEnemy smallEnemy = new SmallEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(game.height - 500) + 200, 20 * speedMultiplier, 1, 1, 0.5f, 100, true);
+            SmallEnemy smallEnemy = new SmallEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(game.height - 500) + 200, 20 * speedMultiplier, 1, 1, 5, 100, true, 8, 1);
             SoundHandler.small_sound.play();
             game.AddChild(smallEnemy);
             return;
@@ -113,5 +124,12 @@ public class EnemySpawnHandler : GameObject
         }
 
         throw new Exception("failed spawn");
+    }
+    void spawnPickup()
+    {
+        MyGame game = MyGame.GetGame();
+        GrenadePickup grenadePickup = new GrenadePickup(panoramaSpeed > 0 ? MyGame.GetGame().width + 500 : - 500, random.Next(250, 350) + 200, 1, 1);
+        game.AddChild(grenadePickup);
+        return;
     }
 }

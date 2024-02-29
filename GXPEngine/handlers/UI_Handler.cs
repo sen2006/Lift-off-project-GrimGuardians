@@ -8,11 +8,9 @@ public class UI_Handler : GameObject
     int healthWarWidth = 500;
     int healthBarHeight = 50;
 
-
     // variables
     Font fontTeko;
     EasyDraw textDrawer;
-    //EasyDraw playerHealthBarDrawer;
 
     Sprite playerHealthBarFrame;
     Sprite playerHealthBar;
@@ -25,9 +23,9 @@ public class UI_Handler : GameObject
     Sprite grenadesImage;
 
     bool gameStarted = true;
-
-    int playerScore;
-
+    public static float pointsMultiplier = 1.00f;
+    float playerScore;
+    
 
     public UI_Handler()
     {
@@ -36,15 +34,13 @@ public class UI_Handler : GameObject
         grenadesImage.scale = 0.4f;
         AddChild(grenadesImage);
 
-        fontTeko = new Font("font/teko.ttf", 15);
+        fontTeko = new Font("assets/font/teko.ttf", 15);
 
         textDrawer = new EasyDraw(1366, 768, false);
         textDrawer.alpha = 1.0f;
         textDrawer.scale = 1.2f;
         AddChild(textDrawer);
 
-        //this.playerHealthBarDrawer = new EasyDraw(healthWarWidth, healthBarHeight);
-        //AddChild(playerHealthBarDrawer);
         playerHealthBar = new Sprite("assets/sprites/UI/HealthBar.png");
 
     }
@@ -70,12 +66,6 @@ public class UI_Handler : GameObject
 
     void renderPlayerHealthBar()
     {
-        //playerHealthBarDrawer.Clear(0, 0, 0, 0);
-        //playerHealthBarDrawer.Fill(Color.Red);
-        //playerHealthBarDrawer.Rect(0, 0, PlayerHealthHandler.getHealth() / PlayerHealthHandler.getMaxHealth() * playerHealthBarDrawer.width, playerHealthBarDrawer.height);
-        //playerHealthBarDrawer.SetXY(25, 60);
-        //textDrawer.Text("Health", 20, 50);
-
         this.playerHealthBarFrame = new Sprite("assets/sprites/UI/PhealthFrame.png");
         playerHealthBarFrame.scale = 0.25f;
         playerHealthBarFrame.SetXY(25, 60);
@@ -101,7 +91,7 @@ public class UI_Handler : GameObject
 
     public void addPoints(int points)
     {
-        this.playerScore += points;
+        this.playerScore += points * pointsMultiplier;
     }
 
     public void AmmoSelect()

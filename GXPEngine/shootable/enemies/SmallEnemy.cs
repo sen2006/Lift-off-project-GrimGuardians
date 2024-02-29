@@ -34,6 +34,7 @@ public class SmallEnemy : Shootable
     public override void kill()
     {
         SoundHandler.small_death.play();
+        UI_Handler.pointsMultiplier += 0.01f;
         base.kill();
 
     }
