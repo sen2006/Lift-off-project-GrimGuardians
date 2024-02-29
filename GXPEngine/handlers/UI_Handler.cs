@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using GXPEngine;
 using TiledMapParser;
 public class UI_Handler : GameObject
@@ -76,7 +76,7 @@ public class UI_Handler : GameObject
         textDrawer.Text("Health", 20, 50);
         AddChild(playerHealthBarFrame);
 
-        playerHealthBar.scaleX = PlayerHealthHandler.getHealth() / 400;
+        playerHealthBar.scaleX = Mathf.Max(0f, PlayerHealthHandler.getHealth() / 400f);
         playerHealthBar.scaleY = 0.25f;
         playerHealthBar.SetXY(30, 65);
         AddChild(playerHealthBar);
