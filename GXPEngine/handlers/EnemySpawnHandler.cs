@@ -45,7 +45,7 @@ public class EnemySpawnHandler : GameObject
         MyGame game = MyGame.GetGame();
         if (spawnWeight < smallSpawnWeight)
         {
-            SmallEnemy smallEnemy = new SmallEnemy("assets/debug/small_enemy.png", -250, random.Next(game.height - 500) + 200, 20, 1, 1, random.Next(5, 10), 100, true, 8, 1);
+            SmallEnemy smallEnemy = new SmallEnemy("assets/debug/small_enemy.png", -250, random.Next(game.height - 500) + 200, 20, 1, 1, 5, 100, true, 8, 1);
             game.AddChild(smallEnemy);
             return;
         }

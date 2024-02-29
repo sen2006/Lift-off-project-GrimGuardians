@@ -33,7 +33,7 @@ public class Shootable : AnimationSprite
         this.points = points;
         this.enemyDamage = enemyDamage;
         this.enemyAttackSpeed = enemyAttackSpeed;
-        this.timeBetweenAttacks = 1;
+        this.timeBetweenAttacks = 5;
         healthBar = new EasyDraw(this.width, 20);
 
         scale = 0.3f;

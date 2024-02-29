@@ -10,14 +10,14 @@ public class Cursor : Sprite
 
     int ammoIndex = 0;
     int grenadeKillCount;
-    public Cursor() : base("assets/debug/square.png")
+    public Cursor() : base("assets/debug/cursor white.png")
     {
         SetOrigin(width / 2, height / 2);
         barrelOne = AmmoTypeHandler.BUCKSHOT;
         barrelTwo = AmmoTypeHandler.BUCKSHOT;
         ammoIndex = 0;
 
-        
+        scale = 0.2f;
     }
 
 
