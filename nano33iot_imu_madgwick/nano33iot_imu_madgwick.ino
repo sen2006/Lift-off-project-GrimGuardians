@@ -61,6 +61,8 @@ void setup() {
   
   // start the filter to run at the sample rate of the IMU
   filter.begin(IMU.accelerationSampleRate());
+
+  Serial.setTimeout(1);
 }
 
 void loop() {
@@ -108,5 +110,7 @@ void loop() {
     Serial.print(grenade ? 1:0);
     Serial.print(",");
     Serial.println(barelClosed ? 1:0);
+
+    delay(20);
   }
 }

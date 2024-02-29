@@ -3,10 +3,16 @@ using GXPEngine;
 
 public class Cursor : Sprite
 {
+    //settings
+
+    bool infiniteAmmo = false;
+    bool requireBarrelClosed = true;
+
+    //variables
     AmmoTypeHandler barrelOne;
     AmmoTypeHandler barrelTwo;
 
-    bool infiniteAmmo = false;
+    bool isBarrelClosed = false;
 
     int ammoIndex = 0;
     int grenadeKillCount;
@@ -32,6 +38,7 @@ public class Cursor : Sprite
 
     public void fire()
     {
+        if ((!isBarrelClosed) && requireBarrelClosed) return;
         if (barrelOne != null)
         {
             barrelOne.fire(x, y);
@@ -119,4 +126,6 @@ public class Cursor : Sprite
     public void ThrowGrenade(){ 
         GrenadeHandler.throwGrenade(x,y);
     }
+
+    public void setBarrelClosed(bool state) { isBarrelClosed = state; }
 }

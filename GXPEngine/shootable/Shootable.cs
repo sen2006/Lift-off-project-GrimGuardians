@@ -60,8 +60,18 @@ public class Shootable : AnimationSprite
 
     void checkForOffScreen()
     {
-        if (speed > 0 && x > MyGame.GetGame().width + (width / 2)) { this.LateDestroy(); }
-        if (speed < 0 && x < -(width / 2)) { this.LateDestroy();}
+        if (speed > 0 && x > MyGame.GetGame().width + (width / 2))
+        {
+            this.LateDestroy();
+            enemyHealthBarFrame.LateDestroy();
+            enemyHealthBar.LateDestroy();
+        }
+        if (speed < 0 && x < -(width / 2))
+        {
+            this.LateDestroy();
+            enemyHealthBarFrame.LateDestroy();
+            enemyHealthBar.LateDestroy();
+        }
     }
 
     public virtual void playAnimation()

@@ -4,7 +4,7 @@ public class AmmoTypeHandler
 {
     public static AmmoTypeHandler BUCKSHOT = new AmmoTypeHandler(75,1);
     public static AmmoTypeHandler SLUG = new AmmoTypeHandler(5,3);
-    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, .5f, .5f, 3);
+    public static AmmoTypeHandler DRAGONS_BREATH = new AmmoTypeHandler(40, .5f, .5f, 6);
 
 
     int spreadRadius;
