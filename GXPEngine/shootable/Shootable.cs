@@ -3,6 +3,9 @@ using System;
 
 public class Shootable : AnimationSprite
 {
+    Sprite enemyHealthBarFrame;
+    Sprite enemyHealthBar;
+    
     public float health;
     protected float speed;
 
@@ -37,6 +40,9 @@ public class Shootable : AnimationSprite
         healthBar = new EasyDraw(this.width, 20);
 
         scale = 0.3f;
+        enemyHealthBarFrame = new Sprite("assets/sprites/UI/enemyFrame.png");
+
+        enemyHealthBar = new Sprite("assets/sprites/UI/EhealthBar.png");
     }
 
     public virtual void Update()
@@ -44,7 +50,6 @@ public class Shootable : AnimationSprite
         float deltaTime = Time.deltaTime / 1000f;
         enemyAttackSpeed -= deltaTime;
         x += speed * Time.deltaTime / 60f;
-        if (showHealthBar) { renderHealthBar(); }
         damageOverTime();
         playAnimation(); 
         hitPlayer();
@@ -53,7 +58,7 @@ public class Shootable : AnimationSprite
     public virtual void playAnimation()
     {
         counter++;
-        if (counter > 20)
+        if (counter > 18)
         {
             counter = 0;
             frame++;
@@ -65,15 +70,22 @@ public class Shootable : AnimationSprite
         }
     }
 
-    public virtual void renderHealthBar()
+    public virtual void renderHealthBar(int offSetX, int offSetY)
     {
-        if (!this.game.HasChild(healthBar)) { this.game.AddChild(healthBar); }
+        if (!this.game.HasChild(enemyHealthBarFrame)) { this.game.AddChild(enemyHealthBarFrame); }
+        if (!this.game.HasChild(enemyHealthBar)) { this.game.AddChild(enemyHealthBar); }
 
-        healthBar.SetXY(this.x, this.y - healthBar.height);
-        healthBar.Fill(255, 0, 0);
-        healthBar.Rect(0, 0, this.width * 2, healthBar.height);
-        healthBar.Fill(0, 255, 0);
-        healthBar.Rect(0, 0, this.width * 2 * (health / maxHealth), healthBar.height);
+        //healthBar.SetXY(this.x, this.y - healthBar.height);
+        //healthBar.Fill(255, 0, 0);
+        //healthBar.Rect(0, 0, this.width * 2, healthBar.height);
+        //healthBar.Fill(0, 255, 0);
+        //healthBar.Rect(0, 0, this.width * 2 * (health / maxHealth), healthBar.height);
+
+        enemyHealthBarFrame.scale = 0.20f;
+        enemyHealthBarFrame.SetXY(this.x + offSetX, this.y - offSetY);
+
+        enemyHealthBar.scale = 0.20f;
+        enemyHealthBar.SetXY(this.x + offSetX + 4, this.y - offSetY + 3);
     }
 
     public virtual float hit(float damage)
@@ -89,7 +101,6 @@ public class Shootable : AnimationSprite
 
     public virtual void hitPlayer()
     {
-        // The damage currently is the same for all enemies (1). Need to figure out why.
         if (enemyAttackSpeed <= 0)
         {
             PlayerHealthHandler.takeDamage(enemyDamage);
