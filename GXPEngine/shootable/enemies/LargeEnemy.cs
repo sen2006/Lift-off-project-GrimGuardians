@@ -12,7 +12,7 @@ public class LargeEnemy : Shootable
         if (showHealthBar) { renderHealthBar(100, 40); }
     }
 
-    void kill()
+    public override void kill()
     {
         SoundHandler.large_death.play();
         base.kill();

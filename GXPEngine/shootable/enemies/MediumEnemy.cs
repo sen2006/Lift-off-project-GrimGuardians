@@ -12,7 +12,7 @@ public class MediumEnemy : Shootable
         if (showHealthBar) { renderHealthBar(55, 20); }
     }
 
-    void kill()
+    public override void kill()
     {
         SoundHandler.medium_death.play();
         base.kill();

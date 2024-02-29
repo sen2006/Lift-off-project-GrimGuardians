@@ -100,6 +100,16 @@ public class Cursor : Sprite
         Console.WriteLine("You switched to bullet: " + ammoIndex);
     }
 
+    public void AmmoSwitchTo(int index)
+    {
+        ammoIndex=index;
+        if (ammoIndex > 2 || ammoIndex < 0)
+        {
+            ammoIndex = 0;
+        }
+        Console.WriteLine("You switched to bullet: " + ammoIndex);
+    }
+
     public int getAmmoIndex() { return ammoIndex; }
 
     public void addkillCount(){ grenadeKillCount++; }
@@ -108,6 +118,5 @@ public class Cursor : Sprite
 
     public void ThrowGrenade(){ 
         GrenadeHandler.throwGrenade(x,y);
-        SoundHandler.grenade_exploding.play();
     }
 }
