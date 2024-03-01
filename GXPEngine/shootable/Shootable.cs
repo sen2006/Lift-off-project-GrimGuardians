@@ -86,19 +86,12 @@ public class Shootable : GameObject
 
     void checkForOffScreen()
     {
-        if (speed > 0 && x > MyGame.GetGame().width)
+        if ((speed > 0 && x > MyGame.GetGame().width) || (speed < 0 && x < -moveAnimationSprite.width) || (!MyGame.IsRunning() && !(this is StartButton || this is DeathButton)))
         {
             this.LateDestroy();
             enemyHealthBarFrame.LateDestroy();
             enemyHealthBar.LateDestroy();
-        }
-        if (speed < 0 && x < -moveAnimationSprite.width)
-        {
-            this.LateDestroy();
-            enemyHealthBarFrame.LateDestroy();
-            enemyHealthBar.LateDestroy();
-        }
-            
+        }  
     }
 
     public virtual void playAnimation()

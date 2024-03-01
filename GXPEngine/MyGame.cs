@@ -37,7 +37,7 @@ public class MyGame : Game
 
     void Update()
     {
-
+        PlayerHealthHandler.checkHealth();
     }
 
     

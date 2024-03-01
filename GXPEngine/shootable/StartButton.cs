@@ -15,7 +15,9 @@ public class StartButton : Shootable
 
         moveAnimationSprite.SetOrigin(moveAnimationSprite.width / 2, moveAnimationSprite.height / 2);
 
-        SetXY(backGround.width / 2, backGround.height - 200);
+        SetXY(backGround.width / 2, backGround.height - 300);
+
+        SetScaleXY(.2f);
     }
 
     public override void Update()
@@ -25,6 +27,7 @@ public class StartButton : Shootable
 
         MyGame.GetGame().SetChildIndex(backGround, 1001);
         MyGame.GetGame().SetChildIndex(this, 1002);
+        if (MyGame.GetControlerHandler().GetCursor()!= null) MyGame.GetControlerHandler().GetCursor().parent.SetChildIndex(MyGame.GetControlerHandler().GetCursor(), 1003);
     }
 
     public override void playAnimation()

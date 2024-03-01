@@ -2,8 +2,17 @@ using System;
 
 public static class PlayerHealthHandler
 {
-    static float playerHealth = 25;
+    static float playerHealth = 50;
     static float playerMaxHealth = playerHealth;
+
+    public static void checkHealth()
+    {
+        if (playerHealth <= 0)
+        {
+            MyGame.GetGame().AddChild(new DeathButton());
+            playerHealth = playerMaxHealth;
+        }
+    }
 
     public static float getHealth()
     {

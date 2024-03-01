@@ -15,7 +15,9 @@ public class DeathButton : Shootable
 
         moveAnimationSprite.SetOrigin(moveAnimationSprite.width / 2, moveAnimationSprite.height / 2);
 
-        SetXY(backGround.width / 2, backGround.height- 200);
+        SetXY(backGround.width / 2, backGround.height- 325);
+
+        SetScaleXY(.2f);
     }
 
     public override void Update()
@@ -25,6 +27,7 @@ public class DeathButton : Shootable
 
         MyGame.GetGame().SetChildIndex(backGround, 1001);
         MyGame.GetGame().SetChildIndex(this, 1002);
+        if (MyGame.GetControlerHandler().GetCursor() != null) MyGame.GetControlerHandler().GetCursor().parent.SetChildIndex(MyGame.GetControlerHandler().GetCursor(), 1003);
     }
 
     public override void playAnimation()
@@ -38,7 +41,6 @@ public class DeathButton : Shootable
         backGround.LateDestroy();
         this.LateDestroy();
         MyGame.GetGame().AddChild(new StartButton());
-        MyGame.SetRunning(false);
         return 0;
     }
 }

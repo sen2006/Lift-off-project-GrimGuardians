@@ -47,6 +47,7 @@ public class UI_Handler : GameObject
 
     public void Update()
     {
+        if (!MyGame.IsRunning()) return;
         if (MyGame.GetGame().HasChild(buckshotUI)) MyGame.GetGame().SetChildIndex(buckshotUI, 999);
         if (MyGame.GetGame().HasChild(slugUI)) MyGame.GetGame().SetChildIndex(slugUI, 999);
         if (MyGame.GetGame().HasChild(dragonBreathIU)) MyGame.GetGame().SetChildIndex(dragonBreathIU, 999);

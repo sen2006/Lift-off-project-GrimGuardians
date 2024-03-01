@@ -34,6 +34,7 @@ public class Cursor : Sprite
             GrenadeHandler.addGrenade();
             grenadeKillCount = 0;
         }
+        if (!MyGame.IsRunning()) { ReloadOne(); ReloadTwo(); }
         MyGame.GetGame().SetChildIndex(this,10000);
     }
 
@@ -82,15 +83,15 @@ public class Cursor : Sprite
         {
             case 0:
                 barrelTwo = AmmoTypeHandler.BUCKSHOT;
-                Console.WriteLine("You reloaded Buckshot!");
+                //Console.WriteLine("You reloaded Buckshot!");
                 break;
             case 1:
                 barrelTwo = AmmoTypeHandler.SLUG;
-                Console.WriteLine("You reloaded Slug!");
+                //Console.WriteLine("You reloaded Slug!");
                 break;
             case 2:
                 barrelTwo = AmmoTypeHandler.DRAGONS_BREATH;
-                Console.WriteLine("You reloaded Dragons Breath!");
+                //Console.WriteLine("You reloaded Dragons Breath!");
                 break;
             default:
                 break;

@@ -22,7 +22,7 @@ public class EnemySpawnHandler : GameObject
     static float largeSpawnWeightIncrease = 1f;
     static float BossSpawnWeightIncrease = .5f;
 
-    static int maxSpawnIntervalDecrease = 10;
+    static int maxSpawnIntervalDecrease = 1;
 
     // variables
 
@@ -62,7 +62,7 @@ public class EnemySpawnHandler : GameObject
                 largeSpawnWeight += largeSpawnWeightIncrease;
                 BossSpawnWeight += BossSpawnWeightIncrease;
 
-                maxSpawnInterval -= maxSpawnIntervalDecrease;
+                maxSpawnInterval = Math.Max(maxSpawnInterval - maxSpawnIntervalDecrease, minSpawnInterval+200);
 
                 Console.WriteLine("new spanwrates (small)" + smallSpawnWeight + " (med)" + mediumSpawnWeight + " (large)" + largeSpawnWeight + " (boss)" + BossSpawnWeight);
 
