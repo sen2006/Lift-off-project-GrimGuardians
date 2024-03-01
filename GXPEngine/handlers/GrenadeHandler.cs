@@ -27,7 +27,7 @@ public static class GrenadeHandler
         damageZone.Ellipse(0, 0, spreadRadius, spreadRadius);
         foreach (GameObject obj in damageZone.GetCollisions())
         {
-            if (obj is Shootable hitObj)
+            if (obj.visible && obj.parent is Shootable hitObj)
             {
                 hitObj.Hit(damage);
             }
