@@ -3,7 +3,7 @@ public class SoundHandler
 {
     
 
-    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 0.3f, 0);
+    public static SoundHandler shooting_sound = new SoundHandler("assets/sound/Shotgun firing.wav", 0.4f, 0);
     public static SoundHandler grenade_exploding = new SoundHandler("assets/sound/Grenade exploding.wav", 1, 0);
     public static SoundHandler reloading = new SoundHandler("assets/sound/Shell loading.wav", 1, 0);
     public static SoundHandler boss_sound = new SoundHandler("assets/sound/Boss Monster sound.mp3", 1, 0);
@@ -19,8 +19,9 @@ public class SoundHandler
     public static SoundHandler player_death = new SoundHandler("assets/sound/Player death.wav", 1, 0);
     public static SoundHandler barrel_exploding = new SoundHandler("assets/sound/Explosive Barrel.mp3", 1, 0);
     public static SoundHandler start_game = new SoundHandler("assets/sound/Game Start.wav", 1, 0);
-    public static SoundHandler game_music = new SoundHandler("assets/sound/In-Game ambient music.mp3", 1, 0);
+    public static SoundHandler game_music = new SoundHandler("assets/sound/In-Game ambient music.mp3", 0.9f, 0);
     public static SoundHandler main_menu_music = new SoundHandler("assets/sound/Main Menu music.mp3", 1, 0);
+
 
     Sound storedSound;
     float defaultVolume;

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="handlers\GrenadeExplosion.cs" />
     <Compile Include="shootable\DeathButton.cs" />
     <Compile Include="shootable\StartButton.cs" />
     <Compile Include="shootable\enemies\BossEnemy.cs" />

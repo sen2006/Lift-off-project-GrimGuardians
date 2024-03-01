@@ -1,9 +1,6 @@
 ﻿using GXPEngine;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 public static class GrenadeHandler
 {
     // settings
@@ -32,6 +29,8 @@ public static class GrenadeHandler
                 hitObj.Hit(damage);
             }
         }
+        GrenadeExplosion explosion = new GrenadeExplosion(x - spreadRadius, y - spreadRadius);
+        game.AddChild(explosion);
         grenadesLeft--;
         Console.WriteLine("Grenades left: " + grenadesLeft);
         damageZone.LateDestroy();

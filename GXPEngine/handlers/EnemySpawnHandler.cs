@@ -82,7 +82,7 @@ public class EnemySpawnHandler : GameObject
         int speedMultiplier = panoramaSpeed > 0 ? 1 : -1;
         if (spawnWeight < smallSpawnWeight)
         {
-            SmallEnemy smallEnemy = new SmallEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(game.height - 500) + 200, 20 * speedMultiplier, 1, 1, 0.4f, 100, true);
+            SmallEnemy smallEnemy = new SmallEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(game.height - 500) + 200, 20 * speedMultiplier, 2, 1, 0.4f, 100, true);
             SoundHandler.small_sound.play();
             game.AddChild(smallEnemy);
             return;
