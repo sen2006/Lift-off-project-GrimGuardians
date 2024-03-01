@@ -27,6 +27,7 @@ public class MyGame : Game
         uiHandler = new UI_Handler();
         panoramaHandler = new PanoramaHandler("assets/sprites/background/street.png");
         StartButton startButton = new StartButton();
+        SoundHandler.game_music.play();
 
         AddChild(enemySpawnHandler);
         AddChild(panoramaHandler);

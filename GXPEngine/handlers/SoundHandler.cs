@@ -22,6 +22,7 @@ public class SoundHandler
     public static SoundHandler game_music = new SoundHandler("assets/sound/In-Game ambient music.mp3", 1, 0);
     public static SoundHandler main_menu_music = new SoundHandler("assets/sound/Main Menu music.mp3", 1, 0);
 
+
     Sound storedSound;
     float defaultVolume;
     uint defaultChanel;
