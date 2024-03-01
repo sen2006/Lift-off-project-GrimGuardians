@@ -82,7 +82,7 @@ public class EnemySpawnHandler : GameObject
         int speedMultiplier = panoramaSpeed > 0 ? 1 : -1;
         if (spawnWeight < smallSpawnWeight)
         {
-            SmallEnemy smallEnemy = new SmallEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(game.height - 500) + 200, 20 * speedMultiplier, 1, 1, 5, 100, true);
+            SmallEnemy smallEnemy = new SmallEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(game.height - 500) + 200, 20 * speedMultiplier, 1, 1, 0.4f, 100, true);
             SoundHandler.small_sound.play();
             game.AddChild(smallEnemy);
             return;
@@ -91,7 +91,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < mediumSpawnWeight)
         {
-            MediumEnemy mediumEnemy = new MediumEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(300, 300) + 200, 10 * speedMultiplier, 3, 1, 0.5f, 200, true);
+            MediumEnemy mediumEnemy = new MediumEnemy(panoramaSpeed > 0 ? -250 : MyGame.GetGame().width+250, random.Next(300, 300) + 200, 10 * speedMultiplier, 3, 1, 0.4f, 200, true);
             SoundHandler.medium_sound.play();
             game.AddChild(mediumEnemy);
             return;
@@ -100,7 +100,7 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < largeSpawnWeight)
         {
-            LargeEnemy largeEnemy = new LargeEnemy(panoramaSpeed > 0 ? -350 : MyGame.GetGame().width+350, random.Next(250, 350) + 200, 5 * speedMultiplier, 5, 1, 0.5f, 400, true);
+            LargeEnemy largeEnemy = new LargeEnemy(panoramaSpeed > 0 ? -350 : MyGame.GetGame().width+350, random.Next(250, 350) + 200, 5 * speedMultiplier, 5, 1, 0.4f, 400, true);
             SoundHandler.large_sound.play();
             game.AddChild(largeEnemy);
             return;
@@ -109,12 +109,11 @@ public class EnemySpawnHandler : GameObject
 
         if (spawnWeight < BossSpawnWeight)
         {
-            BossEnemy bossEnemy = new BossEnemy(panoramaSpeed > 0 ? -500 : MyGame.GetGame().width + 500, random.Next(250, 350) + 200, 3 * speedMultiplier, 12, 1, 0.5f, 2000, true);
+            BossEnemy bossEnemy = new BossEnemy(panoramaSpeed > 0 ? -500 : MyGame.GetGame().width + 500, random.Next(250, 350) + 200, 3 * speedMultiplier, 12, 1, 0.4f, 2000, true);
             SoundHandler.boss_sound.play();
             game.AddChild(bossEnemy);
             return;
         }
-
         throw new Exception("failed spawn");
     }
 }

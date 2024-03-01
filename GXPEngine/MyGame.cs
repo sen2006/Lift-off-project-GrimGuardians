@@ -2,7 +2,7 @@ using GXPEngine;
 
 public class MyGame : Game
 {
-    static bool running = false;
+    static bool running = true;
 
     static MyGame game;
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using GXPEngine;
+using GXPEngine;
 using GXPEngine.Managers;
 
 public class DeathButton : Shootable
