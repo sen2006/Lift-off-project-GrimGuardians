@@ -47,20 +47,22 @@ public class UI_Handler : GameObject
 
     public void Update()
     {
+        if (MyGame.GetGame().HasChild(textDrawer)) MyGame.GetGame().SetChildIndex(textDrawer, 9999);
         if (!MyGame.IsRunning()) return;
-        if (MyGame.GetGame().HasChild(buckshotUI)) MyGame.GetGame().SetChildIndex(buckshotUI, 999);
-        if (MyGame.GetGame().HasChild(slugUI)) MyGame.GetGame().SetChildIndex(slugUI, 999);
-        if (MyGame.GetGame().HasChild(dragonBreathIU)) MyGame.GetGame().SetChildIndex(dragonBreathIU, 999);
-        if (MyGame.GetGame().HasChild(buckshotUIHighlight)) MyGame.GetGame().SetChildIndex(buckshotUIHighlight, 999);
-        if (MyGame.GetGame().HasChild(slugUIHighlight)) MyGame.GetGame().SetChildIndex(slugUIHighlight, 999);
-        if (MyGame.GetGame().HasChild(dragonBreathIUHighlight)) MyGame.GetGame().SetChildIndex(dragonBreathIUHighlight, 999);
-        if (MyGame.GetGame().HasChild(grenadesImage)) MyGame.GetGame().SetChildIndex(grenadesImage, 999);
+        if (MyGame.GetGame().HasChild(buckshotUI)) MyGame.GetGame().SetChildIndex(buckshotUI, 9999);
+        if (MyGame.GetGame().HasChild(slugUI)) MyGame.GetGame().SetChildIndex(slugUI, 9999);
+        if (MyGame.GetGame().HasChild(dragonBreathIU)) MyGame.GetGame().SetChildIndex(dragonBreathIU, 9999);
+        if (MyGame.GetGame().HasChild(buckshotUIHighlight)) MyGame.GetGame().SetChildIndex(buckshotUIHighlight, 9999);
+        if (MyGame.GetGame().HasChild(slugUIHighlight)) MyGame.GetGame().SetChildIndex(slugUIHighlight, 9999);
+        if (MyGame.GetGame().HasChild(dragonBreathIUHighlight)) MyGame.GetGame().SetChildIndex(dragonBreathIUHighlight, 9999);
+        if (MyGame.GetGame().HasChild(grenadesImage)) MyGame.GetGame().SetChildIndex(grenadesImage, 9999);
+        
 
         if (gameStarted)
         {
             renderGrenades();
-            PlayerScore();
             AmmoSelect();
+            PlayerScore();
             renderPlayerHealthBar();
         }
     }
@@ -94,6 +96,8 @@ public class UI_Handler : GameObject
     {
         this.playerScore += points * pointsMultiplier;
     }
+
+    public void setPoints(int points) {  this.playerScore = points; }
 
     public void AmmoSelect()
     {

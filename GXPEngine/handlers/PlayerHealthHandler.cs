@@ -10,6 +10,7 @@ public static class PlayerHealthHandler
         if (playerHealth <= 0)
         {
             MyGame.GetGame().AddChild(new DeathButton());
+            MyGame.GetUI_Handler().setPoints(0);
             playerHealth = playerMaxHealth;
         }
     }

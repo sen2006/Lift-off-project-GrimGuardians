@@ -21,7 +21,7 @@ public class MyGame : Game
     static EnemySpawnHandler enemySpawnHandler;
     static PanoramaHandler panoramaHandler;
 
-    public MyGame() : base(1366, 768, false, true, -1, -1, false)
+    public MyGame() : base(1366, 768, true, true, -1, -1, false)
     {
         enemySpawnHandler = new EnemySpawnHandler();
         uiHandler = new UI_Handler();
